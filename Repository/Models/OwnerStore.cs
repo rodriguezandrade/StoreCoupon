@@ -9,7 +9,7 @@ namespace Repository.Models
     public class OwnerStore
     {
         [Key]
-        public Guid OwnerStoreId { get; set; }
+        public Guid Id { get; set; }
         [Required(ErrorMessage = "Foreignkey is required")]
         [ForeignKey("OwnerStore")]
         public Guid OwnerId { get; set; }

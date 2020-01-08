@@ -7,7 +7,7 @@ namespace Repository.Models
     public class User
     {
         [Key]
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
         [Required(ErrorMessage = "FirstName is required")]
         [MaxLength(40, ErrorMessage = "FirstName can't be longer than 40 characters")]
         public string FirstName { get; set; }

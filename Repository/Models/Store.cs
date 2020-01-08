@@ -8,7 +8,7 @@ namespace Repository.Models
     public class Store
     {
         [Key]
-        public Guid StoreId { get; set; }
+        public Guid Id { get; set; }
         [Required(ErrorMessage = "Name is required")]
         [MaxLength(80, ErrorMessage = "Name can't be longer than 80 characters")]
         public string Name { get; set; }

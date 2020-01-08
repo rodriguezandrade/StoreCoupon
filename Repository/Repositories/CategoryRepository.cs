@@ -50,7 +50,7 @@ namespace Repository.Repositories
         public Category Modify(Category model)
         {
 
-            var entity = _repositoryWrapper.Category.FindByCondition(item => item.CategoryId == model.CategoryId).FirstOrDefault();
+            var entity = _repositoryWrapper.Category.FindByCondition(item => item.Id == model.Id).FirstOrDefault();
             entity.Name = model.Name;
 
             _repositoryWrapper.Category.Update(entity);
@@ -61,7 +61,7 @@ namespace Repository.Repositories
 
         public Category GetById(Guid id)
         { 
-            return _repositoryWrapper.Category.FindByCondition(item => item.CategoryId == id).FirstOrDefault();
+            return _repositoryWrapper.Category.FindByCondition(item => item.Id == id).FirstOrDefault();
         }
     }
 }

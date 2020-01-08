@@ -9,7 +9,7 @@ namespace Repository.Models
     public class Coupon
     {
         [Key]
-        public Guid CupoId { get; set; }
+        public Guid Id { get; set; }
         [Required(ErrorMessage ="Name is required")]
         [MaxLength(30, ErrorMessage ="Name can't be longer than 30 digits")]
         public string Name { get; set; }

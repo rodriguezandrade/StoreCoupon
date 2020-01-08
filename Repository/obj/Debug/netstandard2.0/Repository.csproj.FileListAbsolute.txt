@@ -6,3 +6,11 @@ C:\Users\Catracho\source\repos\GenericProjectBase\Repository\obj\Debug\netstanda
 C:\Users\Catracho\source\repos\GenericProjectBase\Repository\obj\Debug\netstandard2.0\Repository.dll
 C:\Users\Catracho\source\repos\GenericProjectBase\Repository\obj\Debug\netstandard2.0\Repository.pdb
 C:\Users\Catracho\source\repos\GenericProjectBase\Repository\obj\Debug\netstandard2.0\Repository.csprojAssemblyReference.cache
+C:\Git\StoreCoupon\Repository\bin\Debug\netstandard2.0\Repository.deps.json
+C:\Git\StoreCoupon\Repository\bin\Debug\netstandard2.0\Repository.dll
+C:\Git\StoreCoupon\Repository\bin\Debug\netstandard2.0\Repository.pdb
+C:\Git\StoreCoupon\Repository\obj\Debug\netstandard2.0\Repository.csprojAssemblyReference.cache
+C:\Git\StoreCoupon\Repository\obj\Debug\netstandard2.0\Repository.AssemblyInfoInputs.cache
+C:\Git\StoreCoupon\Repository\obj\Debug\netstandard2.0\Repository.AssemblyInfo.cs
+C:\Git\StoreCoupon\Repository\obj\Debug\netstandard2.0\Repository.dll
+C:\Git\StoreCoupon\Repository\obj\Debug\netstandard2.0\Repository.pdb

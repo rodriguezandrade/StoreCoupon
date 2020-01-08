@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\GenericProjectBase\\GenericProjectBase.csproj": {}
+    "C:\\Git\\StoreCoupon\\GenericProjectBase\\GenericProjectBase.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Core\\Core.csproj": {
+    "C:\\Git\\StoreCoupon\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Git\\StoreCoupon\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\Catracho\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Core\\obj\\",
+        "projectPath": "C:\\Git\\StoreCoupon\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\Erick Barahona\\.nuget\\packages\\",
+        "outputPath": "C:\\Git\\StoreCoupon\\Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Catracho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Erick Barahona\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -27,8 +30,8 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Repository\\Repository.csproj": {
-                "projectPath": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Repository\\Repository.csproj"
+              "C:\\Git\\StoreCoupon\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Git\\StoreCoupon\\Repository\\Repository.csproj"
               }
             }
           }
@@ -63,21 +66,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\GenericProjectBase\\GenericProjectBase.csproj": {
+    "C:\\Git\\StoreCoupon\\GenericProjectBase\\GenericProjectBase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\GenericProjectBase\\GenericProjectBase.csproj",
+        "projectUniqueName": "C:\\Git\\StoreCoupon\\GenericProjectBase\\GenericProjectBase.csproj",
         "projectName": "GenericProjectBase",
-        "projectPath": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\GenericProjectBase\\GenericProjectBase.csproj",
-        "packagesPath": "C:\\Users\\Catracho\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\GenericProjectBase\\obj\\",
+        "projectPath": "C:\\Git\\StoreCoupon\\GenericProjectBase\\GenericProjectBase.csproj",
+        "packagesPath": "C:\\Users\\Erick Barahona\\.nuget\\packages\\",
+        "outputPath": "C:\\Git\\StoreCoupon\\GenericProjectBase\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Catracho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Erick Barahona\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -90,11 +96,11 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Core\\Core.csproj"
+              "C:\\Git\\StoreCoupon\\Core\\Core.csproj": {
+                "projectPath": "C:\\Git\\StoreCoupon\\Core\\Core.csproj"
               },
-              "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Repository\\Repository.csproj": {
-                "projectPath": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Repository\\Repository.csproj"
+              "C:\\Git\\StoreCoupon\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Git\\StoreCoupon\\Repository\\Repository.csproj"
               }
             }
           }
@@ -149,21 +155,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Repository\\Repository.csproj": {
+    "C:\\Git\\StoreCoupon\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Repository\\Repository.csproj",
+        "projectUniqueName": "C:\\Git\\StoreCoupon\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Repository\\Repository.csproj",
-        "packagesPath": "C:\\Users\\Catracho\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Catracho\\source\\repos\\GenericProjectBase\\Repository\\obj\\",
+        "projectPath": "C:\\Git\\StoreCoupon\\Repository\\Repository.csproj",
+        "packagesPath": "C:\\Users\\Erick Barahona\\.nuget\\packages\\",
+        "outputPath": "C:\\Git\\StoreCoupon\\Repository\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Catracho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Erick Barahona\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -222,7 +231,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

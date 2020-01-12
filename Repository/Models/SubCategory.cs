@@ -7,7 +7,7 @@ namespace Repository.Models
     public class SubCategory
     {
         [Key]
-        public Guid SubCategoryId { get; set; }
+        public Guid Id { get; set; }
         [Required(ErrorMessage = "Name is required")]
         [MaxLength (60, ErrorMessage = "Name can't be longer than 60 characters")]
         public string Name { get; set; }

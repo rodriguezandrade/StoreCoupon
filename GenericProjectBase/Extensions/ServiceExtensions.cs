@@ -50,6 +50,8 @@ namespace GenericProjectBase.Extensions
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IOwnerService, OwnerService>();
         }
     }
 

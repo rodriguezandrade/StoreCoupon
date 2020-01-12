@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20200111232541_Contex")]
+    partial class Contex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Models.Category", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -30,14 +32,14 @@ namespace Repository.Migrations
                         .HasColumnType("nvarchar(60)")
                         .HasMaxLength(60);
 
-                    b.HasKey("Id");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Repository.Models.Coupon", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("CupoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -50,19 +52,19 @@ namespace Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CupoId");
 
                     b.ToTable("Coupons");
                 });
 
             modelBuilder.Entity("Repository.Models.CouponBook", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("CouponBookId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -71,7 +73,7 @@ namespace Repository.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("CouponBookId");
 
                     b.HasIndex("ProductId");
 
@@ -82,7 +84,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Models.Owner", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("OwnerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -114,14 +116,14 @@ namespace Repository.Migrations
                     b.Property<int>("Telephone")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("OwnerId");
 
                     b.ToTable("Owners");
                 });
 
             modelBuilder.Entity("Repository.Models.OwnerStore", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("OwnerStoreId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -131,7 +133,7 @@ namespace Repository.Migrations
                     b.Property<Guid>("StoreId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("OwnerStoreId");
 
                     b.HasIndex("OwnerId");
 
@@ -142,7 +144,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Models.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("ProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -162,7 +164,7 @@ namespace Repository.Migrations
                     b.Property<Guid>("StoreId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProductId");
 
                     b.HasIndex("StoreId");
 
@@ -171,7 +173,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Models.Store", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("StoreId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -206,7 +208,7 @@ namespace Repository.Migrations
                     b.Property<int>("Telephone")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("StoreId");
 
                     b.HasIndex("SubCategoryId");
 
@@ -215,7 +217,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Models.SubCategory", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("SubCategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -232,7 +234,7 @@ namespace Repository.Migrations
                         .HasColumnType("nvarchar(60)")
                         .HasMaxLength(60);
 
-                    b.HasKey("Id");
+                    b.HasKey("SubCategoryId");
 
                     b.HasIndex("CategoryId");
 
@@ -241,7 +243,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -268,7 +270,7 @@ namespace Repository.Migrations
                     b.Property<int>("Telephone")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });

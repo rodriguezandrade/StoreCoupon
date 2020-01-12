@@ -40,5 +40,9 @@ namespace Repository.Repositories.Utils
         {
             this.RepositoryContext.Set<T>().Remove(entity);
         }
+
+        public void SaveChange() {
+            RepositoryContext.SaveChanges();
+        }
     }
 }

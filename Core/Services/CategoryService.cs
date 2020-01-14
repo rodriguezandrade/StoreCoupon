@@ -3,6 +3,7 @@ using Repository.Models;
 using Repository.Repositories.Interfaces;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Core.Services
 {
@@ -14,9 +15,9 @@ namespace Core.Services
             _categoryRepository = categoryRepository;
         }
 
-        public IQueryable<Category> GetAll()
+        public async Task<IQueryable<Category>> GetAll()
         { 
-            return _categoryRepository.FindAll();
+            return await _categoryRepository.FindAll();
         } 
          
         public Category Save(Category category)
@@ -24,20 +25,19 @@ namespace Core.Services
              return _categoryRepository.Save(category);
         }
 
-        public Category DeleteByName(string name)
+        public async Task<Category> DeleteByName(string name)
         { 
-            return _categoryRepository.DeleteByName(name);
+            return await _categoryRepository.DeleteByName(name);
         }
 
-
-        public Category Update(Category model)
+        public async Task<Category> Update(Category model)
         {
-            return _categoryRepository.Modify(model);
+            return await _categoryRepository.Modify(model);
         }
 
-        public Category GetById(Guid id)
+        public async Task<Category> GetById(Guid id)
         {
-            return _categoryRepository.GetById(id);
+            return await _categoryRepository.GetById(id);
         }
     }
 }

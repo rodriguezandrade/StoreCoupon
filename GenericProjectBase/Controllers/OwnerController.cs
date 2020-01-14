@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Services.Interfaces;
@@ -19,16 +18,40 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpGet]
-        public IQueryable<Owner> Get() {
-            return _ownerService.FindAll();
+        [Route("get")]
+        public async Task<IQueryable<Owner>> Get() {
+            return await _ownerService.FindAll();
+        }
+
+        [HttpGet]
+        [Route("get/{idOwner}")]
+        public async Task<Owner> GetById(Guid idOwner)
+        {
+            var query = await _ownerService.FindByCondition(x => x.Id == idOwner);
+            return query.FirstOrDefault();
         }
 
         [HttpPost]
         [Route("save")]
-        public ActionResult Add([FromBody]Owner owner) {
+        public async Task<ActionResult> Add([FromBody]Owner owner) {
             _ownerService.Create(owner);
-            _ownerService.SaveChage();
-            return Ok(); 
+            await _ownerService.SaveChage();
+            return CreatedAtAction(nameof(GetById), new { idOwner = owner.Id }, owner);
         }
+
+        [HttpDelete]
+        [Route("delete/{RFC}")]
+        public async Task<Owner> DeleteByName(string RFC)
+        {
+            return await _ownerService.DeleteByRFC(RFC);
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<Owner> Update([FromBody]Owner owner) 
+        {
+            return await _ownerService.Modify(owner);
+        }
+
     }
 }

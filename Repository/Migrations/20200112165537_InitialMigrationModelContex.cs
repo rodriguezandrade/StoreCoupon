@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class Initial_Database : Migration
+    public partial class InitialMigrationModelContex : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -138,8 +138,7 @@ namespace Repository.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 30, nullable: false),
                     Description = table.Column<string>(maxLength: 120, nullable: false),
                     Price = table.Column<int>(nullable: false),
@@ -162,7 +161,7 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false),
+                    ProductId = table.Column<Guid>(nullable: false),
                     Status = table.Column<string>(nullable: false)
                 },
                 constraints: table =>

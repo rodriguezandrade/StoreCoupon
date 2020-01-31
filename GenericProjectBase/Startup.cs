@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NLog;
+using System.IO;
 
 namespace GenericProjectBase
 {
@@ -25,10 +27,10 @@ namespace GenericProjectBase
 
             services.ConfigureCors();
             services.ConfigureIISIntegration();
-            //services.ConfigureLoggerService();
+            services.ConfigureLoggerService();
             services.ConfigureMySqlContext(Configuration);
             services.ConfigureClasesWithInterfaces();
-
+            services.AutoMapperConfiguration();
             services.AddControllers();
         } 
 
@@ -51,8 +53,8 @@ namespace GenericProjectBase
             //    });
             //});
             #endregion
-
-           if (env.IsDevelopment())
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

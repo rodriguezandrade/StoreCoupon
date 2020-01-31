@@ -8,6 +8,10 @@ using Repository.Data;
 using Repository.Repositories;
 using Repository.Repositories.Interfaces;
 using Repository.Repositories.Utils;
+using AutoMapper;
+using Core.Profiles;
+using Core.Logger.Interface;
+using Core.Logger;
 
 namespace GenericProjectBase.Extensions
 {
@@ -31,13 +35,22 @@ namespace GenericProjectBase.Extensions
 
             });
         }
+        //Automapper
+        public static void AutoMapperConfiguration(this IServiceCollection services) {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new Profiles());
+            });
 
-        //public static void ConfigureLoggerService(this IServiceCollection services)
-        //{
-        //    services.AddSingleton<ILoggerManager, LoggerManager>();
-        //}
-
-       //Database configuration
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+        }
+        //Logger
+        public static void ConfigureLoggerService(this IServiceCollection services)
+        {
+            services.AddSingleton<ILoggerManager, LoggerManager>();
+        }
+        //Database configuration
         public static void ConfigureMySqlContext(this IServiceCollection services, IConfiguration config)
         {
             var connectionString = config["SqlConnection:ConnectionString"];

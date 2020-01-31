@@ -18,7 +18,7 @@ namespace Core.Services
 
         public void Create(Owner entity)
         {
-            entity.OwnerId = new Guid();
+            entity.Id = new Guid();
             _ownerRepository.Create(entity);
         }
 

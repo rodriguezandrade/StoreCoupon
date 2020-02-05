@@ -59,7 +59,18 @@ namespace GenericProjectBase
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            app.Use(async (contex, next) =>
+            {
+                await next();
+                if(contex.Response.StatusCode == 404 && !Path.HasExtension(contex.Request.Path.Value))
+                {
+                    contex.Request.Path = "/index.html";
+                    await next();
+                }
+            });
+
+            // app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCors("CorsPolicy");
             app.UseForwardedHeaders(new ForwardedHeadersOptions

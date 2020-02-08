@@ -1,8 +1,8 @@
-import { Serializer } from "../../models/serializer";
+import { Serializer } from "../../models/utils/serializer";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
-import { Resource } from "../../models/resource";
+import { Resource } from "../../models/utils/resource";
 import { QueryOptions } from "./queryOptions";
 
 export class BaseService<T extends Resource> {

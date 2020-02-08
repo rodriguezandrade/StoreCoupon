@@ -10,3 +10,7 @@ GenericProjectBase/obj/
 Core/bin/
 
 Core/obj/
+
+GenericProjectBase/App/node_modules/
+
+GenericProjectBase/App/out-tsc/

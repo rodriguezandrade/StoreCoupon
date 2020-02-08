@@ -1,0 +1,10 @@
+C:\Users\Catracho\source\repos\StoreCoupon\CouponBookApp\bin\Debug\netcoreapp3.0\appsettings.Development.json
+C:\Users\Catracho\source\repos\StoreCoupon\CouponBookApp\bin\Debug\netcoreapp3.0\appsettings.json
+C:\Users\Catracho\source\repos\StoreCoupon\CouponBookApp\bin\Debug\netcoreapp3.0\Properties\launchSettings.json
+C:\Users\Catracho\source\repos\StoreCoupon\CouponBookApp\bin\Debug\netcoreapp3.0\CouponBookApp.exe
+C:\Users\Catracho\source\repos\StoreCoupon\CouponBookApp\obj\Debug\netcoreapp3.0\CouponBookApp.csprojAssemblyReference.cache
+C:\Users\Catracho\source\repos\StoreCoupon\CouponBookApp\obj\Debug\netcoreapp3.0\staticwebassets\CouponBookApp.StaticWebAssets.Manifest.cache
+C:\Users\Catracho\source\repos\StoreCoupon\CouponBookApp\obj\Debug\netcoreapp3.0\staticwebassets\CouponBookApp.StaticWebAssets.xml
+C:\Users\Catracho\source\repos\StoreCoupon\CouponBookApp\obj\Debug\netcoreapp3.0\CouponBookApp.AssemblyInfoInputs.cache
+C:\Users\Catracho\source\repos\StoreCoupon\CouponBookApp\obj\Debug\netcoreapp3.0\CouponBookApp.AssemblyInfo.cs
+C:\Users\Catracho\source\repos\StoreCoupon\CouponBookApp\obj\Debug\netcoreapp3.0\CouponBookApp.RazorTargetAssemblyInfo.cache

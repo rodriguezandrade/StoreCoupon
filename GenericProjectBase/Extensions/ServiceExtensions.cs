@@ -45,11 +45,13 @@ namespace GenericProjectBase.Extensions
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
         }
+
         //Logger
         public static void ConfigureLoggerService(this IServiceCollection services)
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
         }
+
         //Database configuration
         public static void ConfigureMySqlContext(this IServiceCollection services, IConfiguration config)
         {

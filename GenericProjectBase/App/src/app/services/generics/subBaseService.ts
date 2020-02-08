@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { QueryOptions } from './queryOptions';
 import { map } from 'rxjs/operators';
 
-export class SubResourceService<T extends Resource> {
+export class SubBaseService<T extends Resource> {
     constructor(
       private httpClient: HttpClient,
       private url: string,

@@ -8,8 +8,33 @@ import { CategoryAddUpdateComponent } from "../category/category-add-update/cate
 const pagesRoutes: Routes = [
   {
     path: "home",
-    component: PagesComponent
+    component: PagesComponent,
     // data: { roles: [environment.roleAdmin], title: 'Home' }
+    children: [
+      {
+        path: "categories",
+        children: [
+          {
+            path: "",
+            component: CategoryComponent
+            // canActivateChild: [AuthGuard],
+            // data: { roles: [environment.roleAdmin], title: 'Categories' }
+          },
+          {
+            path: "new",
+            component: CategoryAddUpdateComponent
+            // canActivate: [AuthGuard],
+            // data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
+          }
+          // {
+          //     path: ':id',
+          //     component: CategoryAddUpdateComponent,
+          //     canActivate: [AuthGuard],
+          //     data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
+          // }
+        ]
+      }
+    ]
   },
 
   //   {
@@ -24,26 +49,7 @@ const pagesRoutes: Routes = [
   //     canActivate: [AuthGuard],
   //     data: { roles: [environment.roleAdmin], title: "Nueva Categoria" }
   //   },
-  {
-    path: "categories",
-    component: CategoryComponent,
-    // canActivate: [AuthGuard],
-    // data: { roles: [environment.roleAdmin], title: "Categorías" },
-    children: [
-      {
-        path: "new",
-        component: CategoryAddUpdateComponent
-        // canActivate: [AuthGuard],
-        // data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
-      }
-      // {
-      //     path: ':id',
-      //     component: CategoryAddUpdateComponent,
-      //     canActivate: [AuthGuard],
-      //     data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
-      // }
-    ]
-  },
+
   // {
   //     path: 'addresslist', component: metecomponentequevasausar,
   //     canActivate: [AuthGuard],

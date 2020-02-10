@@ -1,1 +1,18 @@
-<p>category-add-update works!</p>
+<div class="col-md-4">
+  <form novalidate (ngSubmit)="onSubmit(myform.value)" [formGroup]="myform">
+    <h3>Categories</h3>
+    <hr />
+    <div class="form-group">
+      <label>Category Name</label>
+      <input type="text" class="form-control" formControlName="name" />
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="myform.invalid"
+      (click)="onFormSubmit(myform.value, action)"
+    >
+      Submit
+    </button>
+  </form>
+</div>

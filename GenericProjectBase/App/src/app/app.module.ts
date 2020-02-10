@@ -9,13 +9,15 @@ import { PagesComponent } from './components/shared/pages.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { PagesModule } from './components/shared/pages.module';
+import { CategoryAddUpdateComponent } from './components/category/category-add-update/category-add-update.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PagesComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    CategoryAddUpdateComponent
   ],
   imports: [
     APP_ROUTES,

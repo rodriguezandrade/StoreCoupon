@@ -8,8 +8,7 @@ import { AuthGuard } from './utils/guards/auth.guard';
 import { PagesComponent } from './components/shared/pages.component'; 
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
-import { PagesModule } from './components/shared/pages.module';
-import { CategoryAddUpdateComponent } from './components/category/category-add-update/category-add-update.component';
+import { PagesModule } from './components/shared/pages.module'; 
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { CategoryAddUpdateComponent } from './components/category/category-add-u
     PagesComponent,
     NavbarComponent,
     FooterComponent,
-    CategoryAddUpdateComponent
   ],
   imports: [
     APP_ROUTES,

@@ -10,6 +10,8 @@ export class CategoryAddUpdateComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("anadiendocategory");
+    
   }
 
 }

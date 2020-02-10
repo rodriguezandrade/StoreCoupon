@@ -1,5 +1,4 @@
 import { environment } from "src/environments/environment";
-import { HomeComponent } from "../home/home.component";
 import { AuthGuard } from "../../utils/guards/auth.guard";
 import { RouterModule, Routes } from "@angular/router";
 import { CategoryComponent } from "../category/category.component";
@@ -29,20 +28,20 @@ const pagesRoutes: Routes = [
     path: "categories",
     component: CategoryComponent,
     // canActivate: [AuthGuard],
-    data: { roles: [environment.roleAdmin], title: "Categorías" },
+    // data: { roles: [environment.roleAdmin], title: "Categorías" },
     children: [
-      // {
-      //     path: ':id',
-      //     component: CategoryAddUpdateComponent,
-      //     canActivate: [AuthGuard],
-      //     data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
-      // },
       {
         path: "new",
         component: CategoryAddUpdateComponent
         // canActivate: [AuthGuard],
         // data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
       }
+      // {
+      //     path: ':id',
+      //     component: CategoryAddUpdateComponent,
+      //     canActivate: [AuthGuard],
+      //     data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
+      // }
     ]
   },
   // {

@@ -1,4 +1,4 @@
-import { HomeComponent } from '../home/home.component';
+
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -6,16 +6,18 @@ import { PAGES_ROUTES } from './pages.routes';
 import { CategoryComponent } from '../category/category.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { CategoryAddUpdateComponent } from '../category/category-add-update/category-add-update.component';
+import { PagesComponent } from './pages.component';
 
 
 @NgModule({
     declarations: [ 
-         HomeComponent,
          CategoryComponent, 
+         CategoryAddUpdateComponent
     ],
     exports: [ 
-        HomeComponent,
         CategoryComponent, 
+        CategoryAddUpdateComponent
     ],
     providers: [
     ],
@@ -26,6 +28,6 @@ import { FooterComponent } from './footer/footer.component';
         CommonModule,
         PAGES_ROUTES
     ],
-    bootstrap: [HomeComponent]
+    bootstrap: [PagesComponent]
 })
 export class PagesModule { }

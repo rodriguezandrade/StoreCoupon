@@ -1,5 +1,5 @@
-import { Resource } from './utils/resource';
+import { Resource } from "./utils/resource";
 
-export class Category extends Resource  {
-
+export class Category extends Resource {
+  name: string;
 }

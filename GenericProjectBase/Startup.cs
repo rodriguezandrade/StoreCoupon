@@ -74,14 +74,14 @@ namespace GenericProjectBase
             {
                 endpoints.MapControllers();
             });
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "App";
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+            //app.UseSpa(spa =>
+            //{
+            //    spa.Options.SourcePath = "App";
+            //    if (env.IsDevelopment())
+            //    {
+            //        spa.UseAngularCliServer(npmScript: "start");
+            //    }
+            //});
 
         }
     }

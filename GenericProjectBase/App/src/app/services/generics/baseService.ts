@@ -1,8 +1,8 @@
-import { Serializer } from "../../models/serializer";
+import { Serializer } from "../../models/utils/serializer";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
-import { Resource } from "../../models/resource";
+import { Resource } from "../../models/utils/resource";
 import { QueryOptions } from "./queryOptions";
 
 export class BaseService<T extends Resource> {
@@ -39,6 +39,12 @@ export class BaseService<T extends Resource> {
       .get(`${this.url}/${this.endpoint}?${queryOptions.toQueryString()}`)
       .pipe(map((data: any) => this.convertData(data.items)));
   }
+
+  listWithoutFilter(): Observable<T[]> {   
+    return this.httpClient
+    .get(`${this.url}/${this.endpoint}`)
+    .pipe(map((data: any) => this.convertData(data)));
+}
 
   delete(id: number) {
     return this.httpClient.delete(`${this.url}/${this.endpoint}/${id}`);

@@ -5,6 +5,7 @@ using Repository.Repositories.Interfaces;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Core.Services
 {
@@ -27,15 +28,14 @@ namespace Core.Services
             _ownerRepository.Delete(entity);
         }
 
-        public IQueryable<Owner> FindAll()
+        public async Task<IQueryable<Owner>> FindAll()
         {
-           return  _ownerRepository.FindAll();
-        
+           return await _ownerRepository.FindAll();
         }
 
-        public IQueryable<Owner> FindByCondition(Expression<Func<Owner, bool>> expression)
+        public async Task<IQueryable<Owner>> FindByCondition(Expression<Func<Owner, bool>> expression)
         {
-            return _ownerRepository.FindByCondition(expression);
+            return await _ownerRepository.FindByCondition(expression);
         }
 
         public void Update(Owner entity)
@@ -43,8 +43,22 @@ namespace Core.Services
             _ownerRepository.Update(entity);
         }
 
-        public void SaveChage() {
-            _ownerRepository.SaveChange();
+        public async Task SaveChage() {
+          await _ownerRepository.SaveChange();
+        }
+
+        public async Task<Owner> DeleteById(Guid Id) {
+            var modelToDelete = await _ownerRepository.FindByCondition(x => x.Id == Id);
+            _ownerRepository.Delete(modelToDelete.FirstOrDefault());
+            return modelToDelete.FirstOrDefault();
+        }
+
+        public async Task<Owner> Modify(Owner owner) {
+            var modelToUpdate = await _ownerRepository.FindByCondition(x => x.Id == owner.Id);
+            var model = modelToUpdate.FirstOrDefault();
+            model = owner;
+            _ownerRepository.Update(model);
+            return modelToUpdate.FirstOrDefault();
         }
     }
 }

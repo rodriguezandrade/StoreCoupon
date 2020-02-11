@@ -16,7 +16,7 @@ namespace Repository.Models
         public virtual User User { get; set; }
         [Required]
         [ForeignKey("BookProduct")]
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
         public virtual Product Product { get; set; }
         [Required]
         public string Status { get; set; } 

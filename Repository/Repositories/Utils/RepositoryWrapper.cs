@@ -6,6 +6,7 @@ namespace Repository.Repositories.Utils
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private ICategoryRepository  _categoryRepository;
+        private ISubCategoryRepository _subCategoryRepository;
         private IRepositoryWrapper  _repositoryWraper;
         private RepositoryContext _repositoryContext; 
 
@@ -22,10 +23,16 @@ namespace Repository.Repositories.Utils
             }
         }
 
+
+      
+
+
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
         }
+
+
 
         public void save()
         {

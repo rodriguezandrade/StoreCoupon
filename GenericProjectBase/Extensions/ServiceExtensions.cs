@@ -67,6 +67,10 @@ namespace GenericProjectBase.Extensions
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<IOwnerService, OwnerService>();
+            services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
+            services.AddScoped<ISubCategoryService, SubCategoryService>();
+            services.AddScoped<IStoreService, StoreService>();
+            services.AddScoped<IStoreRepository, StoreRepository>();
         }
     }
 

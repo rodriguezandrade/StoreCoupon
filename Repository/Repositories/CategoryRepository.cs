@@ -5,13 +5,15 @@ using Repository.Models;
 using System.Linq;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
     public class CategoryRepository : RepositoryBase<Category>, ICategoryRepository
     {
         private IRepositoryWrapper _repositoryWrapper;
-
+        private RepositoryContext _repositoyContex;
         public CategoryRepository
            (
             RepositoryContext repositoryContext,
@@ -20,6 +22,7 @@ namespace Repository.Repositories
              : base(repositoryContext)
         {
             _repositoryWrapper = repositoryWrapper;
+            _repositoyContex = repositoryContext;
         }
 
         public async Task<IQueryable<Category>> GetAll()
@@ -35,10 +38,18 @@ namespace Repository.Repositories
             return model;
         }
 
-        public async Task<Category> DeleteByName(string name)
+        public async Task<IQueryable> GetCategories()
+        {
+            List<Category> categories = new List<Category>();
+            categories = await this.RepositoryContext.Set<Category>().AsNoTracking().ToListAsync();
+            var query = from cat in categories select new { cat.Name , cat.Id};
+            return query.AsQueryable();
+        }
+
+        public async Task<Category> DeleteById(Guid Id)
         {
             var modelToEliminate = await _repositoryWrapper.Category
-                                     .FindByCondition(x => x.Name == name);
+                                     .FindByCondition(x => x.Id == Id);
             _repositoryWrapper.Category.Delete(modelToEliminate.FirstOrDefault());
             _repositoryWrapper.save();
             return modelToEliminate.FirstOrDefault();

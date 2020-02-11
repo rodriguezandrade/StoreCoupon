@@ -18,16 +18,21 @@ namespace Core.Services
         public async Task<IQueryable<Category>> GetAll()
         { 
             return await _categoryRepository.FindAll();
-        } 
-         
+        }
+
+        public async Task<IQueryable> GetCategories() {
+            return await _categoryRepository.GetCategories();
+        }
+
+
         public Category Save(Category category)
         {
              return _categoryRepository.Save(category);
         }
 
-        public async Task<Category> DeleteByName(string name)
+        public async Task<Category> DeleteById(Guid Id)
         { 
-            return await _categoryRepository.DeleteByName(name);
+            return await _categoryRepository.DeleteById(Id);
         }
 
         public async Task<Category> Update(Category model)

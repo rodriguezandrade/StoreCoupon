@@ -10,3 +10,7 @@ GenericProjectBase/obj/
 Core/bin/
 
 Core/obj/
+
+GenericProjectBase/appsettings.json
+
+StoreCoupon/ClientApp/package-lock.json

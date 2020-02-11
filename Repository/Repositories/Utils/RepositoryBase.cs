@@ -37,13 +37,13 @@ namespace Repository.Repositories.Utils
         public async void Update(T entity)
         {
           this.RepositoryContext.Set<T>().Update(entity);
-          await this.RepositoryContext.SaveChangesAsync();
+          this.RepositoryContext.SaveChanges();
         }
 
         public async void Delete(T entity)
         {
-            this.RepositoryContext.Set<T>().Remove(entity);
-            await this.RepositoryContext.SaveChangesAsync();
+           this.RepositoryContext.Set<T>().Remove(entity);
+            this.RepositoryContext.SaveChanges();
         }
 
         public async Task SaveChange() {

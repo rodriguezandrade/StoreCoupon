@@ -47,10 +47,9 @@ namespace Core.Services
           await _ownerRepository.SaveChange();
         }
 
-        public async Task<Owner> DeleteByRFC(string RFC) {
-            var modelToDelete = await _ownerRepository.FindByCondition(x => x.RFC == RFC);
+        public async Task<Owner> DeleteById(Guid Id) {
+            var modelToDelete = await _ownerRepository.FindByCondition(x => x.Id == Id);
             _ownerRepository.Delete(modelToDelete.FirstOrDefault());
-            await _ownerRepository.SaveChange();
             return modelToDelete.FirstOrDefault();
         }
 

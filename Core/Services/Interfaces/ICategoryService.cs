@@ -10,8 +10,9 @@ namespace Core.Services.Interfaces
     {
         Task<IQueryable<Category>> GetAll();
         Category Save(Category category);
-        Task<Category> DeleteByName(string name);
+        Task<Category> DeleteById(Guid Id);
         Task<Category> Update(Category model);
         Task<Category> GetById(Guid id);
+        Task<IQueryable> GetCategories();
     }
 }

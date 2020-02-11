@@ -9,8 +9,9 @@ namespace Repository.Repositories.Interfaces
     {
         Task<IQueryable<Category>> GetAll();
         Category Save(Category model);
-        Task<Category> DeleteByName(string name);
+        Task<Category> DeleteById(Guid Id);
         Task<Category> Modify(Category model);
         Task<Category> GetById(Guid id);
+        Task<IQueryable> GetCategories();
     }
 }

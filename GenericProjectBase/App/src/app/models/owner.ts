@@ -1,7 +1,8 @@
 import { Resource } from './utils/resource';
 
 export class Owner extends Resource{
-  name:string;
+  firstname:string;
+  lastname:string;
   fiscalName:string;
   address:string;
   telephone:number;

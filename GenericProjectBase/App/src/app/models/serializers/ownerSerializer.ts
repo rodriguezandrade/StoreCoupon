@@ -4,7 +4,8 @@ export class OwnerSerializer {
   fromJson(json: any): Owner {
     const owner = new Owner();
     owner.id = json.id;
-    owner.name = json.name;
+    owner.firstname = json.firstname;
+    owner.lastname = json.lastname;
     owner.fiscalName = json.fiscalName;
     owner.address = json.address;
     owner.email = json.email;
@@ -18,8 +19,9 @@ export class OwnerSerializer {
 
   toJson(owner: Owner): any {
     return {
-      id: owner.id,
-      name: owner.name,
+      id : owner.id,
+      firstname : owner.firstname,
+      lastname : owner.lastname,
       fiscalName : owner.fiscalName,
       address : owner.address,
       email : owner.email,

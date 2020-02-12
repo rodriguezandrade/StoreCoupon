@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { Resource } from "../../models/utils/resource";
-import { QueryOptions } from "./queryOptions";
+import { QueryOptions } from "./query.options";
 
 export class BaseService<T extends Resource> {
   constructor(

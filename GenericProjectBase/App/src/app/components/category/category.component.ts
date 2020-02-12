@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CategoryService } from "src/app/services/category.service";
-import { QueryOptions } from "src/app/services/generics/queryOptions";
+import { QueryOptions } from "src/app/services/generics/query.options";
 
 @Component({
   selector: "app-category",

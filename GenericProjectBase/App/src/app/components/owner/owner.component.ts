@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OwnerService } from 'src/app/services/owner.service';
-import { QueryOptions } from 'src/app/services/generics/queryOptions';
+import { QueryOptions } from 'src/app/services/generics/query.options';
 import { Owner } from 'src/app/models/owner';
 
 @Component({

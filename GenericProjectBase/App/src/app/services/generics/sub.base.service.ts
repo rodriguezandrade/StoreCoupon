@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Resource } from 'src/app/models/utils/resource';
 import { Serializer } from 'src/app/models/utils/serializer';
 import { Observable } from 'rxjs';
-import { QueryOptions } from './queryOptions';
+import { QueryOptions } from './query.options';
 import { map } from 'rxjs/operators';
 
 export class SubBaseService<T extends Resource> {

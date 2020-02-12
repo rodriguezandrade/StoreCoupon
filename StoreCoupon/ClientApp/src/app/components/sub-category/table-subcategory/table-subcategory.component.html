@@ -1,0 +1,23 @@
+﻿<table class="table table-light">
+    <thead class="thead-light">
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>DESCRIPCIÓN</th>
+        <th>CATEGORÍA</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subcategory of subcategories; let indice=index">
+        <td>{{indice+1}}</td>
+        <td>{{subcategory.id}}</td>
+        <td>{{subcategory.name}}</td>
+        <td>{{subcategory.description}}</td>
+        <td>{{subcategory.category}}</td>
+        <td><button (click)="onEdit(subcategory.id)" class="btn btn-warning">Editar</button>|<button (click)="onDelete(subcategory.id)" class="btn btn-danger" >Borrar</button></td>
+      </tr>
+    </tbody>
+  </table>
+    

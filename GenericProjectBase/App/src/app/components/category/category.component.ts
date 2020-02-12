@@ -19,6 +19,7 @@ export class CategoryComponent implements OnInit {
     // this._categoryService
     //   .list(this.queryOptions)
     //   .subscribe(data => console.log(data));
+console.log("aq");
 
     this._categoryService
       .listWithoutFilter()

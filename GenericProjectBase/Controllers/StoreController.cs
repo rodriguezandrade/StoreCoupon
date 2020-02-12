@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Core.Profiles;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models;
+using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
@@ -12,8 +15,10 @@ namespace GenericProjectBase.Controllers
     public class StoreController : Controller
     {
         private readonly IStoreService _storeService;
-        public StoreController(IStoreService storeService)
+        private readonly IMapper _mapper;
+        public StoreController(IStoreService storeService, IMapper mapper )
         {
+            _mapper = mapper;
             _storeService = storeService;
         }
 
@@ -34,9 +39,10 @@ namespace GenericProjectBase.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult> Add([FromBody]Store store)
+        public async Task<ActionResult> Add([FromBody]StoreDto store)
         {
-            _storeService.Create(store);
+            var model = _mapper.Map<Store>(store);
+            _storeService.Create(model);
             await _storeService.SaveChage();
             return CreatedAtAction(nameof(GetById), new { idStore = store.Id }, store);
         }

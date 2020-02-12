@@ -1,0 +1,29 @@
+<table class="table table-light">
+    <thead class="thead-light">
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>APELLIDOS</th>
+        <th>NOMBRES</th>
+        <th>DIRECCIÓN</th>
+        <th>EMAIL</th>
+        <th>TELEFÓNO</th>
+        <th>RFC</th>
+        <th>ACCIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let owner of owners; let indice=index">
+        <td>{{indice+1}}</td>
+        <td>{{owner.id}}</td>
+        <td>{{owner.lastName}}</td>
+        <td>{{owner.firstName}}</td>
+        <td>{{owner.address}}</td>
+        <td>{{owner.email}}</td>
+        <td>{{owner.telephone}}</td>
+        <td>{{owner.rfc}}</td>
+        <td><button (click)="onEdit(owner.id)" class="btn btn-warning">Editar</button>|<button (click)="onDelete(owner.id)" class="btn btn-danger" >Borrar</button></td>
+      </tr>
+    </tbody>
+  </table>
+  

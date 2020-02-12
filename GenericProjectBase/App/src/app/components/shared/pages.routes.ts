@@ -4,6 +4,8 @@ import { RouterModule, Routes } from "@angular/router";
 import { CategoryComponent } from "../category/category.component";
 import { PagesComponent } from "./pages.component";
 import { CategoryAddUpdateComponent } from "../category/category-add-update/category-add-update.component";
+import { OwnerComponent } from '../owner/owner.component';
+import { OwnerAddUpdateComponent } from '../owner/owner-add-update/owner-add-update.component';
 
 const pagesRoutes: Routes = [
   {
@@ -33,6 +35,23 @@ const pagesRoutes: Routes = [
           //     data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
           // }
         ]
+      },
+      {
+        path:"owners",
+        children:[
+          {
+            path:"",
+            component: OwnerComponent 
+          },
+          {
+            path:"new",
+            component: OwnerAddUpdateComponent
+          },
+          {
+            path:":id/edit",
+            component: OwnerAddUpdateComponent
+          }
+        ]
       }
     ]
   },
@@ -60,6 +79,8 @@ const pagesRoutes: Routes = [
   //     canActivate: [AuthGuard],
   //     data: { roles: [environment.roleAdmin], title: 'Customers' }
   // },
+
+  
 
   //temporalmente estara logeandose a home, luego seria montarla al login de inicio
   { path: "", redirectTo: "/home", pathMatch: "full" },

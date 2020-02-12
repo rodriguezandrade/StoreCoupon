@@ -10,6 +10,7 @@ namespace Core.Profiles
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<CategoryDto, Category>().ReverseMap();
+            CreateMap<StoreDto, Store>().ReverseMap();
         }
     }
 }

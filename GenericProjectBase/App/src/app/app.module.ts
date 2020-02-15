@@ -9,21 +9,15 @@ import { PagesComponent } from './components/shared/pages.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { PagesModule } from './components/shared/pages.module';
-import { OwnerComponent } from './components/owner/owner.component';
-import { OwnerAddUpdateComponent } from './components/owner/owner-add-update/owner-add-update.component';
-import { SubCategoryComponent } from './components/sub-category/sub-category.component';
-import { SubCategoryAddUpdateComponent } from './components/sub-category/sub-category-add-update/sub-category-add-update.component'; 
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PagesComponent,
     NavbarComponent,
-    FooterComponent,
-    OwnerComponent,
-    OwnerAddUpdateComponent,
-    SubCategoryComponent,
-    SubCategoryAddUpdateComponent,
+    FooterComponent
+    
   ],
   imports: [
     APP_ROUTES,

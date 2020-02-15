@@ -14,7 +14,6 @@ export class SubCategoryService extends BaseService<SubCategory> {
     super(
       httpClient, 
       `${AppSettings.API_ENDPOINT}`, 
-      "subCategories/getAll", 
       new SubCategorySerializer());
   }
 }

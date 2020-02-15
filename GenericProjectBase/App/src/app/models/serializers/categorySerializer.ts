@@ -10,10 +10,18 @@ export class CategorySerializer {
     return category;
   }
 
-  toJson(category: Category): any {
-    return {
-      id: category.id,
-      name: category.name
-    };
+  toJson(category: Category, accion:string): any {
+    
+      if (accion == "new") {
+        return {
+          name : category.name
+        };
+      }else if(accion == "edit"){
+        return {
+          id : category.id,
+          name : category.name
+        };
+      }
   }
 }
+

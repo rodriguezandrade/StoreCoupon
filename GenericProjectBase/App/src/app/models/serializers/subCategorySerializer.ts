@@ -13,13 +13,22 @@ export class SubCategorySerializer {
     return subCategory;
   }
 
-  toJson(subCategory: SubCategory): any {
-    return {
-      id: subCategory.id,
-      name: subCategory.name,
-      description: subCategory.description,
-      categoryId: subCategory.categoryId,
-      category: subCategory.category,
-    };
+  toJson(subCategory: SubCategory, accion:string): any {
+    if (accion == "new") {
+      return {
+        name: subCategory.name,
+        description: subCategory.description,
+        categoryId: subCategory.categoryId,
+        category: subCategory.category
+      };
+    }else if(accion == "edit"){
+      return {
+        id: subCategory.id,
+        name: subCategory.name,
+        description: subCategory.description,
+        categoryId: subCategory.categoryId,
+        category: subCategory.category
+      };
+    }
   }
 }

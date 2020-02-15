@@ -20,7 +20,7 @@ namespace Repository.Models
         [Required(ErrorMessage = "Foreignkey is required")]
         [ForeignKey("StoreProduct")]
         public Guid StoreId { get; set; }
-        public Store Store { get; set; }
+        public virtual Store Store { get; set; }
 
     }
 }

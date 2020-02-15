@@ -32,7 +32,5 @@ namespace Repository.Models
         public Guid SubCategoryId  { get; set; }
         public virtual SubCategory SubCategory { get; set; }
 
-
-
     }
 }

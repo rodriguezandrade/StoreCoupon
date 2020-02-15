@@ -21,28 +21,6 @@ namespace Repository.Repositories
             _contex = repositoryContex;
         }
 
-        public async Task<IQueryable<SubCategoryDto>> Get() {
-            DataTable ownerDT = new DataTable();
-            _contex.Database.OpenConnection();
-            SqlConnection conn = (SqlConnection)_contex.Database.GetDbConnection();
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.CommandText = "dbo.spSubCategories_GetInfo";
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            da.Fill(ownerDT);
-            List<SubCategoryDto> subCategories = new List<SubCategoryDto>();
-            foreach (DataRow dr in ownerDT.Rows) {
-                SubCategoryDto sc = new SubCategoryDto();
-                sc.Id = (Guid)dr["Id"];
-                sc.Name = dr["Name"].ToString();
-                sc.Description = dr["Description"].ToString();
-                sc.Category = dr["Category"].ToString();
-                subCategories.Add(sc);
-  
-            }
-            
-            conn.Close();
-            return subCategories.AsQueryable();
-        }
+         
     }
 }

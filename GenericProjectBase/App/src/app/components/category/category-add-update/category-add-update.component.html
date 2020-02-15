@@ -1,18 +1,12 @@
-<div class="col-md-4">
-  <form novalidate (ngSubmit)="onSubmit(myform.value)" [formGroup]="myform">
-    <h3>Categories</h3>
-    <hr />
-    <div class="form-group">
-      <label>Category Name</label>
-      <input type="text" class="form-control" formControlName="name" />
-    </div>
-    <button
-      type="submit"
-      class="btn btn-primary"
-      [disabled]="myform.invalid"
-      (click)="onFormSubmit(myform.value, action)"
-    >
-      Submit
-    </button>
-  </form>
-</div>
+<form *ngIf="categoryForm" [formGroup]="categoryForm" (ngSubmit)="submit()">
+  <div class="form-group">
+      <label for="Name">Nombre</label>
+      <input type="text" formControlName="name" class="form-control" id="Name"  placeholder="Nombre">
+  </div>
+   <div *ngIf="action == 'edit'">
+    <button type="submit" class="btn btn-warning">Modificar Categoria</button>
+  </div> 
+  <div *ngIf="action == 'new'">
+      <button type="submit" class="btn btn-success">Crear Categoria</button>
+    </div> 
+</form>

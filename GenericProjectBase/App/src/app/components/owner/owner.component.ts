@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { OwnerService } from 'src/app/services/owner.service';
 import { QueryOptions } from 'src/app/services/generics/query.options';
 import { Owner } from 'src/app/models/owner';
+import { Router } from '@angular/router';
+import { Button } from 'protractor';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-owner',
@@ -10,18 +13,41 @@ import { Owner } from 'src/app/models/owner';
 })
 export class OwnerComponent implements OnInit {
   owners:Owner[];
-  constructor(private _ownerService:OwnerService) { 
+  constructor(private _ownerService:OwnerService, private _router:Router) { 
     this.fillTable();
   }
   queryOptions = new QueryOptions();
   
+  ngOnChanges(changes: SimpleChanges): void {
+       
+    this.fillTable();
+}
+
+
 fillTable(){
+  this._ownerService.endpoint="owners/get";
   this._ownerService.listWithoutFilter()
   .subscribe(data =>{
     this.owners=data;
     console.log(data);
   });
 }
+
+onEdit(id: string) {
+  this._router.navigate(['/home/owners',id, 'edit']);
+}
+
+onDelete(id:string){
+  if (confirm("¿Esta seguro que desea eliminar este registro?")){
+    this._ownerService.endpoint="owners/delete";
+  this._ownerService.delete(id).subscribe(res=>{
+    console.log(res);
+  });
+  } else {
+    
+  }
+}
+
 
   ngOnInit() {
 

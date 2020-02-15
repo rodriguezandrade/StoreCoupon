@@ -9,12 +9,10 @@ import { AppSettings } from "../models/utils/appSettings";
   providedIn: "root"
 })
 export class CategoryService extends BaseService<Category> {
-  
   constructor(httpClient: HttpClient) {
     super(
       httpClient, 
-      `${AppSettings.API_ENDPOINT}`, 
-      "categories/getAll", 
+      `${AppSettings.API_ENDPOINT}`,  
       new CategorySerializer());
   }
 }

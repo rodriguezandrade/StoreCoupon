@@ -6,6 +6,10 @@ import { PagesComponent } from "./pages.component";
 import { CategoryAddUpdateComponent } from "../category/category-add-update/category-add-update.component";
 import { OwnerComponent } from '../owner/owner.component';
 import { OwnerAddUpdateComponent } from '../owner/owner-add-update/owner-add-update.component';
+import { SubCategoryComponent } from '../sub-category/sub-category.component';
+import { SubCategoryAddUpdateComponent } from '../sub-category/sub-category-add-update/sub-category-add-update.component';
+import { StoreComponent } from '../store/store.component';
+import { StoreAddUpdateComponent } from '../store/store-add-update/store-add-update.component';
 
 const pagesRoutes: Routes = [
   {
@@ -27,6 +31,10 @@ const pagesRoutes: Routes = [
             component: CategoryAddUpdateComponent
             // canActivate: [AuthGuard],
             // data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
+          },
+          {
+            path:":id/edit",
+            component: CategoryAddUpdateComponent
           }
           // {
           //     path: ':id',
@@ -50,6 +58,40 @@ const pagesRoutes: Routes = [
           {
             path:":id/edit",
             component: OwnerAddUpdateComponent
+          }
+        ]
+      },
+      {
+        path:"subcategories",
+        children:[
+          {
+            path:"",
+            component: SubCategoryComponent 
+          },
+          {
+            path:"new",
+            component: SubCategoryAddUpdateComponent
+          },
+          {
+            path:":id/edit",
+            component: SubCategoryAddUpdateComponent
+          }
+        ]
+      },
+      {
+        path:"stores",
+        children:[
+          {
+            path:"",
+            component: StoreComponent 
+          },
+          {
+            path:"new",
+            component: StoreAddUpdateComponent
+          },
+          {
+            path:":id/edit",
+            component: StoreAddUpdateComponent
           }
         ]
       }

@@ -8,8 +8,9 @@ namespace Core.Profiles
     {
         public Profiles()
         {
-            CreateMap<Category, CategoryDto>().ReverseMap();
-            CreateMap<CategoryDto, Category>().ReverseMap();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<CategoryDto, Category>();
+            CreateMap<SubCategory, SubCategoryDto>();
             CreateMap<StoreDto, Store>().ReverseMap();
         }
     }

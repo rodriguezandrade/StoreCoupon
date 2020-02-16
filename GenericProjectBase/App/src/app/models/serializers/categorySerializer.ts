@@ -1,4 +1,5 @@
 import { Category } from "../category";
+import { Actions } from 'src/app/utils/guards/enums/actions';
 
 export class CategorySerializer {
   fromJson(json: any): Category {
@@ -10,13 +11,13 @@ export class CategorySerializer {
     return category;
   }
 
-  toJson(category: Category, accion:string): any {
+  toJson(category: Category, accion:Actions): any {
     
-      if (accion == "new") {
+      if (accion == Actions.New) {
         return {
           name : category.name
         };
-      }else if(accion == "edit"){
+      }else if(accion == Actions.Edit){
         return {
           id : category.id,
           name : category.name

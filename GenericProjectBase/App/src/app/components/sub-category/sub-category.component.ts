@@ -1,5 +1,5 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { SubCategory } from 'src/app/models/subcategory';
+import { SubCategoryDto } from 'src/app/models/Dto/subCategoryDto';
 import { SubCategoryService } from 'src/app/services/sub-category.service';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sub-category.component.css']
 })
 export class SubCategoryComponent implements OnInit {
-  subcategories: SubCategory[];
+  subcategories: SubCategoryDto[];
   constructor(private _subCategoryService:SubCategoryService, private _router:Router) { 
     this.fillTable();
   }
@@ -20,10 +20,9 @@ export class SubCategoryComponent implements OnInit {
 }
 
 fillTable(){
-  this._subCategoryService.endpoint="subcategories/get";
-  this._subCategoryService.listWithoutFilter()
+  this._subCategoryService.listWithoutFilter("subcategories/getAll")
   .subscribe(data =>{
-    this.subcategories=data;
+    this.subcategories = data;
     console.log(data);
   });
 }
@@ -34,8 +33,7 @@ onEdit(id: string) {
 
 onDelete(id:string){
   if (confirm("¿Esta seguro que desea eliminar este registro?")){
-    this._subCategoryService.endpoint="subcategories/delete";
-  this._subCategoryService.delete(id).subscribe(res=>{
+  this._subCategoryService.delete(id, "subcategories/delete").subscribe(res=>{
     console.log(res);
   });
   } else {

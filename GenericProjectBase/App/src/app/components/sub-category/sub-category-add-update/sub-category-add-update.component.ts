@@ -3,6 +3,9 @@ import { SubCategoryService } from 'src/app/services/sub-category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SubCategory } from 'src/app/models/subcategory';
+import { Category } from 'src/app/models/category';
+import { CategoryService } from 'src/app/services/category.service';
+import { Actions } from 'src/app/utils/guards/enums/actions';
 
 @Component({
   selector: 'app-sub-category-add-update',
@@ -11,32 +14,37 @@ import { SubCategory } from 'src/app/models/subcategory';
 })
 export class SubCategoryAddUpdateComponent implements OnInit {
   subCategoryForm:FormGroup;
-  action:string;
+  action:Actions;
   subcategories:SubCategory= new SubCategory;
-  constructor(private _subCategoryService:SubCategoryService, private _aroute:ActivatedRoute, private _router:Router) {
+  categories:Category[];
+  constructor(private _subCategoryService:SubCategoryService, private _categoryService:CategoryService, private _aroute:ActivatedRoute, private _router:Router) {
    }
 
   ngOnInit() {
+    this._categoryService.listWithoutFilter("categories/getAll").subscribe(res=>{
+      this.categories = res;
+    });
     this._aroute.paramMap.subscribe(params=>{
     if(params.has("id")){
-      this.action="edit";
+      this.action=Actions.Edit;
       var id = params.get("id");
-      this.getUser(id);
+      this.getSubCategory(id);
     }else{
-      this.action="new";
+      this.action=Actions.New;
       this.subCategoryForm = this.createForm(this.subcategories);
-      
     }
   });
   }
 
-//getUserfromDB
-  getUser(id:string){
-    this._subCategoryService.endpoint="subcategory/get";
-        this._subCategoryService.read(id).subscribe(rest=>{
+//getSubCategoryfromDB
+  getSubCategory(id:string){
+        this._subCategoryService.read(id, "subcategory/get").subscribe(rest=>{  
           this.subcategories = rest;
           this.subCategoryForm = this.createForm(this.subcategories);
+          console.log(this.subCategoryForm);
+          
          });
+
   }
 
   //Create ownerFromGroup
@@ -45,8 +53,7 @@ export class SubCategoryAddUpdateComponent implements OnInit {
             id : new FormControl(subCategory.id),
             name : new FormControl(subCategory.name),
             description : new FormControl(subCategory.description),
-            categoryId : new FormControl(subCategory.categoryId),
-            category : new FormControl(subCategory.category)
+            categoryId : new FormControl(subCategory.idSubCat)
         });
     }
 
@@ -56,24 +63,20 @@ export class SubCategoryAddUpdateComponent implements OnInit {
 }
   //Submit action
   submit(){
-    if (this.action == 'new') {
-        this._subCategoryService.endpoint="subcategory/save"
-        this._subCategoryService.create(this.subCategoryForm.value).subscribe(result=>{
+    if (this.action == Actions.New) {
+        this._subCategoryService.create(this.subCategoryForm.value, "subcategory/save").subscribe(result=>{
           console.log(result);
         });
         this.onResetForm();
         this._router.navigate(['/home/subcategory']);
-    }else if (this.action == 'edit') {
-        this._subCategoryService.endpoint="subcategory/update";
-        this._subCategoryService.update(this.subCategoryForm.value).subscribe(result=>{
+    }else if (this.action == Actions.Edit) {
+        this._subCategoryService.update(this.subCategoryForm.value, "subcategory/update").subscribe(result=>{
           console.log(result);
         }, error => {console.error(error)
                      alert(error)});
         this.onResetForm();
         this._router.navigate(['/home/subcategory']);
     }
-}
-
-
+  }
 }
 

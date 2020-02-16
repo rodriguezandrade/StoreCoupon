@@ -42,18 +42,18 @@ namespace Core.Services
             return await _subCategoryRepository.FindAll();
         }
 
-        public List<SubCategoryDto> GetAll()
+        public List<SubCategoryDetails> GetAll()
         {
-            
             var query = _subCategoryRepositoryWrapper.GetSubCategoriess().ToList();
-            return _mapper.Map<List<SubCategoryDto>>(query);
+            var result = _mapper.Map<List<SubCategoryDetails>>(query);
+            return result;
         }
 
         public async Task<IQueryable<SubCategory>> FindByCondition(Expression<Func<SubCategory, bool>> expression)
         {
             return await _subCategoryRepository.FindByCondition(expression);
         }
-
+        
         public void Update(SubCategory entity)
         {
             _subCategoryRepository.Update(entity);

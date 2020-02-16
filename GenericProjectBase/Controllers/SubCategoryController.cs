@@ -26,7 +26,7 @@ namespace GenericProjectBase.Controllers
 
         [HttpGet]
         [Route("getAll")]
-        public List<SubCategoryDto> GetAll()
+        public List<SubCategoryDetails> GetAll()
         {
             return  _subCategoryService.GetAll();
         }

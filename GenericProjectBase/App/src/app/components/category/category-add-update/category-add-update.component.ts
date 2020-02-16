@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { CategoryService } from "src/app/services/category.service";
 import { Category } from 'src/app/models/category';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Actions } from 'src/app/utils/guards/enums/actions';
 
 @Component({
   selector: "app-category-add-update",
@@ -11,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CategoryAddUpdateComponent implements OnInit {
   categoryForm:FormGroup;
-  action:string;
+  action:Actions;
   category:Category= new Category;
   constructor(private _categoryService:CategoryService, private _aroute:ActivatedRoute, private _router:Router) {
    }
@@ -20,11 +21,11 @@ export class CategoryAddUpdateComponent implements OnInit {
     this._aroute.paramMap.subscribe(params=>{
       console.log(params.has("id"));
     if(params.has("id")){
-      this.action="edit";
+      this.action=Actions.Edit;
       var id = params.get("id");
       this.getCategory(id);
     }else{
-      this.action="new";
+      this.action=Actions.New;
       this.categoryForm = this.createForm(this.category);
       
     }
@@ -33,14 +34,13 @@ export class CategoryAddUpdateComponent implements OnInit {
 
 //getCategoryfromDB
   getCategory(id:string){
-    this._categoryService.endpoint="categories/getById";
-        this._categoryService.read(id).subscribe(rest=>{
+        this._categoryService.read(id, "categories/getById").subscribe(rest=>{
           this.category = rest;
           this.categoryForm = this.createForm(this.category);
          });
   }
 
-  //Create ownerFromGroup
+  //Create FromGroup
   createForm(category:Category){
     return new FormGroup({
       id : new FormControl(category.id),
@@ -54,18 +54,14 @@ export class CategoryAddUpdateComponent implements OnInit {
 }
   //Submit action
   submit(){
-    if (this.action == 'new') {
+    if (this.action == Actions.New) {
         console.log("new ", this.categoryForm.value);
-        this._categoryService.endpoint="categories/save"
-        this._categoryService.create(this.categoryForm.value).subscribe(result=>{
-          console.log(result);
+        this._categoryService.create(this.categoryForm.value, "categories/save").subscribe(result=>{
         });
         this.onResetForm();
         this._router.navigate(['/home/categories']);
-    }else if (this.action == 'edit') {
-        this._categoryService.endpoint="categories/update";
-        this._categoryService.update(this.categoryForm.value).subscribe(result=>{
-          console.log(result);
+    }else if (this.action == Actions.Edit) {
+        this._categoryService.update(this.categoryForm.value, "categories/update").subscribe(result=>{
         }, error => {console.error(error)
                      alert(error)});
         this.onResetForm();

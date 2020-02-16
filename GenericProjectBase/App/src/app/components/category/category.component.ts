@@ -12,19 +12,16 @@ import { Router } from '@angular/router';
 export class CategoryComponent implements OnInit {
   categories:Category[];
   constructor(private _categoryService: CategoryService, private _router:Router) { 
-    this.fillTable();
   }
   queryOptions = new QueryOptions();
   
   ngOnChanges(changes: SimpleChanges): void {
-       
     this.fillTable();
 }
 
 
 fillTable(){
-  this._categoryService.endpoint="categories/getAll";
-  this._categoryService.listWithoutFilter()
+  this._categoryService.listWithoutFilter("categories/getAll")
   .subscribe(data =>{
     this.categories=data;
   });
@@ -35,9 +32,8 @@ onEdit(id: string) {
 }
 
 onDelete(id:string){
-  if (confirm("¿Esta seguro que desea eliminar este registro?")){
-    this._categoryService.endpoint="categories/delete";
-  this._categoryService.delete(id).subscribe(res=>{
+  if (confirm("¿Esta seguro que desea eliminar este registro?")){;
+  this._categoryService.delete(id,"categories/delete").subscribe(res=>{
     console.log(res);
   });
   } else {
@@ -47,7 +43,7 @@ onDelete(id:string){
 
 
   ngOnInit() {
-
+    this.fillTable();
   }
   
 

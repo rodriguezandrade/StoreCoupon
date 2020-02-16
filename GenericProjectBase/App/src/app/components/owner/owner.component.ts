@@ -14,7 +14,6 @@ import { Title } from '@angular/platform-browser';
 export class OwnerComponent implements OnInit {
   owners:Owner[];
   constructor(private _ownerService:OwnerService, private _router:Router) { 
-    this.fillTable();
   }
   queryOptions = new QueryOptions();
   
@@ -25,8 +24,7 @@ export class OwnerComponent implements OnInit {
 
 
 fillTable(){
-  this._ownerService.endpoint="owners/get";
-  this._ownerService.listWithoutFilter()
+  this._ownerService.listWithoutFilter("owners/get")
   .subscribe(data =>{
     this.owners=data;
     console.log(data);
@@ -39,8 +37,7 @@ onEdit(id: string) {
 
 onDelete(id:string){
   if (confirm("¿Esta seguro que desea eliminar este registro?")){
-    this._ownerService.endpoint="owners/delete";
-  this._ownerService.delete(id).subscribe(res=>{
+    this._ownerService.delete(id, "owners/delete").subscribe(res=>{
     console.log(res);
   });
   } else {
@@ -50,7 +47,7 @@ onDelete(id:string){
 
 
   ngOnInit() {
-
+    this.fillTable();
   }
   
 

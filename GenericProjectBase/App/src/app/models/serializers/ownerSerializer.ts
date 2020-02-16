@@ -1,4 +1,5 @@
 import { Owner } from "../owner";
+import { Actions } from 'src/app/utils/guards/enums/actions';
 
 export class OwnerSerializer {
   
@@ -16,8 +17,8 @@ export class OwnerSerializer {
     return owner;
   }
 
-  toJson(owner: Owner, accion:string): any {
-    if (accion == "new") {
+  toJson(owner: Owner, accion:Actions): any {
+    if (accion == Actions.New) {
       return {
         firstName : owner.firstName,
         lastName : owner.lastName,
@@ -26,7 +27,7 @@ export class OwnerSerializer {
         telephone : +owner.telephone,
         rfc : owner.rfc
       };
-    }else if(accion == "edit"){
+    }else if(accion == Actions.Edit){
       
       return {
         id : owner.id,

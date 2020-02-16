@@ -20,6 +20,6 @@ namespace Core.Services.Interfaces
         Task SaveChage();
         Task<SubCategory> DeleteById(Guid Id);
         Task<SubCategory> Modify(SubCategory owner);
-        List<SubCategoryDto> GetAll();
+        List<SubCategoryDetails> GetAll();
     }
 }

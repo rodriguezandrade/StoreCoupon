@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwnerService } from 'src/app/services/owner.service';
 import { Owner } from 'src/app/models/owner';
+import { Actions } from 'src/app/utils/guards/enums/actions';
 
 @Component({
   selector: 'app-owner-add-update',
@@ -11,7 +12,7 @@ import { Owner } from 'src/app/models/owner';
 })
 export class OwnerAddUpdateComponent implements OnInit {
   ownerForm:FormGroup;
-  action:string;
+  action:number;
   owner:Owner= new Owner;
   constructor(private _ownerService:OwnerService, private _aroute:ActivatedRoute, private _router:Router) {
    }
@@ -19,27 +20,29 @@ export class OwnerAddUpdateComponent implements OnInit {
   ngOnInit() {
     this._aroute.paramMap.subscribe(params=>{
     if(params.has("id")){
-      this.action="edit";
+      this.action=Actions.Edit;
+      console.log(this.action);
+      
       var id = params.get("id");
-      this.getUser(id);
+      this.getData(id);
     }else{
-      this.action="new";
+      this.action=Actions.New;
+
       this.ownerForm = this.createForm(this.owner);
       
     }
   });
   }
 
-//getUserfromDB
-  getUser(id:string){
-    this._ownerService.endpoint="owners/get";
-        this._ownerService.read(id).subscribe(rest=>{
+//getDatafromDB
+  getData(id:string){
+        this._ownerService.read(id,"owners/get").subscribe(rest=>{
           this.owner = rest;
           this.ownerForm = this.createForm(this.owner);
          });
   }
 
-  //Create ownerFromGroup
+  //Create FromGroup
   createForm(owner:Owner){
     return new FormGroup({
         id : new FormControl(owner.id),
@@ -58,23 +61,19 @@ export class OwnerAddUpdateComponent implements OnInit {
 }
   //Submit action
   submit(){
-    if (this.action == 'new') {
-        this._ownerService.endpoint="owners/save"
-        this._ownerService.create(this.ownerForm.value).subscribe(result=>{
+    if (this.action == Actions.New) {
+        this._ownerService.create(this.ownerForm.value, "owners/save").subscribe(result=>{
           console.log(result);
         });
         this.onResetForm();
         this._router.navigate(['/home/owners']);
-    }else if (this.action == 'edit') {
-        this._ownerService.endpoint="owners/update";
-        this._ownerService.update(this.ownerForm.value).subscribe(result=>{
+    }else if (this.action == Actions.Edit) {
+        this._ownerService.update(this.ownerForm.value,"owners/update").subscribe(result=>{
           console.log(result);
         }, error => {console.error(error)
                      alert(error)});
         this.onResetForm();
         this._router.navigate(['/home/owners']);
     }
-}
-
-
+  }
 }

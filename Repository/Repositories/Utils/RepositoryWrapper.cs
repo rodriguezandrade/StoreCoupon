@@ -41,7 +41,7 @@ namespace Repository.Repositories.Utils
         /// </summary>
         /// <returns></returns>
         public List<SubCategory>GetSubCategoriess() {
-            return _repositoryContext.SubCategories.Include("category").Select(a => a).ToList();
+            return _repositoryContext.SubCategories.Include(x=>x.Category).ToList();
             
         }
 

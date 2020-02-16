@@ -1,5 +1,5 @@
-import { Owner } from "../owner";
 import { Store } from '../store';
+import { Actions } from 'src/app/utils/guards/enums/actions';
 
 export class StoreSerializer {
   
@@ -18,8 +18,8 @@ export class StoreSerializer {
     return store;
   }
 
-  toJson(store: Store, accion:string): any {
-    if (accion == "new") {
+  toJson(store: Store, accion:Actions): any {
+    if (accion == Actions.New) {
       return {
         name : store.name,
         fiscalName : store.fiscalName,
@@ -29,7 +29,7 @@ export class StoreSerializer {
         rfc : store.rfc,
         subCategoryId : store.subCategoryId
       };
-    }else if(accion == "edit"){
+    }else if(accion == Actions.Edit){
       
       return {
         id : store.id,

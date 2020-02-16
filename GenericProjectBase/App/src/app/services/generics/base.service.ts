@@ -4,57 +4,57 @@ import { map } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Resource } from "../../models/utils/resource";
 import { QueryOptions } from "./query.options";
-import { Input } from '@angular/core';
+import { Actions } from 'src/app/utils/guards/enums/actions';
+
 
 export class BaseService<T extends Resource> {
-  @Input() endpoint:string;
   constructor(
     private httpClient: HttpClient,
     private url: string,
     private serializer: Serializer
   ) {}
 
-  public create(item: T): Observable<T> {
+  public create(item: T, endpoint:string): Observable<T> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type' : 'application/json'
       })};
-      console.log(this.serializer.toJson(item, "new"));
+      console.log(this.serializer.toJson(item, Actions.Edit));
       
     return this.httpClient
-      .post<T>(`${this.url}/${this.endpoint}`, this.serializer.toJson(item, "new"),httpOptions)
+      .post<T>(`${this.url}/${endpoint}`, this.serializer.toJson(item, Actions.New),httpOptions)
       .pipe(map(data => this.serializer.fromJson(data) as T));
   }
 
-  public update(item: T): Observable<T> {
+  public update(item: T, endpoint:string): Observable<T> {
     return this.httpClient
       .put<T>(
-        `${this.url}/${this.endpoint}`,
-        this.serializer.toJson(item, "edit")
+        `${this.url}/${endpoint}`,
+        this.serializer.toJson(item, Actions.Edit)
       )
       .pipe(map(data => this.serializer.fromJson(data) as T));
   }
 
-  read(id: string): Observable<T> {
+  read(id: string, endpoint:string): Observable<T> {
     return this.httpClient
-      .get(`${this.url}/${this.endpoint}/${id}`)
+      .get(`${this.url}/${endpoint}/${id}`)
       .pipe(map((data: any) => this.serializer.fromJson(data) as T));
   }
 
-  list(queryOptions: QueryOptions): Observable<T[]> {
+  list(queryOptions: QueryOptions, endpoint:string): Observable<T[]> {
     return this.httpClient
-      .get(`${this.url}/${this.endpoint}?${queryOptions.toQueryString()}`)
+      .get(`${this.url}/${endpoint}?${queryOptions.toQueryString()}`)
       .pipe(map((data: any) => this.convertData(data.items)));
   }
 
-  listWithoutFilter(): Observable<T[]> {   
+  listWithoutFilter(endpoint:string): Observable<T[]> {   
     return this.httpClient
-    .get(`${this.url}/${this.endpoint}`)
+    .get(`${this.url}/${endpoint}`)
     .pipe(map((data: any) => this.convertData(data)));
 }
 
-  delete(id: string) {
-    return this.httpClient.delete(`${this.url}/${this.endpoint}/${id}`);
+  delete(id: string, endpoint:string) {
+    return this.httpClient.delete(`${this.url}/${endpoint}/${id}`);
   }
 
   private convertData(data: any): T[] {

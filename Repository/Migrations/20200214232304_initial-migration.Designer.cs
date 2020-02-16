@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20200214232304_initial-migration")]
+    partial class initialmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -323,7 +325,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Models.SubCategory", b =>
                 {
-                    b.HasOne("Repository.Models.Category", "Category")
+                    b.HasOne("Repository.Models.Category", "category")
                         .WithMany("SubCategories")
                         .HasForeignKey("IdSubCat")
                         .OnDelete(DeleteBehavior.Cascade)

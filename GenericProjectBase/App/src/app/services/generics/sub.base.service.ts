@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Resource } from 'src/app/models/utils/resource';
 import { Serializer } from 'src/app/models/utils/serializer';
 import { Observable } from 'rxjs';
-import { QueryOptions } from './queryOptions';
+import { QueryOptions } from './query.options';
 import { map } from 'rxjs/operators';
 
 export class SubBaseService<T extends Resource> {
@@ -20,12 +20,12 @@ export class SubBaseService<T extends Resource> {
       .pipe(map((data: any) => this.serializer.fromJson(data) as T));
     }
   
-    public update(item: T): Observable<T> {
-      return this.httpClient
-        .put<T>(`${this.url}/${this.parentEndpoint}/${item.parentId}/${this.endpoint}/${item.id}`,
-          this.serializer.toJson(item))
-        .pipe(map((data: any) => this.serializer.fromJson(data) as T));
-    }
+   // public update(item: T): Observable<T> {
+    //  return this.httpClient
+    //    .put<T>(`${this.url}/${this.parentEndpoint}/${item.parentId}/${this.endpoint}/${item.id}`,
+    //      this.serializer.toJson(item))
+     //   .pipe(map((data: any) => this.serializer.fromJson(data) as T));
+   // }
   
     read(parentId: number, id: number): Observable<T> {
       return this.httpClient

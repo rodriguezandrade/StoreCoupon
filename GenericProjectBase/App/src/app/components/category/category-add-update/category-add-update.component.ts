@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormControl } from "@angular/forms";
 import { CategoryService } from "src/app/services/category.service";
+import { Category } from 'src/app/models/category';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Actions } from 'src/app/utils/guards/enums/actions';
 
 @Component({
   selector: "app-category-add-update",
@@ -8,53 +11,63 @@ import { CategoryService } from "src/app/services/category.service";
   styleUrls: ["./category-add-update.component.css"]
 })
 export class CategoryAddUpdateComponent implements OnInit {
-  myform: FormGroup;
-  actionButton;
-  action = null;
-  myData: any;
-  formData: any;
-
-  constructor(
-    public fb: FormBuilder,
-    public categoryService: CategoryService
-  ) {}
+  categoryForm:FormGroup;
+  action:Actions;
+  category:Category= new Category;
+  constructor(private _categoryService:CategoryService, private _aroute:ActivatedRoute, private _router:Router) {
+   }
 
   ngOnInit() {
-    this.actionButton = "Submit";
-
-    // Build and Validate Reactive form
-    this.myform = this.fb.group({
-      name: ["", Validators.required]
-      // group: this.fb.group({
-      //   item1: ['', Validators.required],
-      //   item2: ['', Validators.required]
-      // })
-    });
-  }
-
-  onFormSubmit(form1, action) {
-    console.log(form1, action, "onsubmit");
-    this.myData = form1;
-    this.formData = Object.assign(form1);
-
-    if (this.action === "update") {
-      this.categoryService.create(this.formData);
-    } else {
-      this.categoryService.update(this.formData);
+    this._aroute.paramMap.subscribe(params=>{
+      console.log(params.has("id"));
+    if(params.has("id")){
+      this.action=Actions.Edit;
+      var id = params.get("id");
+      this.getCategory(id);
+    }else{
+      this.action=Actions.New;
+      this.categoryForm = this.createForm(this.category);
+      
     }
-
-    this.resetForm();
+  });
   }
 
-  editForm(items, index) {
-    this.actionButton = "Edit";
-    this.action = "update";
-    this.myform.setValue({
-      name: items.name
+//getCategoryfromDB
+  getCategory(id:string){
+        this._categoryService.read(id, "categories/getById").subscribe(rest=>{
+          this.category = rest;
+          this.categoryForm = this.createForm(this.category);
+         });
+  }
+
+  //Create FromGroup
+  createForm(category:Category){
+    return new FormGroup({
+      id : new FormControl(category.id),
+      name : new FormControl(category.name)
     });
   }
 
-  resetForm() {
-    this.myform.reset();
-  }
+//reset form
+  onResetForm(){
+    this.categoryForm.reset();
+}
+  //Submit action
+  submit(){
+    if (this.action == Actions.New) {
+        console.log("new ", this.categoryForm.value);
+        this._categoryService.create(this.categoryForm.value, "categories/save").subscribe(result=>{
+        });
+        this.onResetForm();
+        this._router.navigate(['/home/categories']);
+    }else if (this.action == Actions.Edit) {
+        this._categoryService.update(this.categoryForm.value, "categories/update").subscribe(result=>{
+        }, error => {console.error(error)
+                     alert(error)});
+        this.onResetForm();
+        this._router.navigate(['/home/categories']);
+    }
+}
+
+
 }

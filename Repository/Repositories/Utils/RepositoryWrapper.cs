@@ -1,5 +1,9 @@
-﻿using Repository.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Data;
+using Repository.Models;
 using Repository.Repositories.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Repository.Repositories.Utils
 {
@@ -32,7 +36,14 @@ namespace Repository.Repositories.Utils
             _repositoryContext = repositoryContext;
         }
 
-
+        /// <summary>
+        /// Get the Sub catgories
+        /// </summary>
+        /// <returns></returns>
+        public List<SubCategory>GetSubCategoriess() {
+            return _repositoryContext.SubCategories.Include(x=>x.Category).ToList();
+            
+        }
 
         public void save()
         {

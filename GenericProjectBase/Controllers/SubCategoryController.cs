@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Services.Interfaces;
@@ -25,9 +26,9 @@ namespace GenericProjectBase.Controllers
 
         [HttpGet]
         [Route("getAll")]
-        public async Task<IQueryable<SubCategoryDto>> GetAll()
+        public List<SubCategoryDetails> GetAll()
         {
-            return await _subCategoryService.GetAll();
+            return  _subCategoryService.GetAll();
         }
 
         [HttpGet]

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class InitialMigrationModelContex : Migration
+    public partial class initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,14 +72,14 @@ namespace Repository.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 60, nullable: false),
                     Description = table.Column<string>(maxLength: 120, nullable: false),
-                    CategoryId = table.Column<Guid>(nullable: false)
+                    IdSubCat = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SubCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubCategories_Categories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_SubCategories_Categories_IdSubCat",
+                        column: x => x.IdSubCat,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -212,9 +212,9 @@ namespace Repository.Migrations
                 column: "SubCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubCategories_CategoryId",
+                name: "IX_SubCategories_IdSubCat",
                 table: "SubCategories",
-                column: "CategoryId");
+                column: "IdSubCat");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

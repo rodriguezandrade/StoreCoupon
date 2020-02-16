@@ -7,6 +7,5 @@ namespace Repository.Repositories.Interfaces
 {
     public interface ISubCategoryRepository : IRepositoryBase<SubCategory>
     {
-        Task<IQueryable<SubCategoryDto>> Get();
     }
 }

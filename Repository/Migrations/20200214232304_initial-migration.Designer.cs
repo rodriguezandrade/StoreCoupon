@@ -10,8 +10,8 @@ using Repository.Data;
 namespace Repository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20200112165537_InitialMigrationModelContex")]
-    partial class InitialMigrationModelContex
+    [Migration("20200214232304_initial-migration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,13 +221,13 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(120)")
                         .HasMaxLength(120);
+
+                    b.Property<Guid>("IdSubCat")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -236,7 +236,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("IdSubCat");
 
                     b.ToTable("SubCategories");
                 });
@@ -325,9 +325,9 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Models.SubCategory", b =>
                 {
-                    b.HasOne("Repository.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("Repository.Models.Category", "category")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("IdSubCat")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

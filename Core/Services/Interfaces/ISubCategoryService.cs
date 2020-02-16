@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Repository.Models.Dtos;
+using System.Collections.Generic;
 
 namespace Core.Services.Interfaces
 {
@@ -19,6 +20,6 @@ namespace Core.Services.Interfaces
         Task SaveChage();
         Task<SubCategory> DeleteById(Guid Id);
         Task<SubCategory> Modify(SubCategory owner);
-        Task<IQueryable<SubCategoryDto>> GetAll();
+        List<SubCategoryDetails> GetAll();
     }
 }

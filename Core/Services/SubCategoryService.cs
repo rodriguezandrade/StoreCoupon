@@ -6,16 +6,24 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Repository.Models.Dtos;
+using Repository.Repositories.Utils;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace Core.Services
 {
     public class SubCategoryService : ISubCategoryService
     {
         private readonly ISubCategoryRepository _subCategoryRepository;
+        private readonly IRepositoryWrapper _subCategoryRepositoryWrapper;
+        private readonly IMapper _mapper;
 
-        public SubCategoryService(ISubCategoryRepository subCategoryRepository)
+
+        public SubCategoryService(ISubCategoryRepository subCategoryRepository, IMapper mapper, IRepositoryWrapper subCategoryRepositoryWrapper)
         {
             _subCategoryRepository = subCategoryRepository;
+            _mapper = mapper;
+            _subCategoryRepositoryWrapper = subCategoryRepositoryWrapper;
         }
 
         public void Create(SubCategory entity)
@@ -34,17 +42,18 @@ namespace Core.Services
             return await _subCategoryRepository.FindAll();
         }
 
-        public async Task<IQueryable<SubCategoryDto>> GetAll() {
-            return await _subCategoryRepository.Get();
+        public List<SubCategoryDetails> GetAll()
+        {
+            var query = _subCategoryRepositoryWrapper.GetSubCategoriess().ToList();
+            var result = _mapper.Map<List<SubCategoryDetails>>(query);
+            return result;
         }
-
-    
 
         public async Task<IQueryable<SubCategory>> FindByCondition(Expression<Func<SubCategory, bool>> expression)
         {
             return await _subCategoryRepository.FindByCondition(expression);
         }
-
+        
         public void Update(SubCategory entity)
         {
             _subCategoryRepository.Update(entity);

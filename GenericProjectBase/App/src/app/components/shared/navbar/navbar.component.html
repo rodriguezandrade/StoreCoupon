@@ -1,24 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Cuponera</a>
-    
+  <a class="navbar-brand" href="#">Cuponera</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <div class="container">
           <ul class="nav page-navigation">
             <li class="nav-item" [routerLinkActive]="['active']">
-              <a class="nav-link " [routerLink]="['./owners']">
-                <span class="menu-title">Propietarios</span>
-              </a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']">
-              <a class="nav-link " [routerLink]="['/stores']">
-                <i class="mdi mdi-airplay menu-icon"></i>
-                <span class="menu-title">Tiendas</span>
+              <a class="nav-link " [routerLink]="['./subcategories']">
+                <span class="menu-title">SubCategorias</span>
               </a>
             </li>
             <li class="nav-item" [routerLinkActive]="['active']">
               <a [routerLink]="['./categories']" class="nav-link "> 
                 <span class="menu-title custonAlingName">Categorias</span>
+              </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+              <a class="nav-link " [routerLink]="['./owners']">
+                <span class="menu-title">Propietarios</span>
               </a>
             </li>
             <li class="nav-item" [routerLinkActive]="['active']">

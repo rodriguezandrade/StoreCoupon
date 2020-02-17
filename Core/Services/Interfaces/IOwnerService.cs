@@ -4,6 +4,7 @@ using Repository.Models;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Core.Services.Interfaces
 {
@@ -11,9 +12,11 @@ namespace Core.Services.Interfaces
     {
         void Create(Owner entity);
         void Delete(Owner entity);
-        IQueryable<Owner> FindAll();
-        IQueryable<Owner> FindByCondition(Expression<Func<Owner, bool>> expression);
+        Task<IQueryable<Owner>> FindAll();
+        Task <IQueryable<Owner>> FindByCondition(Expression<Func<Owner, bool>> expression);
         void Update(Owner entity);
-        void SaveChage();
+        Task SaveChage();
+        Task<Owner> DeleteById(Guid Id);
+        Task<Owner> Modify(Owner owner);
     }
 }

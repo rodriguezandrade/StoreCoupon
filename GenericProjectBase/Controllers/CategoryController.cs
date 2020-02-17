@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models;
@@ -17,9 +18,9 @@ namespace GenericProjectBase.Controllers
         }
 
         [Route("getAll")]
-        public IQueryable<Category> Get()
+        public async Task<IQueryable<Category>> Get()
         {
-            return _categoryService.GetAll();
+            return await _categoryService.GetAll();
         } 
 
         [Route("save")]
@@ -29,18 +30,25 @@ namespace GenericProjectBase.Controllers
             return _categoryService.Save(category);
         }
 
-        [Route("delete")]
+        [Route("delete/{id}")]
         [HttpDelete]
-        public Category DeleteByName([FromQuery] string name)
+        public async Task<Category> DeleteByName(Guid Id)
         {
-            return _categoryService.DeleteByName(name);
+            return await _categoryService.DeleteById(Id);
         }
 
-        [Route("getById")]
+        [Route("getById/{id}")]
         [HttpGet]
-        public Category GetById([FromQuery] Guid id)
+        public async Task<Category> GetById(Guid id)
         { 
-            return _categoryService.GetById(id);
+            return await _categoryService.GetById(id);
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<Category> Update([FromBody]Category category)
+        {
+            return await _categoryService.Update(category);
         }
     }
 }

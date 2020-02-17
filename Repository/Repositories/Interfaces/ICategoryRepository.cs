@@ -1,15 +1,17 @@
 ﻿using Repository.Models;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Repository.Repositories.Interfaces
 {
     public interface ICategoryRepository : IRepositoryBase<Category>
     {
-        IQueryable<Category> GetAll();
+        Task<IQueryable<Category>> GetAll();
         Category Save(Category model);
-        Category DeleteByName(string name);
-        Category Modify(Category model);
-        Category GetById(Guid id);
+        Task<Category> DeleteById(Guid Id);
+        Task<Category> Modify(Category model);
+        Task<Category> GetById(Guid id);
+        Task<IQueryable> GetCategories();
     }
 }

@@ -10,12 +10,14 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { PagesModule } from './components/shared/pages.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     PagesComponent,
     NavbarComponent,
     FooterComponent
+    
   ],
   imports: [
     APP_ROUTES,

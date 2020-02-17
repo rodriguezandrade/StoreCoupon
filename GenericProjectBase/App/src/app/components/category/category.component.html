@@ -1,30 +1,20 @@
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
+<h1>Categorias</h1>
+    <button type="button" class="btn btn-success" [routerLink]="['./new']"> <strong>+</strong> Agregar Categoria</button><br>
+<table class="table table-light">
+  <thead class="thead-light">
+    <tr>
+      <th>#</th>
+      <th>ID</th>
+      <th>NOMBRES</th>
+      <th>ACCIONES</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of categories; let indice=index">
+      <td>{{indice+1}}</td>
+      <td>{{category.id}}</td>
+      <td>{{category.name}}</td>
+      <td><button (click)="onEdit(category.id)" class="btn btn-warning">Editar</button>|<button (click)="onDelete(category.id)" class="btn btn-danger" >Borrar</button></td>
+    </tr>
+  </tbody>
+</table>

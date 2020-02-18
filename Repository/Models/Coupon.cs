@@ -7,7 +7,7 @@ using System.Text;
 namespace Repository.Models
 {
     public class Coupon
-    {
+    { 
         [Key]
         public Guid Id { get; set; }
         [Required(ErrorMessage ="Name is required")]
@@ -15,5 +15,10 @@ namespace Repository.Models
         public string Name { get; set; }
         [Required(ErrorMessage ="Status is required")]
         public string Status { get; set; }
+        [Required(ErrorMessage = "Foreignkey is required")]
+        [ForeignKey("FkProd")]
+        public Guid IdProduct { get; set; }
+        public Product FkProd { get; set; }
+        public virtual ICollection<CouponBook> CouponBooks { get; set; }
     }
 }

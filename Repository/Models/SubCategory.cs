@@ -9,7 +9,7 @@ namespace Repository.Models
     public class SubCategory
     {
       
-        [Key]
+        [Key] 
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Name is required")]
         [MaxLength (60, ErrorMessage = "Name can't be longer than 60 characters")]
@@ -22,6 +22,7 @@ namespace Repository.Models
         public Guid IdSubCat { get; set; }
         public Category Category { get; set; }
 
+        public virtual ICollection<Store> Stores { get; set; }
     }
 
 }

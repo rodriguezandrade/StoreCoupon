@@ -6,7 +6,7 @@ namespace Repository.Models
 {
     public class Owner
     {
-        [Key]
+        [Key] 
         public Guid Id { get; set; }
         [Required(ErrorMessage ="FirstName is required")]
         [MaxLength(40, ErrorMessage ="FirstName can't be longer than 40 characters")]
@@ -26,5 +26,7 @@ namespace Repository.Models
         [MinLength(13, ErrorMessage = "RFC needs 13 characters in length")]
         [MaxLength(13, ErrorMessage = "RFC needs 13 characters in length")]
         public string RFC { get; set; }
+
+        public virtual ICollection<Store> Stores { get; set; }
     }
 }

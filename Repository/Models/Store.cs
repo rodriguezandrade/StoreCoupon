@@ -28,9 +28,13 @@ namespace Repository.Models
         [MaxLength(12, ErrorMessage = "RFC needs 12 characters in length")]
         public string RFC { get; set; }
         [Required(ErrorMessage = "Foreignkey is required")]
-        [ForeignKey("SubStore")]
+        [ForeignKey("SubCategory")]
         public Guid SubCategoryId  { get; set; }
-        public virtual SubCategory SubCategory { get; set; }
+        public SubCategory SubCategory { get; set; } 
+        [ForeignKey("Owner")]
+        public Guid IdOwner { get; set; }
+        public Owner Owner { get; set; }
+        public virtual ICollection<SubCategoryStore> SubCategoryStores { get; set; }
 
     }
 }

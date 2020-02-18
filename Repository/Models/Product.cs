@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Repository.Models
 {
     public class Product
-    {
+    { 
         [Key]
         public Guid Id { get; set; }
         [Required(ErrorMessage ="Name is required")]
@@ -17,10 +17,7 @@ namespace Repository.Models
         public string Description { get; set; }
         [Required(ErrorMessage ="Price is required")]
         public int Price { get; set; }
-        [Required(ErrorMessage = "Foreignkey is required")]
-        [ForeignKey("StoreProduct")]
-        public Guid StoreId { get; set; }
-        public virtual Store Store { get; set; }
-
+        public virtual ICollection<SubCategory_Product> SubCategoryProducts { get; set; }
+        public virtual ICollection<Coupon> Coupons { get; set; }
     }
 }

@@ -18,35 +18,35 @@ namespace GenericProjectBase.Controllers
         }
 
         [Route("getAll")]
-        public async Task<IQueryable<Category>> Get()
+        public async Task<IQueryable<GeneralCategory>> Get()
         {
             return await _categoryService.GetAll();
         } 
 
         [Route("save")]
         [HttpPost]
-        public Category Save([FromBody] Category category)
+        public GeneralCategory Save([FromBody] GeneralCategory category)
         {
             return _categoryService.Save(category);
         }
 
         [Route("delete/{id}")]
         [HttpDelete]
-        public async Task<Category> DeleteByName(Guid Id)
+        public async Task<GeneralCategory> DeleteByName(Guid Id)
         {
             return await _categoryService.DeleteById(Id);
         }
 
         [Route("getById/{id}")]
         [HttpGet]
-        public async Task<Category> GetById(Guid id)
+        public async Task<GeneralCategory> GetById(Guid id)
         { 
             return await _categoryService.GetById(id);
         }
 
         [HttpPut]
         [Route("update")]
-        public async Task<Category> Update([FromBody]Category category)
+        public async Task<GeneralCategory> Update([FromBody]GeneralCategory category)
         {
             return await _categoryService.Update(category);
         }

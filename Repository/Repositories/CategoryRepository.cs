@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
-    public class CategoryRepository : RepositoryBase<Category>, ICategoryRepository
+    public class CategoryRepository : RepositoryBase<GeneralCategory>, ICategoryRepository
     {
         private IRepositoryWrapper _repositoryWrapper;
         private RepositoryContext _repositoyContex;
@@ -25,12 +25,12 @@ namespace Repository.Repositories
             _repositoyContex = repositoryContext;
         }
 
-        public async Task<IQueryable<Category>> GetAll()
+        public async Task<IQueryable<GeneralCategory>> GetAll()
         {
             return await _repositoryWrapper.Category.FindAll();
         }
 
-        public Category Save(Category model)
+        public GeneralCategory Save(GeneralCategory model)
         {
             _repositoryWrapper.Category.Create(model);
             _repositoryWrapper.save();
@@ -40,13 +40,13 @@ namespace Repository.Repositories
 
         public async Task<IQueryable> GetCategories()
         {
-            List<Category> categories = new List<Category>();
-            categories = await this.RepositoryContext.Set<Category>().AsNoTracking().ToListAsync();
+            List<GeneralCategory> categories = new List<GeneralCategory>();
+            categories = await this.RepositoryContext.Set<GeneralCategory>().AsNoTracking().ToListAsync();
             var query = from cat in categories select new { cat.Name , cat.Id};
             return query.AsQueryable();
         }
 
-        public async Task<Category> DeleteById(Guid Id)
+        public async Task<GeneralCategory> DeleteById(Guid Id)
         {
             var modelToEliminate = await _repositoryWrapper.Category
                                      .FindByCondition(x => x.Id == Id);
@@ -55,7 +55,7 @@ namespace Repository.Repositories
             return modelToEliminate.FirstOrDefault();
         }
 
-        public async Task<Category> Modify(Category model)
+        public async Task<GeneralCategory> Modify(GeneralCategory model)
         {
             var entity = await _repositoryWrapper.Category.FindByCondition(item => item.Id == model.Id);
             entity.FirstOrDefault().Name = model.Name;
@@ -64,7 +64,7 @@ namespace Repository.Repositories
             return model;
         }
 
-        public async Task<Category> GetById(Guid id)
+        public async Task<GeneralCategory> GetById(Guid id)
         {
             var query= await _repositoryWrapper.Category.FindByCondition(item => item.Id == id);
             return query.FirstOrDefault();

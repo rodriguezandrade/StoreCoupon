@@ -8,11 +8,11 @@ namespace Core.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Task<IQueryable<Category>> GetAll();
-        Category Save(Category category);
-        Task<Category> DeleteById(Guid Id);
-        Task<Category> Update(Category model);
-        Task<Category> GetById(Guid id);
+        Task<IQueryable<GeneralCategory>> GetAll();
+        GeneralCategory Save(GeneralCategory category);
+        Task<GeneralCategory> DeleteById(Guid Id);
+        Task<GeneralCategory> Update(GeneralCategory model);
+        Task<GeneralCategory> GetById(Guid id);
         Task<IQueryable> GetCategories();
     }
 }

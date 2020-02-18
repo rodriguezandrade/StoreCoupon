@@ -15,7 +15,7 @@ namespace Core.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<IQueryable<Category>> GetAll()
+        public async Task<IQueryable<GeneralCategory>> GetAll()
         { 
             return await _categoryRepository.FindAll();
         }
@@ -25,22 +25,22 @@ namespace Core.Services
         }
 
 
-        public Category Save(Category category)
+        public GeneralCategory Save(GeneralCategory category)
         {
              return _categoryRepository.Save(category);
         }
 
-        public async Task<Category> DeleteById(Guid Id)
+        public async Task<GeneralCategory> DeleteById(Guid Id)
         { 
             return await _categoryRepository.DeleteById(Id);
         }
 
-        public async Task<Category> Update(Category model)
+        public async Task<GeneralCategory> Update(GeneralCategory model)
         {
             return await _categoryRepository.Modify(model);
         }
 
-        public async Task<Category> GetById(Guid id)
+        public async Task<GeneralCategory> GetById(Guid id)
         {
             return await _categoryRepository.GetById(id);
         }

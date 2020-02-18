@@ -21,7 +21,7 @@ namespace Repository.Models
         [MaxLength(40, ErrorMessage = "Email can't be longer than 40 characters")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Telephone is required")]
-        public int Telephone { get; set; } 
+        public int Telephone { get; set; }  
 
         public virtual ICollection<CouponBook> CouponBooks { get; set; }
     }

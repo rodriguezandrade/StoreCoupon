@@ -8,8 +8,8 @@ namespace Core.Profiles
     {
         public Profiles()
         {
-            CreateMap<Category, CategoryDto>();
-            CreateMap<CategoryDto, Category>();
+            CreateMap<GeneralCategory, CategoryDto>();
+            CreateMap<CategoryDto, GeneralCategory>();
             CreateMap<SubCategory, SubCategoryDetails>().ForMember(s=>s.CategoryName, c=>c.MapFrom(cat=>cat.Category.Name));
             CreateMap<StoreDto, Store>().ReverseMap();
         }

@@ -14,7 +14,7 @@ namespace Repository.Models
         public User FkUser { get; set; }
         [Required(ErrorMessage = "Foreignkey is required")]
         [ForeignKey("FkCoup")]
-        public Guid IdCoupon { get; set; }
+        public Guid IdCoupon { get; set; } 
         public Coupon FkCoup { get; set; }
         [Required]
         public string Status { get; set; } 

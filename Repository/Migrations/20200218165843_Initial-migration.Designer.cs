@@ -10,8 +10,8 @@ using Repository.Data;
 namespace Repository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20200218005831_initial-migration")]
-    partial class initialmigration
+    [Migration("20200218165843_Initial-migration")]
+    partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace Repository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Repository.Models.Category", b =>
+            modelBuilder.Entity("Repository.Models.CategoryStore", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,9 +32,40 @@ namespace Repository.Migrations
                         .HasColumnType("nvarchar(60)")
                         .HasMaxLength(60);
 
+                    b.Property<Guid?>("StoreId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("CategoriesStore");
+                });
+
+            modelBuilder.Entity("Repository.Models.Category_Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdProduct")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdStoreCategory")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(60)")
+                        .HasMaxLength(60);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdProduct");
+
+                    b.HasIndex("IdStoreCategory");
+
+                    b.ToTable("Categories_Products");
                 });
 
             modelBuilder.Entity("Repository.Models.Coupon", b =>
@@ -42,6 +73,9 @@ namespace Repository.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Discount")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("IdProduct")
                         .HasColumnType("uniqueidentifier");
@@ -85,6 +119,22 @@ namespace Repository.Migrations
                     b.HasIndex("IdUser");
 
                     b.ToTable("CouponBooks");
+                });
+
+            modelBuilder.Entity("Repository.Models.GeneralCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(60)")
+                        .HasMaxLength(60);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("General_Categories");
                 });
 
             modelBuilder.Entity("Repository.Models.Owner", b =>
@@ -199,16 +249,16 @@ namespace Repository.Migrations
                     b.ToTable("Stores");
                 });
 
-            modelBuilder.Entity("Repository.Models.Store_SubCategoryStore", b =>
+            modelBuilder.Entity("Repository.Models.Store_Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdStore")
+                    b.Property<Guid>("IdCategoryStore")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdSubCategoryStore")
+                    b.Property<Guid>("IdStore")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -218,11 +268,11 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdCategoryStore");
+
                     b.HasIndex("IdStore");
 
-                    b.HasIndex("IdSubCategoryStore");
-
-                    b.ToTable("Stores_SubCategoryStores");
+                    b.ToTable("Stores_Categories");
                 });
 
             modelBuilder.Entity("Repository.Models.SubCategory", b =>
@@ -249,53 +299,6 @@ namespace Repository.Migrations
                     b.HasIndex("IdSubCat");
 
                     b.ToTable("SubCategories");
-                });
-
-            modelBuilder.Entity("Repository.Models.SubCategoryStore", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdStore")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(60)")
-                        .HasMaxLength(60);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdStore");
-
-                    b.ToTable("SubCategoryStores");
-                });
-
-            modelBuilder.Entity("Repository.Models.SubCategory_Product", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdProduct")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdSubCategoryStore")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(60)")
-                        .HasMaxLength(60);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdProduct");
-
-                    b.HasIndex("IdSubCategoryStore");
-
-                    b.ToTable("SubCategory_Products");
                 });
 
             modelBuilder.Entity("Repository.Models.User", b =>
@@ -330,6 +333,28 @@ namespace Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Repository.Models.CategoryStore", b =>
+                {
+                    b.HasOne("Repository.Models.Store", null)
+                        .WithMany("SubCategoryStores")
+                        .HasForeignKey("StoreId");
+                });
+
+            modelBuilder.Entity("Repository.Models.Category_Product", b =>
+                {
+                    b.HasOne("Repository.Models.Product", "FkProduct")
+                        .WithMany("SubCategoryProducts")
+                        .HasForeignKey("IdProduct")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Repository.Models.Store_Category", "FkStoreCategory")
+                        .WithMany("CategoryProducts")
+                        .HasForeignKey("IdStoreCategory")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Repository.Models.Coupon", b =>
@@ -371,50 +396,26 @@ namespace Repository.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Repository.Models.Store_SubCategoryStore", b =>
+            modelBuilder.Entity("Repository.Models.Store_Category", b =>
                 {
-                    b.HasOne("Repository.Models.Store", "FkStore")
-                        .WithMany()
-                        .HasForeignKey("IdStore")
+                    b.HasOne("Repository.Models.CategoryStore", "FkCategoryStores")
+                        .WithMany("Store_SubCategoryStores")
+                        .HasForeignKey("IdCategoryStore")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Repository.Models.SubCategoryStore", "FkSubCategoryStores")
-                        .WithMany("Store_SubCategoryStores")
-                        .HasForeignKey("IdSubCategoryStore")
+                    b.HasOne("Repository.Models.Store", "FkStore")
+                        .WithMany()
+                        .HasForeignKey("IdStore")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Repository.Models.SubCategory", b =>
                 {
-                    b.HasOne("Repository.Models.Category", "Category")
+                    b.HasOne("Repository.Models.GeneralCategory", "Category")
                         .WithMany("SubCategories")
                         .HasForeignKey("IdSubCat")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Repository.Models.SubCategoryStore", b =>
-                {
-                    b.HasOne("Repository.Models.Store", "FkStores")
-                        .WithMany("SubCategoryStores")
-                        .HasForeignKey("IdStore")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Repository.Models.SubCategory_Product", b =>
-                {
-                    b.HasOne("Repository.Models.Product", "FkProduct")
-                        .WithMany("SubCategoryProducts")
-                        .HasForeignKey("IdProduct")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Repository.Models.SubCategoryStore", "FkSubCategoryStore")
-                        .WithMany("SubCategory_Products")
-                        .HasForeignKey("IdSubCategoryStore")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

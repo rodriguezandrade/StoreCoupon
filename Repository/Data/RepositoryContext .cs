@@ -10,7 +10,7 @@ namespace Repository.Data
         {
         }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<GeneralCategory> General_Categories { get; set; }
         public DbSet<Coupon> Coupons { get; set; }
         public DbSet<CouponBook> CouponBooks { get; set; }
         public DbSet<Owner> Owners { get; set; }
@@ -18,9 +18,9 @@ namespace Repository.Data
         public DbSet<Store> Stores { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<SubCategoryStore> SubCategoryStores { get; set; }
-        public DbSet<Store_SubCategoryStore> Stores_SubCategoryStores { get; set; }
-        public DbSet<SubCategory_Product> SubCategory_Products { get; set; }
+        public DbSet<CategoryStore> CategoriesStore { get; set; }
+        public DbSet<Store_Category> Stores_Categories { get; set; }
+        public DbSet<Category_Product> Categories_Products { get; set; }
 
     }
 }

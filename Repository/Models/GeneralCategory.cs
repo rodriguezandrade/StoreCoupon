@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Repository.Models
 {
-    public class Category
+    public class GeneralCategory
     {
         public Guid Id { get; set; }
 
@@ -14,3 +14,4 @@ namespace Repository.Models
         public virtual ICollection<SubCategory> SubCategories { get; set; }
     }
 }
+  

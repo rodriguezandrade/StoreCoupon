@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Repository.Models
 {
-    public class Store_SubCategoryStore
+    public class Store_Category
     {
         [Key]
         public Guid Id { get; set; }
@@ -18,10 +18,11 @@ namespace Repository.Models
         public Guid IdStore { get; set; }
         public Store FkStore { get; set; }
         [Required(ErrorMessage = "Foreignkey is required")]
-        [ForeignKey("FkSubCategoryStores")]
-        public Guid IdSubCategoryStore { get; set; }
-        public SubCategoryStore FkSubCategoryStores { get; set; }
+        [ForeignKey("FkCategoryStores")] 
+        public Guid IdCategoryStore { get; set; }
+        public CategoryStore FkCategoryStores { get; set; }
 
+        public virtual ICollection<Category_Product> CategoryProducts{ get; set; }
 
     }
 }

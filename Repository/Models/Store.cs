@@ -29,12 +29,12 @@ namespace Repository.Models
         public string RFC { get; set; }
         [Required(ErrorMessage = "Foreignkey is required")]
         [ForeignKey("SubCategory")]
-        public Guid SubCategoryId  { get; set; }
+        public Guid SubCategoryId  { get; set; } 
         public SubCategory SubCategory { get; set; } 
         [ForeignKey("Owner")]
         public Guid IdOwner { get; set; }
         public Owner Owner { get; set; }
-        public virtual ICollection<SubCategoryStore> SubCategoryStores { get; set; }
+        public virtual ICollection<CategoryStore> SubCategoryStores { get; set; }
 
     }
 }

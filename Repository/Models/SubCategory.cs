@@ -20,7 +20,7 @@ namespace Repository.Models
         [Required(ErrorMessage = "Foreignkey is required")]
         [ForeignKey("Category")]
         public Guid IdSubCat { get; set; }
-        public Category Category { get; set; }
+        public GeneralCategory Category { get; set; }  
 
         public virtual ICollection<Store> Stores { get; set; }
     }

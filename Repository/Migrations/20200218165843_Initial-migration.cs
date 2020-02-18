@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class initialmigration : Migration
+    public partial class Initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "General_Categories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -16,7 +16,7 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_General_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,9 +79,9 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_SubCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubCategories_Categories_IdSubCat",
+                        name: "FK_SubCategories_General_Categories_IdSubCat",
                         column: x => x.IdSubCat,
-                        principalTable: "Categories",
+                        principalTable: "General_Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -93,6 +93,7 @@ namespace Repository.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 30, nullable: false),
                     Status = table.Column<string>(nullable: false),
+                    Discount = table.Column<int>(nullable: false),
                     IdProduct = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -164,18 +165,44 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubCategoryStores",
+                name: "CategoriesStore",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 60, nullable: false),
-                    IdStore = table.Column<Guid>(nullable: false)
+                    StoreId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubCategoryStores", x => x.Id);
+                    table.PrimaryKey("PK_CategoriesStore", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubCategoryStores_Stores_IdStore",
+                        name: "FK_CategoriesStore_Stores_StoreId",
+                        column: x => x.StoreId,
+                        principalTable: "Stores",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stores_Categories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 60, nullable: false),
+                    IdStore = table.Column<Guid>(nullable: false),
+                    IdCategoryStore = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stores_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Stores_Categories_CategoriesStore_IdCategoryStore",
+                        column: x => x.IdCategoryStore,
+                        principalTable: "CategoriesStore",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Stores_Categories_Stores_IdStore",
                         column: x => x.IdStore,
                         principalTable: "Stores",
                         principalColumn: "Id",
@@ -183,56 +210,45 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Stores_SubCategoryStores",
+                name: "Categories_Products",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 60, nullable: false),
-                    IdStore = table.Column<Guid>(nullable: false),
-                    IdSubCategoryStore = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stores_SubCategoryStores", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Stores_SubCategoryStores_Stores_IdStore",
-                        column: x => x.IdStore,
-                        principalTable: "Stores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Stores_SubCategoryStores_SubCategoryStores_IdSubCategoryStore",
-                        column: x => x.IdSubCategoryStore,
-                        principalTable: "SubCategoryStores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SubCategory_Products",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 60, nullable: false),
-                    IdSubCategoryStore = table.Column<Guid>(nullable: false),
+                    IdStoreCategory = table.Column<Guid>(nullable: false),
                     IdProduct = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubCategory_Products", x => x.Id);
+                    table.PrimaryKey("PK_Categories_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubCategory_Products_Products_IdProduct",
+                        name: "FK_Categories_Products_Products_IdProduct",
                         column: x => x.IdProduct,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SubCategory_Products_SubCategoryStores_IdSubCategoryStore",
-                        column: x => x.IdSubCategoryStore,
-                        principalTable: "SubCategoryStores",
+                        name: "FK_Categories_Products_Stores_Categories_IdStoreCategory",
+                        column: x => x.IdStoreCategory,
+                        principalTable: "Stores_Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_Products_IdProduct",
+                table: "Categories_Products",
+                column: "IdProduct");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_Products_IdStoreCategory",
+                table: "Categories_Products",
+                column: "IdStoreCategory");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoriesStore_StoreId",
+                table: "CategoriesStore",
+                column: "StoreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CouponBooks_IdCoupon",
@@ -260,46 +276,31 @@ namespace Repository.Migrations
                 column: "SubCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stores_SubCategoryStores_IdStore",
-                table: "Stores_SubCategoryStores",
-                column: "IdStore");
+                name: "IX_Stores_Categories_IdCategoryStore",
+                table: "Stores_Categories",
+                column: "IdCategoryStore");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stores_SubCategoryStores_IdSubCategoryStore",
-                table: "Stores_SubCategoryStores",
-                column: "IdSubCategoryStore");
+                name: "IX_Stores_Categories_IdStore",
+                table: "Stores_Categories",
+                column: "IdStore");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubCategories_IdSubCat",
                 table: "SubCategories",
                 column: "IdSubCat");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubCategory_Products_IdProduct",
-                table: "SubCategory_Products",
-                column: "IdProduct");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubCategory_Products_IdSubCategoryStore",
-                table: "SubCategory_Products",
-                column: "IdSubCategoryStore");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubCategoryStores_IdStore",
-                table: "SubCategoryStores",
-                column: "IdStore");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Categories_Products");
+
+            migrationBuilder.DropTable(
                 name: "CouponBooks");
 
             migrationBuilder.DropTable(
-                name: "Stores_SubCategoryStores");
-
-            migrationBuilder.DropTable(
-                name: "SubCategory_Products");
+                name: "Stores_Categories");
 
             migrationBuilder.DropTable(
                 name: "Coupons");
@@ -308,7 +309,7 @@ namespace Repository.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "SubCategoryStores");
+                name: "CategoriesStore");
 
             migrationBuilder.DropTable(
                 name: "Products");
@@ -323,7 +324,7 @@ namespace Repository.Migrations
                 name: "SubCategories");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "General_Categories");
         }
     }
 }

@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace Repository.Repositories.Interfaces
 {
-    public interface ICategoryRepository : IRepositoryBase<Category>
+    public interface ICategoryRepository : IRepositoryBase<GeneralCategory>
     {
-        Task<IQueryable<Category>> GetAll();
-        Category Save(Category model);
-        Task<Category> DeleteById(Guid Id);
-        Task<Category> Modify(Category model);
-        Task<Category> GetById(Guid id);
+        Task<IQueryable<GeneralCategory>> GetAll();
+        GeneralCategory Save(GeneralCategory model);
+        Task<GeneralCategory> DeleteById(Guid Id);
+        Task<GeneralCategory> Modify(GeneralCategory model);
+        Task<GeneralCategory> GetById(Guid id);
         Task<IQueryable> GetCategories();
     }
 }

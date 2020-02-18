@@ -14,7 +14,9 @@ namespace Repository.Models
         [MaxLength(30, ErrorMessage ="Name can't be longer than 30 digits")]
         public string Name { get; set; }
         [Required(ErrorMessage ="Status is required")]
-        public string Status { get; set; }
+        public string Status { get; set; } 
+        [Required(ErrorMessage = "Discount is required")]
+        public int Discount { get; set; }
         [Required(ErrorMessage = "Foreignkey is required")]
         [ForeignKey("FkProd")]
         public Guid IdProduct { get; set; }

@@ -5,13 +5,15 @@ import { environment } from "src/environments/environment";
 import { Injectable } from "@angular/core";
 import { UserInfo } from "../models/user-info";
 import { Login } from "../models/login";
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: "root"
 })
+
 export class AuthService {
   serverUrl: string = environment.urlServer;
-  // helper = new JwtHelperService();
+  helper = new JwtHelperService();
   token: string;
   decodedToken: any;
   userInfoBehaviour = new BehaviorSubject<UserInfo>(null);
@@ -48,7 +50,7 @@ export class AuthService {
 
   setUserInfo(authToken: string) {
     if (authToken) {
-      //   this.decodedToken = this.helper.decodeToken(authToken);
+      this.decodedToken = this.helper.decodeToken(authToken);
       this.userInfo = new UserInfo();
       this.userInfo.Role = this.decodedToken.role;
       this.userInfo.UserName = this.decodedToken.unique_name;
@@ -56,7 +58,7 @@ export class AuthService {
       this.userInfo = null;
     }
 
-    // this.userInfoBehaviour.next(this.userInfo);
+    this.userInfoBehaviour.next(this.userInfo);
   }
 
   isAuthenticated(): boolean {

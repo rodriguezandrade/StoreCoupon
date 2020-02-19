@@ -8,22 +8,26 @@ import { AuthGuard } from './utils/guards/auth.guard';
 import { PagesComponent } from './components/shared/pages.component'; 
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
-import { PagesModule } from './components/shared/pages.module';
-
+import { PagesModule } from './components/shared/pages.module'; 
+import { LoginComponent } from './account/login/login.component';
+import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     PagesComponent,
     NavbarComponent,
-    FooterComponent
-    
+    FooterComponent,
+    ForgotPasswordComponent,
+    LoginComponent
   ],
   imports: [
     APP_ROUTES,
     BrowserModule,
     HttpClientModule,
-    PagesModule
+    PagesModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

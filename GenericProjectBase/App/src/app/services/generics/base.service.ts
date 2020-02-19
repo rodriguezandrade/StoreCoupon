@@ -4,7 +4,7 @@ import { map } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Resource } from "../../models/utils/resource";
 import { QueryOptions } from "./query.options";
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Actions } from 'src/app/utils/enums/actions';
 
 
 export class BaseService<T extends Resource> {

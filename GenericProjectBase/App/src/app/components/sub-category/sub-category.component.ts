@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './sub-category.component.html',
   styleUrls: ['./sub-category.component.css']
 })
-export class SubCategoryComponent implements OnInit {
+export class SubCategoryComponent {
   subcategories: SubCategoryDto[];
   constructor(private _subCategoryService:SubCategoryService, private _router:Router) { 
     this.fillTable();
@@ -39,13 +39,6 @@ onDelete(id:string){
   } else {
     
   }
-}
-
-
-  ngOnInit() {
-
-  }
-  
-
+} 
 }
 

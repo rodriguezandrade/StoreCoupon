@@ -122,12 +122,8 @@ const pagesRoutes: Routes = [
   //     data: { roles: [environment.roleAdmin], title: 'Customers' }
   // },
 
-  
-
-  //temporalmente estara logeandose a home, luego seria montarla al login de inicio
-  { path: "", redirectTo: "/home", pathMatch: "full" },
-  { path: "**", redirectTo: "/home" }
-  // { path: '', redirectTo: '/login', pathMatch: 'full' },
-  //  { path: '**', redirectTo: '/login' }
+   
+   { path: '', redirectTo: '/login', pathMatch: 'full' },
+   { path: '**', redirectTo: '/login' }
 ];
 export const PAGES_ROUTES = RouterModule.forChild(pagesRoutes);

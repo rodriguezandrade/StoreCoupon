@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { CategoryService } from "src/app/services/category.service";
 import { Category } from 'src/app/models/category';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Actions } from 'src/app/utils/enums/actions';
 
 @Component({
   selector: "app-category-add-update",

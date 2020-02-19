@@ -1,7 +1,7 @@
 
 import { SubCategory } from '../subcategory';
 import { SubCategoryDto } from '../Dto/subCategoryDto';
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Actions } from 'src/app/utils/enums/actions';
 
 export class SubCategorySerializer {
   fromJson(json: any): SubCategoryDto{

@@ -1,9 +1,19 @@
-import { AppComponent } from './app.component';
-import { CategoryComponent } from './components/category/category.component';
+
 import { Routes, RouterModule } from '@angular/router';
-import { PagesComponent } from './components/shared/pages.component'; 
+import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
+import { LoginComponent } from './account/login/login.component';
 
 const appRoutes: Routes = [
+    {
+        path: 'login',
+        component: LoginComponent,
+        data: { title: 'Login' }
+    },
+    {
+        path: 'forgotPassword',
+        component: ForgotPasswordComponent,
+        data: { title: 'Forgot Password' }
+    },
     {
         path: '',
         loadChildren: './components/shared/pages.module#PagesModule'

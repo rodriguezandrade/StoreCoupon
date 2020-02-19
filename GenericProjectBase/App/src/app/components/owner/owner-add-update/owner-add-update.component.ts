@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwnerService } from 'src/app/services/owner.service';
 import { Owner } from 'src/app/models/owner';
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Actions } from 'src/app/utils/enums/actions';
 
 @Component({
   selector: 'app-owner-add-update',

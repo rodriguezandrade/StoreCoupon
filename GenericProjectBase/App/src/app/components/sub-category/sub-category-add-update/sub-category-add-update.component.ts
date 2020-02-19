@@ -5,7 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { SubCategory } from 'src/app/models/subcategory';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Actions } from 'src/app/utils/enums/actions';
 
 @Component({
   selector: 'app-sub-category-add-update',

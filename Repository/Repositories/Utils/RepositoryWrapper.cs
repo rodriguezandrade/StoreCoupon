@@ -11,6 +11,7 @@ namespace Repository.Repositories.Utils
     {
         private ICategoryRepository  _categoryRepository;
         private ISubCategoryRepository _subCategoryRepository;
+        private IProductRepository _productRepository;
         private IRepositoryWrapper  _repositoryWraper;
         private RepositoryContext _repositoryContext; 
 
@@ -24,6 +25,18 @@ namespace Repository.Repositories.Utils
                 }
 
                 return _categoryRepository;
+            }
+        }
+
+        public IProductRepository Product
+        {
+            get
+            {
+                if(_productRepository == null)
+                {
+                    _productRepository = new ProductRepository(_repositoryContext, _repositoryWraper);
+                }
+                return _productRepository;
             }
         }
 

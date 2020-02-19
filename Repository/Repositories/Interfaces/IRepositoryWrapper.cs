@@ -8,6 +8,8 @@ namespace Repository.Repositories.Interfaces
     public interface IRepositoryWrapper
     {
         ICategoryRepository Category { get; }
+
+        IProductRepository Product { get; }
         List<SubCategory> GetSubCategoriess();
         void save();
     }

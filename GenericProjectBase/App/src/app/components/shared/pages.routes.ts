@@ -1,6 +1,8 @@
 import { environment } from "src/environments/environment";
 import { AuthGuard } from "../../utils/guards/auth.guard";
 import { RouterModule, Routes } from "@angular/router";
+import { ProductComponent } from '../product/product.component';
+import { ProductSaveUpdateComponent } from '../product/product-save-update/product-save-update.component';
 import { CategoryComponent } from "../category/category.component";
 import { PagesComponent } from "./pages.component";
 import { CategoryAddUpdateComponent } from "../category/category-add-update/category-add-update.component";
@@ -17,6 +19,33 @@ const pagesRoutes: Routes = [
     component: PagesComponent,
     // data: { roles: [environment.roleAdmin], title: 'Home' }
     children: [
+      {
+        path: "products",
+        children: [
+          {
+            path: "",
+            component: ProductComponent
+            // canActivateChild: [AuthGuard],
+            // data: { roles: [environment.roleAdmin], title: 'Categories' }
+          },
+          {
+            path: "new",
+            component: ProductSaveUpdateComponent
+            // canActivate: [AuthGuard],
+            // data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
+          },
+          {
+            path:":id/edit",
+            component: ProductSaveUpdateComponent
+          }
+          // {
+          //     path: ':id',
+          //     component: CategoryAddUpdateComponent,
+          //     canActivate: [AuthGuard],
+          //     data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
+          // }
+        ]
+      },
       {
         path: "categories",
         children: [

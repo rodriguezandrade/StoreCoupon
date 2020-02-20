@@ -9,7 +9,6 @@ namespace Repository.Repositories.Interfaces
     {
         ICategoryRepository Category { get; }
 
-        IProductRepository Product { get; }
         List<SubCategory> GetSubCategoriess();
         void save();
     }

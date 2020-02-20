@@ -9,11 +9,6 @@ namespace Repository.Repositories.Interfaces
 {
     public interface IProductRepository : IRepositoryBase<Product>
     {
-        Task<IQueryable<Product>> GetAll();
-        Product Save(Product model);
-        Task<Product> DeleteById(Guid Id);
-        Task<Product> Modify(Product model);
-        Task<Product> GetById(Guid id);
-        Task<IQueryable> GetProducto();
+
     }
 }

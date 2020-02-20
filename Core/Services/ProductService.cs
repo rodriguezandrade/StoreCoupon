@@ -4,6 +4,7 @@ using Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,34 +17,52 @@ namespace Core.Services
         {
             _productRepository = productRepository;
         }
-        public async Task<Product> DeleteById(Guid Id)
+
+        public void Create(Product entity)
         {
-            return await _productRepository.DeleteById(Id);
+            entity.Id = new Guid();
+            _productRepository.Create(entity);
         }
 
-        public async Task<IQueryable<Product>> GetAll()
+        public void Delete(Product entity)
+        {
+            _productRepository.Delete(entity);
+        }
+
+        public async Task<Product> DeleteById(Guid Id)
+        {
+            var modelToDelete = await _productRepository.FindByCondition(x => x.Id == Id);
+            _productRepository.Delete(modelToDelete.FirstOrDefault());
+            return modelToDelete.FirstOrDefault();
+        }
+
+        public async Task<IQueryable<Product>> FindAll()
         {
             return await _productRepository.FindAll();
         }
 
-        public async Task<Product> GetById(Guid id)
+        public async Task<IQueryable<Product>> FindByCondition(Expression<Func<Product, bool>> expression)
         {
-            return await _productRepository.GetById(id);
+            return await _productRepository.FindByCondition(expression);
         }
 
-        public async Task<IQueryable> GetProduct()
+        public async Task<Product> Modify(Product Product)
         {
-            return await _productRepository.GetProducto();
+            var modelToUpdate = await _productRepository.FindByCondition(x => x.Id == Product.Id);
+            var model = modelToUpdate.FirstOrDefault();
+            model = Product;
+            _productRepository.Update(model);
+            return modelToUpdate.FirstOrDefault();
         }
 
-        public Product Save(Product model)
+        public async Task SaveChage()
         {
-            return _productRepository.Save(model);
+            await _productRepository.SaveChange();
         }
 
-        public async Task<Product> Update(Product model)
+        public void Update(Product entity)
         {
-            return await _productRepository.Modify(model);
+            _productRepository.Update(entity);
         }
     }
 }

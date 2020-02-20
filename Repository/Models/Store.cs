@@ -34,7 +34,7 @@ namespace Repository.Models
         [ForeignKey("Owner")]
         public Guid IdOwner { get; set; }
         public Owner Owner { get; set; }
-        public virtual ICollection<CategoryStore> SubCategoryStores { get; set; }
+        public virtual ICollection<Store_Category> Store_Categories { get; set; }
 
     }
 }

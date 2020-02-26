@@ -1,7 +1,7 @@
 import { Component, OnInit, SimpleChanges } from "@angular/core";
-import { CategoryService } from "src/app/services/category.service";
+import { ProductService } from "src/app/services/product.service";
 import { QueryOptions } from "src/app/services/generics/query.options";
-import { Category } from 'src/app/models/category';
+import { Product } from 'src/app/models/product';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class ProductComponent implements OnInit {
 
-  categories:Category[];
-  constructor(private _categoryService: CategoryService, private _router:Router) { 
+  products:Product[];
+  constructor(private _productService: ProductService, private _router:Router) { 
   }
   queryOptions = new QueryOptions();
   
@@ -20,21 +20,21 @@ export class ProductComponent implements OnInit {
     this.fillTable();
 }
 
-
 fillTable(){
-  this._categoryService.listWithoutFilter("categories/getAll")
+  this._productService.listWithoutFilter("product/get")
   .subscribe(data =>{
-    this.categories=data;
+    this.products=data;
   });
 }
 
 onEdit(id: string) {
-  this._router.navigate(['/home/categories',id, 'edit']);
+  this._router.navigate(['/home/products',id, 'edit']);
 }
 
 onDelete(id:string){
   if (confirm("¿Esta seguro que desea eliminar este registro?")){;
-  this._categoryService.delete(id,"categories/delete").subscribe(res=>{
+    
+  this._productService.delete(id,"products/delete").subscribe(res=>{
     console.log(res);
   });
   } else {

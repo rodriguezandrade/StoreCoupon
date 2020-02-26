@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
-import { CategoryService } from "src/app/services/category.service";
-import { Category } from 'src/app/models/category';
+import { ProductService } from "src/app/services/product.service";
+import { Product } from 'src/app/models/product';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions } from 'src/app/utils/guards/enums/actions';
 
@@ -12,61 +12,67 @@ import { Actions } from 'src/app/utils/guards/enums/actions';
 })
 export class ProductSaveUpdateComponent implements OnInit {
 
-  categoryForm:FormGroup;
+  productForm:FormGroup;
   action:Actions;
-  category:Category= new Category;
-  constructor(private _categoryService:CategoryService, private _aroute:ActivatedRoute, private _router:Router) {
+  product:Product= new Product;
+  constructor(private _productService:ProductService, private _aroute:ActivatedRoute, private _router:Router) {
    }
 
   ngOnInit() {
+    this.catchId();
+  }
+
+  catchId(){
+    console.log( 'catch id run ' );
     this._aroute.paramMap.subscribe(params=>{
-      console.log(params.has("id"));
+      console.log( params, 'parmas' );
     if(params.has("id")){
       this.action=Actions.Edit;
       var id = params.get("id");
-      this.getCategory(id);
+     this.getProduct(id);
     }else{
       this.action=Actions.New;
-      this.categoryForm = this.createForm(this.category);
+      this.productForm = this.createForm(this.product);
       
     }
   });
   }
-
 //getCategoryfromDB
-  getCategory(id:string){
-        this._categoryService.read(id, "categories/getById").subscribe(rest=>{
-          this.category = rest;
-          this.categoryForm = this.createForm(this.category);
+  getProduct(id:string){
+        this._productService.read(id, "product/get").subscribe(rest=>{
+          this.product = rest;
+          this.productForm = this.createForm(this.product);
          });
   }
 
   //Create FromGroup
-  createForm(category:Category){
+  createForm(product:Product){
     return new FormGroup({
-      id : new FormControl(category.id),
-      name : new FormControl(category.name)
+      id : new FormControl(product.id),
+      name : new FormControl(product.name),
+      description: new FormControl(product.description),
+      price: new FormControl(product.price)
     });
   }
 
 //reset form
   onResetForm(){
-    this.categoryForm.reset();
+    this.productForm.reset();
 }
   //Submit action
   submit(){
     if (this.action == Actions.New) {
-        console.log("new ", this.categoryForm.value);
-        this._categoryService.create(this.categoryForm.value, "categories/save").subscribe(result=>{
+        console.log("new ", this.productForm.value);
+        this._productService.create(this.productForm.value, "product/save").subscribe(result=>{
         });
         this.onResetForm();
-        this._router.navigate(['/home/categories']);
+        this._router.navigate(['/home/products']);
     }else if (this.action == Actions.Edit) {
-        this._categoryService.update(this.categoryForm.value, "categories/update").subscribe(result=>{
+        this._productService.update(this.productForm.value, "product/update").subscribe(result=>{
         }, error => {console.error(error)
                      alert(error)});
         this.onResetForm();
-        this._router.navigate(['/home/categories']);
+        this._router.navigate(['/home/products']);
     }
 }
 

@@ -9,7 +9,7 @@ namespace Repository.Repositories.Interfaces
     {
         Task<IQueryable<User>> GetUserByEmail(string email);
         Task<IQueryable<User>> GetUserName(string username, string password);
-        Task<IQueryable<Role>> GetUserRole(Guid id);
+        Task<IQueryable<Role>> GetUserRole(int id);
         bool MatchEmailUser(string email);
     }
 }

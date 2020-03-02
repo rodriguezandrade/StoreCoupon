@@ -10,7 +10,7 @@ namespace Repository.Models
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Foreignkey is required")]
         [ForeignKey("FkUser")]
-        public Guid IdUser { get; set; }
+        public int IdUser { get; set; }
         public User FkUser { get; set; }
         [Required(ErrorMessage = "Foreignkey is required")]
         [ForeignKey("FkCoup")]

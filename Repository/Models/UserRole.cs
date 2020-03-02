@@ -1,9 +1,12 @@
-﻿using System; 
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Repository.Models
 {
    public class UserRole : IEquatable<UserRole>
     {
+        [Key]
+        public int Id { get; set; }
         public Role Role { get; set; }
 
         public int RoleId { get; set; }

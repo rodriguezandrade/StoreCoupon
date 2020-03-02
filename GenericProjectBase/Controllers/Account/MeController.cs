@@ -1,13 +1,18 @@
 ﻿
+using Core.Services;
 using Core.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Repository.Models.Dtos.Account;
 using System;
+using System.Net;
 using System.Text;
+using System.Web.Http;
+using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
+using RouteAttribute = System.Web.Http.RouteAttribute;
 
 namespace GenericProjectBase.Controllers.Account
 {
-    [Route("api/me")]
+    [Route("api/me/")]
     public class MeController : Controller
     {
         private readonly IAccountService _userService;
@@ -20,11 +25,11 @@ namespace GenericProjectBase.Controllers.Account
         }
 
         [HttpPost]
-        [Route("")]
+        [Route("auth")]
         [AllowAnonymous]
         public ActionResult Authenticate(LoginRequest model)
         {
-            var token = string.Empty;
+            var token = new UserRoleDto();
 
             if (!ModelState.IsValid)
             {
@@ -33,12 +38,13 @@ namespace GenericProjectBase.Controllers.Account
 
             if (model == null)
             {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest(AppResources.InvalidCredentials);
             }
 
             var encData_byte = new byte[model.Password.Length];
             encData_byte = Encoding.UTF8.GetBytes(model.Password);
             var password = Convert.ToBase64String(encData_byte);
+
             var result = _userService.GetUserName(model.UserName, password);
 
             if (result == null)
@@ -48,10 +54,10 @@ namespace GenericProjectBase.Controllers.Account
 
             if (result.UserName == null)
             {
-                //return BadRequest(AppResources.InvalidCredentials);
+                 return BadRequest(AppResources.InvalidCredentials);
             }
 
-            token = _tokenManagerService.Create(result.UserName, result.Role);
+            token = _tokenManagerService.Authenticate(result);
 
             return Ok(token);
         }

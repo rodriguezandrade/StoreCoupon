@@ -2,7 +2,6 @@
 using Repository.Models;
 using Repository.Repositories.Interfaces;
 using Repository.Repositories.Utils;
-using System; 
 using System.Linq; 
 using System.Threading.Tasks;
 
@@ -30,9 +29,9 @@ namespace Repository.Repositories
 
         }
 
-        public async Task<IQueryable<Role>> GetUserRole(Guid id)
+        public async Task<IQueryable<Role>> GetUserRole(int id)
         {
-            return _repositoryContext.Roles.Select(x => x.Id == id).ToList();
+            return  _repositoryContext.Roles.Where(x => x.Id == id); 
         }
 
         public bool MatchEmailUser(string email)

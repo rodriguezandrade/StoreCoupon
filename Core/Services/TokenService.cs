@@ -1,38 +1,53 @@
 ﻿
+using Core.Services.Interfaces;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Repository.Models;
+using Repository.Models.Dtos.Account;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
 namespace Core.Services
 {
     public interface ITokenService
     {
-        string Create(string userName, string role);
+        UserRoleDto Authenticate(UserRoleDto user);
     }
 
     public class TokenService : ITokenService
     {
-        public string Create(string userName, string role)
+        private readonly AppSettings _appSettings;
+        private readonly IAccountService _accountService;
+        public TokenService(IOptions<AppSettings> appSettings, IAccountService accountService)
         {
-            //// appsetting for Token JWT
-            //var secretKey = AppResources.JWT_SECRET_KEY;
-            //var audienceToken = ConfigurationManager.AppSettings["JWT_AUDIENCE_TOKEN"];
-            //var issuerToken = ConfigurationManager.AppSettings["JWT_ISSUER_TOKEN"];
-            //var expireTime = ConfigurationManager.AppSettings["JWT_EXPIRE_MINUTES"];
+            _appSettings = appSettings.Value;
+            _accountService = accountService;
+        }
+        public UserRoleDto Authenticate(UserRoleDto user)
+        {
+            // authentication successful so generate jwt token 
+            if (user == null)
+            {
+                return null;
+            }
 
-            //var securityKey = new SymmetricSecurityKey(System.Text.Encoding.Default.GetBytes(secretKey));
-            //var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            user.Token = tokenHandler.WriteToken(token);
 
-            //// create a claimsIdentity
-            //var claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, userName), new Claim(ClaimTypes.Role, role) });
-            //// create token to the user
-            //var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
-            //var jwtSecurityToken = tokenHandler.CreateJwtSecurityToken(
-            //    audience: audienceToken,
-            //    issuer: issuerToken,
-            //    subject: claimsIdentity,
-            //    notBefore: DateTime.UtcNow,
-            //    expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(expireTime)),
-            //    signingCredentials: signingCredentials);
-
-            //var jwtTokenString = tokenHandler.WriteToken(jwtSecurityToken);
-            //return jwtTokenString;
+            return user;
         }
     }
 }

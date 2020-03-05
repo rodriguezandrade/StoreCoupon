@@ -1,5 +1,5 @@
 import { Resource } from './resource';
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Actions } from 'src/app/enums/actions';
 
 export interface Serializer {
     fromJson(json: any): Resource;

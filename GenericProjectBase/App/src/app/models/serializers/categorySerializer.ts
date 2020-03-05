@@ -1,5 +1,5 @@
 import { Category } from "../category";
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Actions } from 'src/app/enums/actions';
 
 export class CategorySerializer {
   fromJson(json: any): Category {

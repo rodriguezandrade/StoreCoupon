@@ -1,7 +1,7 @@
 
 import { SubCategory } from '../subcategory';
 import { SubCategoryDto } from '../Dto/subCategoryDto';
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Actions } from 'src/app/enums/actions';
 
 export class SubCategorySerializer {
   fromJson(json: any): SubCategoryDto{
@@ -15,19 +15,17 @@ export class SubCategorySerializer {
   }
 
   toJson(subCategory: SubCategory, accion:Actions): any {
+    let model = {
+      name: subCategory.name,
+      description: subCategory.description,
+      idSubCat: subCategory.idSubCat
+    }
     if (accion == Actions.New) {
-      return {
-        name: subCategory.name,
-        description: subCategory.description,
-        idSubCat: subCategory.idSubCat,
-      };
+      return model
     }else if(accion == Actions.Edit){
-      return {
-        id: subCategory.id,
-        name: subCategory.name,
-        description: subCategory.description,
-        idSubCat: subCategory.idSubCat
-      };
+      let id = {id: subCategory.id};
+      let modelid = {... id, ... model}
+      return modelid;
     }
   }
 }

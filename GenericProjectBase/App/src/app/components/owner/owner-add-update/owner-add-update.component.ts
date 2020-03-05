@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwnerService } from 'src/app/services/owner.service';
 import { Owner } from 'src/app/models/owner';
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Actions } from 'src/app/enums/actions';
 
 @Component({
   selector: 'app-owner-add-update',
@@ -50,7 +50,7 @@ export class OwnerAddUpdateComponent implements OnInit {
         lastName : new FormControl(owner.lastName),
         address : new FormControl(owner.address),
         email : new FormControl(owner.email),
-        telephone : new FormControl(+owner.telephone),
+        telephone : new FormControl(owner.telephone),
         rfc : new FormControl(owner.rfc)
     });
   }

@@ -5,16 +5,16 @@
     </div>
     <div class="form-group">
         <label for="description"> Descripción </label>
-        <input type="text" formControlName="description" class="form-control" id="description"  placeholder="Nombre">
+        <input type="text" formControlName="description" class="form-control" id="description"  placeholder="Descripción">
     </div>
     <div class="form-group">
         <label for="precio"> Precio </label>
-        <input type="number" formControlName="price" class="form-control" id="price"  placeholder="Nombre">
+        <input type="number" formControlName="price" class="form-control" id="price"  placeholder="Precio">
     </div>
-     <div *ngIf="action == 2">
-      <button type="submit" class="btn btn-warning">Modificar Categoria</button>
+     <div *ngIf="action == 1">
+      <button type="submit" class="btn btn-warning">Modificar Producto</button>
     </div> 
-    <div *ngIf="action == 1">
-        <button type="submit" class="btn btn-success">Crear Categoria</button>
+    <div *ngIf="action == 2">
+        <button type="submit" class="btn btn-success">Crear Producto</button>
       </div> 
   </form>

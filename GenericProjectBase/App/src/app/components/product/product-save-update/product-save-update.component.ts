@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { ProductService } from "src/app/services/product.service";
 import { Product } from 'src/app/models/product';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Actions } from 'src/app/enums/actions';
 
 @Component({
   selector: 'app-product-save-update',
@@ -25,7 +25,7 @@ export class ProductSaveUpdateComponent implements OnInit {
   catchId(){
     console.log( 'catch id run ' );
     this._aroute.paramMap.subscribe(params=>{
-      console.log( params, 'parmas' );
+      console.log( params, 'parmas');
     if(params.has("id")){
       this.action=Actions.Edit;
       var id = params.get("id");

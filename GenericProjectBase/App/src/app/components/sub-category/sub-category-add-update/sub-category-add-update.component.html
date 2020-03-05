@@ -1,4 +1,4 @@
-<form [formGroup]="subCategoryForm" (ngSubmit)="submit()">
+<form *ngIf="subCategoryForm" [formGroup]="subCategoryForm" (ngSubmit)="submit()">
     <div class="form-group">
         <label for="Name">Nombre</label>
         <input type="text" formControlName="name" class="form-control" id="Name"  placeholder="Nombre" required>
@@ -9,16 +9,17 @@
     </div>
     <div class="form-group">
         <label for="Category">Categoría</label>
-        <select formControlName="categoryId" class="form-control" id="Category"  placeholder="Categoria">
+        <select formControlName="idSubCat" class="form-control" id="Category"  placeholder="Categoria">
           <option value=''>Seleccione una Categoría</option>
           <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
         </select>
     </div>
     
-     <div *ngIf="action == Actions.Edit">
+     <div *ngIf="action == 1">
       <button type="submit" class="btn btn-warning">Modificar Sub Categoría</button>
     </div> 
-    <div *ngIf="action == Actions.New">
+    <div *ngIf="action == 2">
         <button type="submit" class="btn btn-success">Crear Sub Categoría</button>
       </div> 
   </form>
+  

@@ -5,7 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { SubCategory } from 'src/app/models/subcategory';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Actions } from 'src/app/enums/actions';
 
 @Component({
   selector: 'app-sub-category-add-update',
@@ -38,22 +38,23 @@ export class SubCategoryAddUpdateComponent implements OnInit {
 
 //getSubCategoryfromDB
   getSubCategory(id:string){
-        this._subCategoryService.read(id, "subcategory/get").subscribe(rest=>{  
+        this._subCategoryService.read(id, "subcategories/get").subscribe(rest=>{  
           this.subcategories = rest;
           this.subCategoryForm = this.createForm(this.subcategories);
-          console.log(this.subCategoryForm);
+          console.log('log ' , this.subCategoryForm.value);
           
+        
          });
 
   }
 
-  //Create ownerFromGroup
+  //Create SubcategoryFromGroup
   createForm(subCategory:SubCategory){
         return new FormGroup({
             id : new FormControl(subCategory.id),
             name : new FormControl(subCategory.name),
             description : new FormControl(subCategory.description),
-            categoryId : new FormControl(subCategory.idSubCat)
+            idSubCat : new FormControl(subCategory.idSubCat)
         });
     }
 
@@ -64,13 +65,14 @@ export class SubCategoryAddUpdateComponent implements OnInit {
   //Submit action
   submit(){
     if (this.action == Actions.New) {
-        this._subCategoryService.create(this.subCategoryForm.value, "subcategory/save").subscribe(result=>{
-          console.log(result);
+      console.log(this.subCategoryForm.value);
+        this._subCategoryService.create(this.subCategoryForm.value, "subcategories/save").subscribe(result=>{
+          
         });
         this.onResetForm();
         this._router.navigate(['/home/subcategory']);
     }else if (this.action == Actions.Edit) {
-        this._subCategoryService.update(this.subCategoryForm.value, "subcategory/update").subscribe(result=>{
+        this._subCategoryService.update(this.subCategoryForm.value, "subcategories/update").subscribe(result=>{
           console.log(result);
         }, error => {console.error(error)
                      alert(error)});

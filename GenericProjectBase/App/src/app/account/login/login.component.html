@@ -4,26 +4,26 @@
         <div class="row flex-grow">
           <div class="col-lg-6 d-flex align-items-center justify-content-center">
             <div class="auth-form-transparent text-left p-3">
-              <h4>Welcome to Dinner app</h4>
-              <h6 class="font-weight-light">Login in to continue.</h6>
+              <h4>Bienvenido a Cupon+</h4>
+              <h6 class="font-weight-light">Inicie sesion para continuar.</h6>
               <form [formGroup]="loginForm" novalidate class="pt-3">
                 <div class="form-group">
                   <div class="input-group">
                     <input type="text" maxlength="50" class="form-control form-control-lg border-left-2" id="exampleInputEmail"
-                      d="FirstName" name="UserName" [(ngModel)]="value.UserName" formControlName="UserName" placeholder="Username">
+                      d="FirstName" name="UserName" [(ngModel)]="loginRequest.UserName" formControlName="UserName" placeholder="Username">
                   </div>
                 </div>
                 <div class="form-group ">
                   <div class="input-group ">
                     <input type="password" maxlength="50" class="form-control form-control-lg border-left-2" id="exampleInputPassword"
-                      name="UserName" [(ngModel)]="value.Password" formControlName="Password" placeholder="Password">
+                      name="UserName" [(ngModel)]="loginRequest.Password" formControlName="Password" placeholder="Contraseña">
                   </div>
                 </div>
                 <button [disabled]="loginForm.invalid" (click)="login()" type="submit" class="my-3 btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn color-style">
-                  SIGN IN
+                 Entrar 
                 </button>
                 <div class="my-2 d-flex justify-content-end align-items-center">
-                  <a href="" [routerLink]="['/forgotPassword']"  class="auth-link text-black">Forgot password?</a>
+                  <a href="" [routerLink]="['/forgotPassword']"  class="auth-link text-black">Olvide la contraseña?</a>
                 </div>
               </form>
             </div>
@@ -31,13 +31,13 @@
           <div class="col-lg-6 login-half-bg d-flex flex-row">
             <ngb-carousel>
               <ng-template ngbSlide>
-                <img id="imgHeight" src="public/assets/images/login-carousel/2.jpg" alt="Random first slide">
+                <img id="imgHeight" src="../../../assets/images/login-carrousel/1.jpg" alt="Random first slide">
               </ng-template>
               <ng-template ngbSlide>
-                <img id="imgHeight" src="public/assets/images/login-carousel/1.jpg" alt="Random second slide">
+                <img id="imgHeight" src="../../../assets/images/login-carrousel/2.jpg" alt="Random second slide">
               </ng-template>
               <ng-template ngbSlide>
-                <img id="imgHeight" src="public/assets/images/login-carousel/3.jpg" alt="Random third slide">
+                <img id="imgHeight" src="../../../assets/images/login-carrousel/3.jpg" alt="Random third slide">
               </ng-template>
             </ngb-carousel>
           </div>

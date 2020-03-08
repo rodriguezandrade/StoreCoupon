@@ -1,13 +1,13 @@
 {
   "name": "app",
   "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+  "scripts": {  
+    "e2e": "ng e2e",
+    "cupon": "ng serve",
+    "watch": "ng build --watch",
+    "cuponprod": "ng build --prod --output-hashing none",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {

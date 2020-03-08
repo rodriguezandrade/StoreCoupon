@@ -12,7 +12,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  value: Login = new Login;
+  loginRequest: Login = new Login;
   loginForm: FormGroup;
   emptySpacePattern = /^[a-zA-Z0-9\_\-\ ]*$/;
 
@@ -55,9 +55,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    return this._authService.login(this.value)
+
+    return this._authService.login(this.loginRequest)
       .subscribe((data) => {
         const authToken = data;
+console.log(authToken, "my auto");
 
         if (authToken === null) {
 

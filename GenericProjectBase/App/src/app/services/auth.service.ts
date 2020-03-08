@@ -1,11 +1,12 @@
-import { Observable, BehaviorSubject } from "rxjs";
+import { Observable, BehaviorSubject, throwError } from "rxjs";
 import { Router } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Injectable } from "@angular/core";
 import { UserInfo } from "../models/user-info";
 import { Login } from "../models/login";
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root"
@@ -65,8 +66,16 @@ export class AuthService {
     return this.userInfo != null;
   }
 
-  login(pro: Login) {
-    return this.http.post<Login>(this.urlController + this.ApiUrl, pro);
+  login(loginRequest: Login) {
+ 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'text' as 'json'
+    };
+    return this.http.post<string>(this.urlController + this.ApiUrl, loginRequest, httpOptions);
+       
   }
 
   logout() {

@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { Login } from 'src/app/models/login';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +17,10 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   emptySpacePattern = /^[a-zA-Z0-9\_\-\ ]*$/;
 
-  constructor(config: NgbCarouselConfig, private _router: Router,
-    private _authService: AuthService) {
+  constructor(config: NgbCarouselConfig,
+    private _router: Router,
+    private _authService: AuthService,
+    private _toastr: ToastrService) {
     config.interval = 10000;
     config.wrap = true;
     config.keyboard = false;
@@ -55,28 +58,23 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-
-    return this._authService.login(this.loginRequest)
-      .subscribe((data) => {
+    this._authService.login(this.loginRequest)
+      .subscribe(data => {
         const authToken = data;
-console.log(authToken, "my auto");
-
         if (authToken === null) {
-
-          Swal.fire({
-            text: 'Invalido usuario o contraseña',
-            icon: 'error'
-          })
- 
+          this._toastr.error('Invalid usuario or contraseña');
         } else {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: '¡Login exitoso!',
+            showConfirmButton: false,
+            timer: 1000
+          })
           this._authService.setToken(authToken.toString());
           this._router.navigate(['/home']);
         }
-      }, (err) => 
-      Swal.fire({
-        text: 'Invalido usuario o contraseña',
-        icon: 'error'
-      })
+      }, (err) => console.log(err, "valio pinga")
       );
   }
 }

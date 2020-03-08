@@ -19,7 +19,6 @@ export class BaseService<T extends Resource> {
       headers: new HttpHeaders({
         'Content-Type' : 'application/json'
       })};
-      console.log(this.serializer.toJson(item, Actions.Edit));
       
     return this.httpClient
       .post<T>(`${this.url}/${endpoint}`, this.serializer.toJson(item, Actions.New),httpOptions)

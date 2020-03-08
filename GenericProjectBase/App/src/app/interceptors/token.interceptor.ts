@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
- import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -21,8 +21,12 @@ export class TokenInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent
         | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any> | any> {
 
+        request.clone({
+            url: request.url.replace('http://', 'https://')
+        });
+
         let allowedUrls = (request.url.indexOf('/api/me') < 0);
-         const surveyUrl = (request.url. indexOf('/api/menusurvey') < 0);
+         const surveyUrl = (request.url.indexOf('/api/menusurvey') < 0);
         const token = this._authService.getToken();
 
         if (!surveyUrl) {
@@ -54,7 +58,7 @@ export class TokenInterceptor implements HttpInterceptor {
     private handleAuthError(err: HttpErrorResponse): Observable<any> {
         if (err.status === 401) {
             this._authService.logout();
-           this._toastr.error('Invalid username or password');
+            this._toastr.error('Invalid username or password');
         }
 
         return throwError(err);

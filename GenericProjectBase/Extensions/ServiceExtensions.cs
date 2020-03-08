@@ -12,12 +12,16 @@ using AutoMapper;
 using Core.Profiles;
 using Core.Logger.Interface;
 using Core.Logger;
+using Repository.Models;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GenericProjectBase.Extensions
 {
     public static class ServiceExtensions
     {
-        public static void ConfigureCors( this IServiceCollection services)
+        public static void ConfigureCors(this IServiceCollection services)
         {
             services.AddCors(options =>
             {
@@ -36,7 +40,8 @@ namespace GenericProjectBase.Extensions
             });
         }
         //Automapper
-        public static void AutoMapperConfiguration(this IServiceCollection services) {
+        public static void AutoMapperConfiguration(this IServiceCollection services)
+        {
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new Profiles());
@@ -73,6 +78,37 @@ namespace GenericProjectBase.Extensions
             services.AddScoped<IStoreRepository, StoreRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<ITokenService, TokenService>();
+        }
+
+        //Configure jwt authentication
+        public static void ConfigureJWToken(this IServiceCollection services, IConfiguration config)
+        {
+            var appSettingsSection = config.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
         }
     }
 

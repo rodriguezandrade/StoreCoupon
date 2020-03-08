@@ -13,7 +13,7 @@ namespace Core.Services
 {
     public interface ITokenService
     {
-        UserRoleDto Authenticate(UserRoleDto user);
+        string Authenticate(UserRoleDto user);
     }
 
     public class TokenService : ITokenService
@@ -25,9 +25,11 @@ namespace Core.Services
             _appSettings = appSettings.Value;
             _accountService = accountService;
         }
-        public UserRoleDto Authenticate(UserRoleDto user)
+
+        // Authentication successful so generate jwt token 
+        public string Authenticate(UserRoleDto user)
         {
-            // authentication successful so generate jwt token 
+      
             if (user == null)
             {
                 return null;
@@ -35,19 +37,19 @@ namespace Core.Services
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var expireTime =_appSettings.ExpireTime;
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Role, user.Role)
                 }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddMinutes(expireTime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
-
-            return user;
+            return tokenHandler.WriteToken(token); 
         }
     }
 }

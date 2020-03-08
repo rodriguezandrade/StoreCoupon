@@ -1,4 +1,4 @@
-﻿using Core.Services.Interfaces;
+﻿using Core.Services.Interfaces; 
 using Repository.Models.Dtos.Account;
 using Repository.Repositories.Interfaces;
 using System;
@@ -7,19 +7,18 @@ using System.Text;
 
 namespace Core.Services
 {
-   public class AccountService : IAccountService
+    public class AccountService : IAccountService
     {
-        private readonly IAccountRepository _userRepository; 
+        private readonly IAccountRepository _userRepository;
 
         public AccountService(IAccountRepository userRepository)
         {
-            _userRepository = userRepository; 
+            _userRepository = userRepository;
         }
 
         public UserRoleDto GetUserName(string username, string password)
         {
             var user = _userRepository.GetUserName(username, password).Result.SingleOrDefault();
-            
             if (user == null)
             {
                 return null;
@@ -43,7 +42,7 @@ namespace Core.Services
                     result.Role = role.Name;
                 }
             }
-             
+
             return result;
         }
 
@@ -63,7 +62,6 @@ namespace Core.Services
         public void SendEmailPasswordUser(string email)
         {
             var user = _userRepository.GetUserByEmail(email).Result.SingleOrDefault();
-
             if (user != null)
             {
                 byte[] data = Convert.FromBase64String(user.PasswordHash);

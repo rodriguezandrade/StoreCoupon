@@ -1,19 +1,18 @@
 ﻿
+using Core.Exceptions;
 using Core.Services;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models.Dtos.Account;
-using System;
+using Microsoft.AspNetCore.Authorization;
 using System.Net;
-using System.Text;
-using System.Web.Http;
-using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
-using RouteAttribute = System.Web.Http.RouteAttribute;
 
 namespace GenericProjectBase.Controllers.Account
 {
-    [Route("api/me/")]
-    public class MeController : Controller
+    [Authorize]
+    [ApiController]
+    [Route("api/[controller]/")]
+    public class MeController : ControllerBase
     {
         private readonly IAccountService _userService;
         private readonly ITokenService _tokenManagerService;
@@ -24,37 +23,38 @@ namespace GenericProjectBase.Controllers.Account
             _tokenManagerService = tokenManagerService;
         }
 
-        [HttpPost]
+        [HttpPost()]
         [Route("auth")]
         [AllowAnonymous]
-        public ActionResult Authenticate(LoginRequest model)
+        public IActionResult Authenticate([System.Web.Http.FromBody]LoginRequest model)
         {
-            var token = new UserRoleDto();
+            var token = string.Empty;
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ModelState); 
             }
 
             if (model == null)
-            {
-                return BadRequest(AppResources.InvalidCredentials);
+            { 
+                throw new ApiException(AppResources.InvalidCredentials, HttpStatusCode.Unauthorized);
             }
 
-            var encData_byte = new byte[model.Password.Length];
-            encData_byte = Encoding.UTF8.GetBytes(model.Password);
-            var password = Convert.ToBase64String(encData_byte);
+            //var encData_byte = new byte[model.Password.Length];
+            //encData_byte = Encoding.UTF8.GetBytes(model.Password);
+            //var password = Convert.ToBase64String(encData_byte);
 
-            var result = _userService.GetUserName(model.UserName, password);
+            var result = _userService.GetUserName(model.UserName, model.Password);
 
             if (result == null)
             {
-                return Ok();
+                return Ok(result);
             }
 
             if (result.UserName == null)
             {
-                 return BadRequest(AppResources.InvalidCredentials);
+                //return BadRequest(AppResources.InvalidCredentials);
+                throw new ApiException(AppResources.InvalidRequest, HttpStatusCode.BadRequest);
             }
 
             token = _tokenManagerService.Authenticate(result);

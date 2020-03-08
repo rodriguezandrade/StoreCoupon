@@ -1,8 +1,9 @@
-﻿using Repository.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Data;
 using Repository.Models;
 using Repository.Repositories.Interfaces;
 using Repository.Repositories.Utils;
-using System.Linq; 
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Repository.Repositories
@@ -18,26 +19,21 @@ namespace Repository.Repositories
         public async Task<IQueryable<User>> GetUserByEmail(string email)
         {
             return FindByCondition(x => x.Email == email).Result;
-
         }
 
         public async Task<IQueryable<User>> GetUserName(string username, string password)
         {
-            return FindByCondition(x => x.UserName == username && x.PasswordHash == password).Result;
-            //return _repositoryContext.Users.Select(x => x.UserName == username && x.PasswordHash == password, x => x);
-            //return FindByCondition(x => x.UserName == username && x.PasswordHash == password,  x => x.Roles);
-
+            return _repositoryContext.Users.Where(x => x.UserName == username && x.PasswordHash == password).Include(x => x.Roles);
         }
 
         public async Task<IQueryable<Role>> GetUserRole(int id)
         {
-            return  _repositoryContext.Roles.Where(x => x.Id == id); 
+            return _repositoryContext.Roles.Where(x => x.Id == id);
         }
 
         public bool MatchEmailUser(string email)
         {
             return FindByCondition(x => x.Email == email).Result.Any();
         }
-
     }
 }

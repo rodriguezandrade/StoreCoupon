@@ -16,7 +16,7 @@ const appRoutes: Routes = [
     },
     {
         path: '',
-        loadChildren: './components/shared/pages.module#PagesModule'
+        loadChildren: () => import('./components/shared/pages.module').then(m => m.PagesModule)
     }
 ];
 

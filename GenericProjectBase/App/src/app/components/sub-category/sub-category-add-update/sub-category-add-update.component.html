@@ -15,10 +15,21 @@
         </select>
     </div>
     
-     <div *ngIf="action == Actions.Edit">
+     <!-- <div *ngIf="action == Actions.Edit">
       <button type="submit" class="btn btn-warning">Modificar Sub Categoría</button>
     </div> 
     <div *ngIf="action == Actions.New">
         <button type="submit" class="btn btn-success">Crear Sub Categoría</button>
-      </div> 
+    </div>  -->
+
+    
+      <!-- <div [ngSwitch]="action">
+      <button *ngSwitchCase="Actions.Edit" type="submit" class="btn btn-warning">Modificar Sub Categoría</button>
+      <button *ngSwitchCase="Actions.New" type="submit" class="btn btn-success">Crear Sub Categoría</button>
+      </div> -->
+
+      <div [ngSwitch]="action">
+        <button *ngSwitchCase="action == 2" type="submit" class="btn btn-warning">Modificar Sub Categoría</button>
+        <button *ngSwitchCase="action == 1" type="submit" class="btn btn-success">Crear Sub Categoría</button>
+     </div>
   </form>

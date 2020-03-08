@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { ProductService } from "src/app/services/product.service";
 import { Product } from 'src/app/models/product';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { ActivatedRoute, Router } from '@angular/router'; 
+import { Actions } from 'src/app/utils/enums/actions';
 
 @Component({
   selector: 'app-product-save-update',

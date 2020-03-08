@@ -23,10 +23,15 @@
         <label for="rfc">RFC</label>
         <input type="text" formControlName="rfc" class="form-control" id="rfc"  placeholder="RFC" required>
     </div>
-     <div *ngIf="action.Edit">
+     <!-- <div *ngIf="action.Edit">
       <button type="submit" class="btn btn-warning">Modificar dueño</button>
     </div> 
     <div *ngIf="action == 1">
         <button type="submit" class="btn btn-success">Crear dueño</button>
-      </div> 
+      </div>  -->
+
+      <div [ngSwitch]="action">
+        <button *ngSwitchCase="action == 2" type="submit" class="btn btn-warning">Modificar dueño</button>
+        <button *ngSwitchCase="action == 1" type="submit" class="btn btn-success">Crear dueño</button>
+     </div>
 </form>

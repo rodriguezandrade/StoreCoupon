@@ -12,7 +12,7 @@ import { Actions } from 'src/app/utils/enums/actions';
 })
 export class OwnerAddUpdateComponent implements OnInit {
   ownerForm:FormGroup;
-  action:number;
+  action:Actions;
   owner:Owner= new Owner;
   constructor(private _ownerService:OwnerService, private _aroute:ActivatedRoute, private _router:Router) {
    }

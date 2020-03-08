@@ -49,7 +49,7 @@ import { StoreAddUpdateComponent } from '../store/store-add-update/store-add-upd
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
-        PAGES_ROUTES
+        PAGES_ROUTES, 
     ],
     bootstrap: [PagesComponent]
 })

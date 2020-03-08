@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component'; 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_ROUTES } from './app.routes'; 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './utils/guards/auth.guard';
@@ -12,6 +12,10 @@ import { PagesModule } from './components/shared/pages.module';
 import { LoginComponent } from './account/login/login.component';
 import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { HandleErrorService } from './services/error-handler.service';
+import { ToastrModule } from 'ngx-toastr';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,9 +31,16 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     HttpClientModule,
     PagesModule,
-    NgbModule
+    NgbModule,
+    ToastrModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthService , AuthGuard, HandleErrorService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

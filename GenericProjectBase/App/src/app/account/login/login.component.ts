@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this._authService.getToken() !== null) {
-      this._router.navigate(['/menu']);
+      this._router.navigate(['/home']);
     }
   }
 

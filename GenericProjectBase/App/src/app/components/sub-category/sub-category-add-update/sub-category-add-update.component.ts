@@ -42,7 +42,6 @@ export class SubCategoryAddUpdateComponent implements OnInit {
           this.subcategories = rest;
           this.subCategoryForm = this.createForm(this.subcategories);
           console.log(this.subCategoryForm);
-          
          });
 
   }

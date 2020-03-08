@@ -19,7 +19,7 @@ export class AuthService {
   userInfoBehaviour = new BehaviorSubject<UserInfo>(null);
   userInfo: UserInfo;
   urlController: string = environment.urlServer;
-  private ApiUrl = "login";
+  private ApiUrl = "me/auth";
 
   constructor(private _router: Router, private http: HttpClient) {
     const token = this.getToken();

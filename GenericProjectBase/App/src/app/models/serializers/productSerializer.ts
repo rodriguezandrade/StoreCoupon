@@ -1,5 +1,5 @@
-import { Product } from "../product";
-import { Actions } from 'src/app/utils/guards/enums/actions';
+import { Product } from "../product"; 
+import { Actions } from 'src/app/utils/enums/actions';
     
     export class ProductSerializer {
       fromJson(json: any): Product {

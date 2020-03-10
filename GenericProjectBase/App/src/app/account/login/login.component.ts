@@ -64,6 +64,8 @@ export class LoginComponent implements OnInit {
         if (authToken === null) {
           this._toastr.error('Invalid usuario or contraseña');
         } else {
+          this._authService.setToken(authToken.toString());
+          this._router.navigate(['/home']);
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -71,8 +73,6 @@ export class LoginComponent implements OnInit {
             showConfirmButton: false,
             timer: 1000
           })
-          this._authService.setToken(authToken.toString());
-          this._router.navigate(['/home']);
         }
       }, (err) => console.log(err, "valio pinga")
       );

@@ -20,11 +20,15 @@ export class AuthGuard implements CanActivate {
 
         const roles = route.data.roles;
 
-        if (roles.indexOf(roleUser) !== -1) {
-            return true;
+        if (roles !== undefined) {
+            if (roles.indexOf(roleUser) !== -1) {
+                return true;
+            } else {
+                this.authService.redirectToDefaultPage();
+                return false;
+            }
         } else {
-            this.authService.redirectToDefaultPage();
-            return false;
+            return false
         }
     }
 }

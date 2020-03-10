@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   urlServer: 'https://localhost:44351/api/',
-  roleAdmin: 'Admin',
   AppTitle: 'StoreCoupon',
 };
 

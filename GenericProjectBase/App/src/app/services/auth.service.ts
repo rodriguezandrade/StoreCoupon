@@ -55,16 +55,17 @@ export class AuthService {
     if (this.decodedToken.exp === undefined) return null;
 
     const date = new Date(0);
-    date.setUTCSeconds(this.decodedToken);
+    date.setUTCSeconds(this.decodedToken.exp);
     return date;
   }
 
-  isTokenExpired(token?: string): boolean {
-    if (!token) token = this.getToken();
-    if (!token) return true;
+  isTokenExpired(authToken?: string): boolean {
+    if (!authToken) authToken = this.getToken();
+    if (!authToken) return true;
 
-    const date = this.getTokenExpirationDate(token);
-    if (date === undefined) return false;
+    const date = this.getTokenExpirationDate(authToken);
+    if (date === undefined) return false; 
+
     return !(date.valueOf() > new Date().valueOf());
   }
 

@@ -19,8 +19,7 @@ export class AuthGuard implements CanActivate {
         }
 
         const roles = route.data.roles;
-
-        if (roles !== undefined) {
+        if (roles !== undefined || !this.authService.isTokenExpired()) {
             if (roles.indexOf(roleUser) !== -1) {
                 return true;
             } else {
@@ -28,6 +27,7 @@ export class AuthGuard implements CanActivate {
                 return false;
             }
         } else {
+            this.authService.logout();
             return false
         }
     }

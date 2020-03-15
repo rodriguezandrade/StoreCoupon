@@ -2,12 +2,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models;
+using Role = Repository.Repositories.Utils.Role;
 
 namespace GenericProjectBase.Controllers
 {
     [Route("api/categories/")]
+
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -17,6 +20,7 @@ namespace GenericProjectBase.Controllers
             _categoryService = categoryService;
         }
 
+        [Authorize(Roles = Role.Admin)]
         [Route("getAll")]
         public async Task<IQueryable<GeneralCategory>> Get()
         {

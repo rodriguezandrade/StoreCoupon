@@ -16,6 +16,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { HandleErrorService } from './services/error-handler.service';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgbModule,
     ToastrModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthService , AuthGuard, HandleErrorService, {
     provide: HTTP_INTERCEPTORS,

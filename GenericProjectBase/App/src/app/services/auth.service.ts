@@ -49,6 +49,25 @@ export class AuthService {
     return localStorage.getItem("token");
   }
 
+  getTokenExpirationDate(authToken: string): Date {
+    this.decodedToken = this.helper.decodeToken(authToken);
+
+    if (this.decodedToken.exp === undefined) return null;
+
+    const date = new Date(0);
+    date.setUTCSeconds(this.decodedToken);
+    return date;
+  }
+
+  isTokenExpired(token?: string): boolean {
+    if (!token) token = this.getToken();
+    if (!token) return true;
+
+    const date = this.getTokenExpirationDate(token);
+    if (date === undefined) return false;
+    return !(date.valueOf() > new Date().valueOf());
+  }
+
   setUserInfo(authToken: string) {
     if (authToken) {
       this.decodedToken = this.helper.decodeToken(authToken);
@@ -67,7 +86,7 @@ export class AuthService {
   }
 
   login(loginRequest: Login) {
- 
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -75,7 +94,7 @@ export class AuthService {
       responseType: 'text' as 'json'
     };
     return this.http.post<string>(this.urlController + this.ApiUrl, loginRequest, httpOptions);
-       
+
   }
 
   logout() {

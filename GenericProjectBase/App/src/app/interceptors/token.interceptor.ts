@@ -26,12 +26,7 @@ export class TokenInterceptor implements HttpInterceptor {
         });
 
         let allowedUrls = (request.url.indexOf('/api/me') < 0);
-         const surveyUrl = (request.url.indexOf('/api/menusurvey') < 0);
         const token = this._authService.getToken();
-
-        if (!surveyUrl) {
-            allowedUrls = false;
-        }
 
         if (allowedUrls) {
             request = request.clone({

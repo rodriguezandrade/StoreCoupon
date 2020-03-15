@@ -5,6 +5,7 @@ using Repository.Repositories.Interfaces;
 using Repository.Repositories.Utils;
 using System.Linq;
 using System.Threading.Tasks;
+using Role = Repository.Models.Role;
 
 namespace Repository.Repositories
 {

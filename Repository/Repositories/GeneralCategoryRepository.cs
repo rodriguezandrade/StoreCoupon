@@ -10,11 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
-    public class CategoryRepository : RepositoryBase<GeneralCategory>, ICategoryRepository
+    public class GeneralCategoryRepository : RepositoryBase<GeneralCategory>, IGeneralCategoryRepository
     {
         private IRepositoryWrapper _repositoryWrapper;
         private RepositoryContext _repositoyContex;
-        public CategoryRepository
+        public GeneralCategoryRepository
            (
             RepositoryContext repositoryContext,
             IRepositoryWrapper repositoryWrapper

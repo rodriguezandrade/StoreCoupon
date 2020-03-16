@@ -4,23 +4,23 @@ using Repository.Models;
 using Repository.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Repository.Repositories.Utils
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private ICategoryRepository  _categoryRepository;
-        private ISubCategoryRepository _subCategoryRepository;
+        private IGeneralCategoryRepository  _categoryRepository;
         private IRepositoryWrapper  _repositoryWraper;
         private RepositoryContext _repositoryContext; 
 
-        public ICategoryRepository Category
+        public IGeneralCategoryRepository Category
         {
             get
             {
                 if (_categoryRepository == null)
                 {
-                    _categoryRepository = new CategoryRepository(_repositoryContext, _repositoryWraper);
+                    _categoryRepository = new GeneralCategoryRepository(_repositoryContext, _repositoryWraper);
                 }
 
                 return _categoryRepository;
@@ -28,22 +28,19 @@ namespace Repository.Repositories.Utils
         }
 
 
-
-      
-
-
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
         }
 
-        /// <summary>
-        /// Get the Sub catgories
-        /// </summary>
-        /// <returns></returns>
         public List<SubCategory>GetSubCategoriess() {
             return _repositoryContext.SubCategories.Include(x=>x.Category).ToList();
-            
+           
+        }
+
+        public async Task<IQueryable<Coupon>> GetCoupons() { 
+            var query =  await  _repositoryContext.Coupons.Include(x=>x.FkProd).ToListAsync();
+            return query.AsQueryable();
         }
 
         public void save()

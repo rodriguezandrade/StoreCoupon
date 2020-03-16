@@ -1,10 +1,12 @@
 ﻿
+using AutoMapper;
 using Core.Services.Interfaces;
 using Repository.Models;
+using Repository.Models.Dtos;
 using Repository.Repositories.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Core.Services
@@ -12,53 +14,50 @@ namespace Core.Services
     public class OwnerService : IOwnerService
     {
         private readonly IOwnerRepository _ownerRepository;
-        public OwnerService(IOwnerRepository ownerRepository)
+        private readonly IMapper _mapper;
+        public OwnerService(IOwnerRepository ownerRepository, IMapper mapper)
         {
             _ownerRepository = ownerRepository;
+            _mapper = mapper;
         }
 
-        public void Create(Owner entity)
+        public async Task<IQueryable<OwnerDto>> GetAll()
         {
-            entity.Id = new Guid();
-            _ownerRepository.Create(entity);
+            var query = await _ownerRepository.FindAll();
+            return _mapper.Map<List<OwnerDto>>(query).AsQueryable();
         }
 
-        public void Delete(Owner entity)
+        public void Save(OwnerDto owner)
         {
-            _ownerRepository.Delete(entity);
+            owner.Id = new Guid();
+            var query = _mapper.Map<Owner>(owner);
+            _ownerRepository.Create(query);
         }
 
-        public async Task<IQueryable<Owner>> FindAll()
+        public async Task<OwnerDto> DeleteById(Guid Id)
         {
-           return await _ownerRepository.FindAll();
-        }
-
-        public async Task<IQueryable<Owner>> FindByCondition(Expression<Func<Owner, bool>> expression)
-        {
-            return await _ownerRepository.FindByCondition(expression);
-        }
-
-        public void Update(Owner entity)
-        {
-            _ownerRepository.Update(entity);
-        }
-
-        public async Task SaveChage() {
-          await _ownerRepository.SaveChange();
-        }
-
-        public async Task<Owner> DeleteById(Guid Id) {
             var modelToDelete = await _ownerRepository.FindByCondition(x => x.Id == Id);
             _ownerRepository.Delete(modelToDelete.FirstOrDefault());
-            return modelToDelete.FirstOrDefault();
+            return _mapper.Map<OwnerDto>(modelToDelete.FirstOrDefault());
         }
 
-        public async Task<Owner> Modify(Owner owner) {
+        public async Task<OwnerDto> Update(OwnerDto owner)
+        {
             var modelToUpdate = await _ownerRepository.FindByCondition(x => x.Id == owner.Id);
             var model = modelToUpdate.FirstOrDefault();
-            model = owner;
+            var entity = _mapper.Map<Owner>(model);
+            model = entity;
             _ownerRepository.Update(model);
-            return modelToUpdate.FirstOrDefault();
+            return _mapper.Map<OwnerDto>(modelToUpdate.FirstOrDefault());
+        }
+
+        public async Task<OwnerDto> GetById(Guid id)
+        {
+            var query = await _ownerRepository.FindByCondition(x => x.Id == id);
+            return _mapper.Map<OwnerDto>(query.FirstOrDefault());
+        }
+        public async Task SaveChanges() {
+            await _ownerRepository.SaveChange();
         }
     }
 }

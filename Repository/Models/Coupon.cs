@@ -17,6 +17,8 @@ namespace Repository.Models
         public string Status { get; set; } 
         [Required(ErrorMessage = "Discount is required")]
         public int Discount { get; set; }
+        [Required(ErrorMessage ="Expiration Date is required")]
+        public DateTime ExpirationDate { get; set; }
         [Required(ErrorMessage = "Foreignkey is required")]
         [ForeignKey("FkProd")]
         public Guid IdProduct { get; set; }

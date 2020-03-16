@@ -26,60 +26,51 @@ namespace Core.Services
             _subCategoryRepositoryWrapper = subCategoryRepositoryWrapper;
         }
 
-        public void Create(SubCategory entity)
+       
+        public async Task<IQueryable<SubCategoryDto>> FindAll()
         {
-            entity.Id = new Guid();
-            _subCategoryRepository.Create(entity);
+            var query = await _subCategoryRepository.FindAll();
+            return _mapper.Map<List<SubCategoryDto>>(query).AsQueryable();
         }
 
-        public void Delete(SubCategory entity)
-        {
-            _subCategoryRepository.Delete(entity);
-        }
-
-        public async Task<IQueryable<SubCategory>> FindAll()
-        {
-            return await _subCategoryRepository.FindAll();
-        }
-
-        public List<SubCategoryDetails> GetAll()
+        public async Task<IQueryable<SubCategoryDetails>> GetAll()
         {
             var query = _subCategoryRepositoryWrapper.GetSubCategoriess().ToList();
             var result = _mapper.Map<List<SubCategoryDetails>>(query);
-            return result;
+            return result.AsQueryable();
         }
 
-        public async Task<IQueryable<SubCategory>> FindByCondition(Expression<Func<SubCategory, bool>> expression)
+       public void Save(SubCategoryDto subcategory)
         {
-            return await _subCategoryRepository.FindByCondition(expression);
-        }
-        
-        public void Update(SubCategory entity)
-        {
-            _subCategoryRepository.Update(entity);
+            subcategory.Id = new Guid();
+            var query = _mapper.Map<SubCategory>(subcategory);
+            _subCategoryRepository.Create(query);
         }
 
-        public async Task SaveChage()
-        {
-            await _subCategoryRepository.SaveChange();
-        }
-
-        public async Task<SubCategory> DeleteById(Guid Id)
+        public async Task<SubCategoryDto> DeleteById(Guid Id)
         {
             var modelToDelete = await _subCategoryRepository.FindByCondition(x => x.Id == Id);
             _subCategoryRepository.Delete(modelToDelete.FirstOrDefault());
-            return modelToDelete.FirstOrDefault();
+            return _mapper.Map<SubCategoryDto>(modelToDelete.FirstOrDefault());
         }
 
-        public async Task<SubCategory> Modify(SubCategory owner)
+        public async Task<SubCategoryDto> Update(SubCategoryDto subcategory)
         {
-            var modelToUpdate = await _subCategoryRepository.FindByCondition(x => x.Id == owner.Id);
+            var modelToUpdate = await _subCategoryRepository.FindByCondition(x => x.Id == subcategory.Id);
             var model = modelToUpdate.FirstOrDefault();
-            model = owner;
+            var entity = _mapper.Map<SubCategory>(model);
+            model = entity;
             _subCategoryRepository.Update(model);
-            return modelToUpdate.FirstOrDefault();
+            return _mapper.Map<SubCategoryDto>(modelToUpdate.FirstOrDefault());
         }
 
-
+        public async Task<SubCategoryDto> GetById(Guid id)
+        {
+            var query = await _subCategoryRepository.FindByCondition(x => x.Id == id);
+            return _mapper.Map<SubCategoryDto>(query.FirstOrDefault());
+        }
+        public async Task SaveChanges() {
+            await _subCategoryRepository.SaveChange();
+        }
     }
 }

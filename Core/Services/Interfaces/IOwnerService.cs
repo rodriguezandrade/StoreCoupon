@@ -1,6 +1,7 @@
 ﻿
 
 using Repository.Models;
+using Repository.Models.Dtos;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,13 +11,11 @@ namespace Core.Services.Interfaces
 {
     public interface IOwnerService
     {
-        void Create(Owner entity);
-        void Delete(Owner entity);
-        Task<IQueryable<Owner>> FindAll();
-        Task <IQueryable<Owner>> FindByCondition(Expression<Func<Owner, bool>> expression);
-        void Update(Owner entity);
-        Task SaveChage();
-        Task<Owner> DeleteById(Guid Id);
-        Task<Owner> Modify(Owner owner);
+        Task<IQueryable<OwnerDto>> GetAll();
+        void Save(OwnerDto category);
+        Task<OwnerDto> DeleteById(Guid Id);
+        Task<OwnerDto> Update(OwnerDto owner);
+        Task<OwnerDto> GetById(Guid id);
+        Task SaveChanges();
     }
 }

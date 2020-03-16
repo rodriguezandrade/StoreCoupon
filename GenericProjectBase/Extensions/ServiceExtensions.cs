@@ -63,8 +63,8 @@ namespace GenericProjectBase.Extensions
         public static void ConfigureClasesWithInterfaces(this IServiceCollection services)
         {
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IGeneralCategoryService, GeneralCategoryService>();
+            services.AddScoped<IGeneralCategoryRepository, GeneralCategoryRepository>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
@@ -73,6 +73,8 @@ namespace GenericProjectBase.Extensions
             services.AddScoped<IStoreRepository, StoreRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICouponRepository, CouponRepository>();
+            services.AddScoped<ICouponService, CouponService>();
         }
     }
 

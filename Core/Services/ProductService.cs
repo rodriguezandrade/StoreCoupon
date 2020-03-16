@@ -1,5 +1,7 @@
-﻿using Core.Services.Interfaces;
+﻿using AutoMapper;
+using Core.Services.Interfaces;
 using Repository.Models;
+using Repository.Models.Dtos;
 using Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,56 +15,51 @@ namespace Core.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        public ProductService(IProductRepository productRepository)
+        private readonly IMapper _mapper;
+        public ProductService(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
-        public void Create(Product entity)
+        public async Task<IQueryable<ProductDto>> GetAll()
         {
-            entity.Id = new Guid();
-            _productRepository.Create(entity);
+            var query = await _productRepository.FindAll();
+            return _mapper.Map<List<ProductDto>>(query).AsQueryable();
         }
 
-        public void Delete(Product entity)
+        public void Save(ProductDto category)
         {
-            _productRepository.Delete(entity);
+            category.Id = new Guid();
+            var query = _mapper.Map<Product>(category);
+            _productRepository.Create(query);
         }
 
-        public async Task<Product> DeleteById(Guid Id)
+        public async Task<ProductDto> DeleteById(Guid Id)
         {
             var modelToDelete = await _productRepository.FindByCondition(x => x.Id == Id);
             _productRepository.Delete(modelToDelete.FirstOrDefault());
-            return modelToDelete.FirstOrDefault();
+            return _mapper.Map<ProductDto>(modelToDelete.FirstOrDefault());
         }
 
-        public async Task<IQueryable<Product>> FindAll()
+        public async Task<ProductDto> Update(ProductDto owner)
         {
-            return await _productRepository.FindAll();
-        }
-
-        public async Task<IQueryable<Product>> FindByCondition(Expression<Func<Product, bool>> expression)
-        {
-            return await _productRepository.FindByCondition(expression);
-        }
-
-        public async Task<Product> Modify(Product Product)
-        {
-            var modelToUpdate = await _productRepository.FindByCondition(x => x.Id == Product.Id);
+            var modelToUpdate = await _productRepository.FindByCondition(x => x.Id == owner.Id);
             var model = modelToUpdate.FirstOrDefault();
-            model = Product;
+            var entity = _mapper.Map<Product>(model);
+            model = entity;
             _productRepository.Update(model);
-            return modelToUpdate.FirstOrDefault();
+            return _mapper.Map<ProductDto>(modelToUpdate.FirstOrDefault());
         }
 
-        public async Task SaveChage()
+        public async Task<ProductDto> GetById(Guid id)
+        {
+            var query = await _productRepository.FindByCondition(x => x.Id == id);
+            return _mapper.Map<ProductDto>(query.FirstOrDefault());
+        }
+        public async Task SaveChanges()
         {
             await _productRepository.SaveChange();
-        }
-
-        public void Update(Product entity)
-        {
-            _productRepository.Update(entity);
         }
     }
 }

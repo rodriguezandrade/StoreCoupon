@@ -1,22 +1,19 @@
 ﻿
 
-using Repository.Models;
+using Repository.Models.Dtos;
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Core.Services.Interfaces
 {
     public interface IStoreService
     {
-        void Create(Store entity);
-        void Delete(Store entity);
-        Task<IQueryable<Store>> FindAll();
-        Task<IQueryable<Store>> FindByCondition(Expression<Func<Store, bool>> expression);
-        void Update(Store entity);
-        Task SaveChage();
-        Task<Store> DeleteById(Guid Id);
-        Task<Store> Modify(Store owner);
+        Task<IQueryable<StoreDto>> GetAll();
+        void Save(StoreDto category);
+        Task<StoreDto> DeleteById(Guid Id);
+        Task<StoreDto> Update(StoreDto owner);
+        Task<StoreDto> GetById(Guid id);
+        Task SaveChanges();
     }
 }

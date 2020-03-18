@@ -1,25 +1,23 @@
-import { Observable, BehaviorSubject, throwError } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import { Router } from "@angular/router";
-import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
-import { environment } from "src/environments/environment";
+import { HttpClient, HttpHeaders } from "@angular/common/http"; 
 import { Injectable } from "@angular/core";
 import { UserInfo } from "../models/user-info";
 import { Login } from "../models/login";
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { catchError, map } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt'; 
+import { AppSettings } from '../models/utils/appSettings';
 
 @Injectable({
   providedIn: "root"
 })
 
 export class AuthService {
-  serverUrl: string = environment.urlServer;
+  mainEndpoint: string = AppSettings.API_ENDPOINT;
   helper = new JwtHelperService();
   token: string;
   decodedToken: any;
   userInfoBehaviour = new BehaviorSubject<UserInfo>(null);
-  userInfo: UserInfo;
-  urlController: string = environment.urlServer;
+  userInfo: UserInfo; 
   private ApiUrl = "me/auth";
 
   constructor(private _router: Router, private http: HttpClient) {
@@ -94,7 +92,7 @@ export class AuthService {
       }),
       responseType: 'text' as 'json'
     };
-    return this.http.post<string>(this.urlController + this.ApiUrl, loginRequest, httpOptions);
+    return this.http.post<string>(this.mainEndpoint + this.ApiUrl, loginRequest, httpOptions);
 
   }
 
@@ -106,7 +104,7 @@ export class AuthService {
   forgotPassword(email: string): Observable<any> {
     const userLogin = { UserName: email, Password: "" };
     return this.http.post<void>(
-      this.urlController + this.ApiUrl + "/ConfirmEmail",
+      this.mainEndpoint + this.ApiUrl + "/ConfirmEmail",
       userLogin
     );
   }

@@ -39,6 +39,14 @@ namespace GenericProjectBase.Extensions
 
             });
         }
+
+        public static void KestrelIntegration(this IServiceCollection services)
+        {
+            services.Configure<IISOptions>(options =>
+            {
+
+            });
+        }
         //Automapper
         public static void AutoMapperConfiguration(this IServiceCollection services)
         {

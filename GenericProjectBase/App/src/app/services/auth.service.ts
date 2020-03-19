@@ -18,7 +18,7 @@ export class AuthService {
   decodedToken: any;
   userInfoBehaviour = new BehaviorSubject<UserInfo>(null);
   userInfo: UserInfo; 
-  private ApiUrl = "me/auth";
+  private ApiUrl = "/me/auth";
 
   constructor(private _router: Router, private http: HttpClient) {
     const token = this.getToken();

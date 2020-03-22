@@ -11,7 +11,9 @@ namespace GenericProjectBase.Controllers.Account
 {
     [Authorize]
     [ApiController]
-    [Route("api/[controller]/")]
+    [Route("api/v{version:apiVersion}/[controller]/")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class MeController : ControllerBase
     {
         private readonly IAccountService _userService;
@@ -23,10 +25,15 @@ namespace GenericProjectBase.Controllers.Account
             _tokenManagerService = tokenManagerService;
         }
 
+        /// <summary>
+        /// Authenticate & generate JWToken
+        /// <see cref="LoginRequest"/>The login request. 
+        /// </summary>
+        /// <param name="loginRequest">The Request Data</param>
         [HttpPost()]
         [Route("auth")]
         [AllowAnonymous]
-        public IActionResult Authenticate([System.Web.Http.FromBody]LoginRequest model)
+        public IActionResult Authenticate([System.Web.Http.FromBody]LoginRequest loginRequest)
         {
             var token = string.Empty;
 
@@ -35,7 +42,7 @@ namespace GenericProjectBase.Controllers.Account
                 return BadRequest(ModelState); 
             }
 
-            if (model == null)
+            if (loginRequest == null)
             { 
                 throw new ApiException(AppResources.InvalidCredentials, HttpStatusCode.Unauthorized);
             }
@@ -44,7 +51,7 @@ namespace GenericProjectBase.Controllers.Account
             //encData_byte = Encoding.UTF8.GetBytes(model.Password);
             //var password = Convert.ToBase64String(encData_byte);
 
-            var result = _userService.GetUserName(model.UserName, model.Password);
+            var result = _userService.GetUserName(loginRequest.UserName, loginRequest.Password);
 
             if (result == null)
             {
@@ -58,7 +65,6 @@ namespace GenericProjectBase.Controllers.Account
             }
 
             token = _tokenManagerService.Authenticate(result);
-
             return Ok(token);
         }
     }

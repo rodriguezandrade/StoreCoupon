@@ -3,10 +3,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class Initialmigration : Migration
+    public partial class UpdateNewDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "CategoriesStore",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 60, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoriesStore", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "General_Categories",
                 columns: table => new
@@ -41,9 +53,7 @@ namespace Repository.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: false),
-                    Description = table.Column<string>(maxLength: 120, nullable: false),
-                    Price = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,27 +97,6 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Coupons",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: false),
-                    Status = table.Column<string>(nullable: false),
-                    Discount = table.Column<int>(nullable: false),
-                    IdProduct = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Coupons", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Coupons_Products_IdProduct",
-                        column: x => x.IdProduct,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Stores",
                 columns: table => new
                 {
@@ -139,6 +128,80 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Stores_Categories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    IdStore = table.Column<Guid>(nullable: false),
+                    IdCategoryStore = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stores_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Stores_Categories_CategoriesStore_IdCategoryStore",
+                        column: x => x.IdCategoryStore,
+                        principalTable: "CategoriesStore",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Stores_Categories_Stores_IdStore",
+                        column: x => x.IdStore,
+                        principalTable: "Stores",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Description = table.Column<string>(maxLength: 220, nullable: false),
+                    Price = table.Column<int>(nullable: false),
+                    IdProduct = table.Column<Guid>(nullable: false),
+                    IdStoreCategory = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductDetails_Products_IdProduct",
+                        column: x => x.IdProduct,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductDetails_Stores_Categories_IdStoreCategory",
+                        column: x => x.IdStoreCategory,
+                        principalTable: "Stores_Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Coupons",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                    Status = table.Column<string>(nullable: false),
+                    Discount = table.Column<int>(nullable: false),
+                    ExpirationDate = table.Column<DateTime>(nullable: false),
+                    IdProductDtl = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Coupons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Coupons_ProductDetails_IdProductDtl",
+                        column: x => x.IdProductDtl,
+                        principalTable: "ProductDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CouponBooks",
                 columns: table => new
                 {
@@ -164,92 +227,6 @@ namespace Repository.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "CategoriesStore",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 60, nullable: false),
-                    StoreId = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoriesStore", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CategoriesStore_Stores_StoreId",
-                        column: x => x.StoreId,
-                        principalTable: "Stores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Stores_Categories",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 60, nullable: false),
-                    IdStore = table.Column<Guid>(nullable: false),
-                    IdCategoryStore = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stores_Categories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Stores_Categories_CategoriesStore_IdCategoryStore",
-                        column: x => x.IdCategoryStore,
-                        principalTable: "CategoriesStore",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Stores_Categories_Stores_IdStore",
-                        column: x => x.IdStore,
-                        principalTable: "Stores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories_Products",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 60, nullable: false),
-                    IdStoreCategory = table.Column<Guid>(nullable: false),
-                    IdProduct = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories_Products", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Categories_Products_Products_IdProduct",
-                        column: x => x.IdProduct,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Categories_Products_Stores_Categories_IdStoreCategory",
-                        column: x => x.IdStoreCategory,
-                        principalTable: "Stores_Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_Products_IdProduct",
-                table: "Categories_Products",
-                column: "IdProduct");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_Products_IdStoreCategory",
-                table: "Categories_Products",
-                column: "IdStoreCategory");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CategoriesStore_StoreId",
-                table: "CategoriesStore",
-                column: "StoreId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_CouponBooks_IdCoupon",
                 table: "CouponBooks",
@@ -261,9 +238,19 @@ namespace Repository.Migrations
                 column: "IdUser");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coupons_IdProduct",
+                name: "IX_Coupons_IdProductDtl",
                 table: "Coupons",
+                column: "IdProductDtl");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductDetails_IdProduct",
+                table: "ProductDetails",
                 column: "IdProduct");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductDetails_IdStoreCategory",
+                table: "ProductDetails",
+                column: "IdStoreCategory");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stores_IdOwner",
@@ -294,13 +281,7 @@ namespace Repository.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Categories_Products");
-
-            migrationBuilder.DropTable(
                 name: "CouponBooks");
-
-            migrationBuilder.DropTable(
-                name: "Stores_Categories");
 
             migrationBuilder.DropTable(
                 name: "Coupons");
@@ -309,10 +290,16 @@ namespace Repository.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "CategoriesStore");
+                name: "ProductDetails");
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Stores_Categories");
+
+            migrationBuilder.DropTable(
+                name: "CategoriesStore");
 
             migrationBuilder.DropTable(
                 name: "Stores");

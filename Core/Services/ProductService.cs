@@ -46,10 +46,10 @@ namespace Core.Services
         {
             var modelToUpdate = await _productRepository.FindByCondition(x => x.Id == owner.Id);
             var model = modelToUpdate.FirstOrDefault();
-            var entity = _mapper.Map<Product>(model);
+            var entity = _mapper.Map<Product>(owner);
             model = entity;
             _productRepository.Update(model);
-            return _mapper.Map<ProductDto>(modelToUpdate.FirstOrDefault());
+            return owner;
         }
 
         public async Task<ProductDto> GetById(Guid id)

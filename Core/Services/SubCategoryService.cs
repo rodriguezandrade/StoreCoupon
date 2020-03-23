@@ -3,7 +3,6 @@ using Repository.Models;
 using Repository.Repositories.Interfaces;
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Repository.Models.Dtos;
 using Repository.Repositories.Utils;
@@ -58,10 +57,10 @@ namespace Core.Services
         {
             var modelToUpdate = await _subCategoryRepository.FindByCondition(x => x.Id == subcategory.Id);
             var model = modelToUpdate.FirstOrDefault();
-            var entity = _mapper.Map<SubCategory>(model);
+            var entity = _mapper.Map<SubCategory>(subcategory);
             model = entity;
             _subCategoryRepository.Update(model);
-            return _mapper.Map<SubCategoryDto>(modelToUpdate.FirstOrDefault());
+            return subcategory;
         }
 
         public async Task<SubCategoryDto> GetById(Guid id)

@@ -33,14 +33,14 @@ namespace Core.Services
             _couponRepository.Create(model);
         }
 
-        public async Task<IQueryable<CouponDetails>> FindAll() {
+        public async Task<IQueryable<CouponDto>> FindAll() {
             var query = await _couponRepository.FindAll();
-            return _mapper.Map<IQueryable<CouponDetails>>(query).AsQueryable();
+            return _mapper.Map<List<CouponDto>>(query).AsQueryable();
         }
 
-        public async Task<CouponDetails> FindByCondition(Guid idCoupon) {
+        public async Task<CouponDto> FindByCondition(Guid idCoupon) {
             var query = await _couponRepository.FindByCondition(x => x.Id == idCoupon);
-            return _mapper.Map<CouponDetails>(query.FirstOrDefault());
+            return _mapper.Map<CouponDto>(query.FirstOrDefault());
         }
 
         public async Task<CouponDto> Modify(CouponDto coupon) {
@@ -49,7 +49,7 @@ namespace Core.Services
             var entity = _mapper.Map<Coupon>(coupon);
             model = entity;
             _couponRepository.Update(model);
-            return _mapper.Map<CouponDto>(modelToUpdate.FirstOrDefault());
+            return coupon;
             
         }
 

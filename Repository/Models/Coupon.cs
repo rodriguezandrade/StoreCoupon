@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Repository.Models
 {
@@ -20,9 +19,9 @@ namespace Repository.Models
         [Required(ErrorMessage ="Expiration Date is required")]
         public DateTime ExpirationDate { get; set; }
         [Required(ErrorMessage = "Foreignkey is required")]
-        [ForeignKey("FkProd")]
-        public Guid IdProduct { get; set; }
-        public Product FkProd { get; set; }
+        [ForeignKey("FkProduDtl")]
+        public Guid IdProductDtl { get; set; }
+        public ProductDetail FkProduDtl { get; set; }
         public virtual ICollection<CouponBook> CouponBooks { get; set; }
     }
 }

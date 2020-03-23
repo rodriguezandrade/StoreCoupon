@@ -13,11 +13,20 @@ namespace Core.Services
     public class StoreService : IStoreService 
     {
         private readonly IStoreRepository _storeRepository;
+        private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IMapper _mapper;
-        public StoreService(IStoreRepository storeRepository, IMapper mapper)
+        public StoreService(IStoreRepository storeRepository, IMapper mapper, IRepositoryWrapper repositoryWrapper)
         {
             _storeRepository = storeRepository;
             _mapper = mapper;
+            _repositoryWrapper = repositoryWrapper;
+        }
+
+        public async Task<IQueryable<StoreDetails>> GetStores()
+        {
+            var query = await _repositoryWrapper.GetStores();
+            var model = _mapper.Map<List<StoreDetails>>(query).AsQueryable();
+            return model;
         }
 
         public async Task<IQueryable<StoreDto>> GetAll()
@@ -40,14 +49,14 @@ namespace Core.Services
             return _mapper.Map<StoreDto>(modelToDelete.FirstOrDefault());
         }
 
-        public async Task<StoreDto> Update(StoreDto owner)
+        public async Task<StoreDto> Update(StoreDto store)
         {
-            var modelToUpdate = await _storeRepository.FindByCondition(x => x.Id == owner.Id);
+            var modelToUpdate = await _storeRepository.FindByCondition(x => x.Id == store.Id);
             var model = modelToUpdate.FirstOrDefault();
-            var entity = _mapper.Map<Store>(model);
+            var entity = _mapper.Map<Store>(store);
             model = entity;
             _storeRepository.Update(model);
-            return _mapper.Map<StoreDto>(modelToUpdate.FirstOrDefault());
+            return store;
         }
 
         public async Task<StoreDto> GetById(Guid id)

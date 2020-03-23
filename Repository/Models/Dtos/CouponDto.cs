@@ -11,6 +11,6 @@ namespace Repository.Models.Dtos
         public string Status { get; set; }
         public int Discount { get; set; }
         public DateTime ExpirationDate { get; set; }
-        public Guid IdProduct { get; set; }
+        public Guid IdProductDtl { get; set; }
     }
 }

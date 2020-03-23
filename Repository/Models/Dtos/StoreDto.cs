@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Repository.Models.Dtos
 {
@@ -13,6 +11,7 @@ namespace Repository.Models.Dtos
         public int Telephone { get; set; }
         public string Email { get; set; }
         public string RFC { get; set; }
-        public Guid SubCategory { get; set; }
+        public Guid SubCategoryId { get; set; }
+        public Guid IdOwner { get; set; }
     }
 }

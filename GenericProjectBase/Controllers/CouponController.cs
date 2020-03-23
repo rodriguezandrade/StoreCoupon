@@ -63,7 +63,7 @@ namespace GenericProjectBase.Controllers
 
         [HttpGet]
         [Route("get")]
-        public async Task<IActionResult> GetAll() {
+        public async Task<IActionResult> Get() {
             try {
                 var query = await _couponService.FindAll();
                 _loggerManager.LogInfo("Coupones se obtuvieron exitosamente");

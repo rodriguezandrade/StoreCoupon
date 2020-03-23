@@ -12,6 +12,9 @@ namespace Repository.Repositories.Interfaces
 
         List<SubCategory> GetSubCategoriess();
         Task<IQueryable<Coupon>> GetCoupons();
+        Task<IQueryable<Store>> GetStores();
+        Task<IQueryable<Store_Category>> GetStoreCategories();
+        Task<IQueryable<ProductDetail>> GetProductDetails();
         void save();
     }
 }

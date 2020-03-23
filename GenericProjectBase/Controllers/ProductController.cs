@@ -9,7 +9,7 @@ using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/product/")]
+    [Route("api/products/")]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -64,7 +64,7 @@ namespace GenericProjectBase.Controllers
                 _productService.Save(producto);
                 await _productService.SaveChanges();
                 _loggerManager.LogInfo("Producto guardado exitosamente");
-                return CreatedAtAction(nameof(GetById), new { idProducto = producto.Id }, producto);
+                return CreatedAtAction(nameof(GetById), new { idProduct = producto.Id }, producto);
             }
             catch (Exception e)
             {

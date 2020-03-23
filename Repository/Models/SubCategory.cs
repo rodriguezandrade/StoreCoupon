@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,7 +21,7 @@ namespace Repository.Models
         public Guid IdSubCat { get; set; }
         public GeneralCategory Category { get; set; }  
 
-        public virtual ICollection<Store> Stores { get; set; }
+        public virtual ICollection<Store> Store { get; set; }
     }
 
 }

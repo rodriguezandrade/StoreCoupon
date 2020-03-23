@@ -75,6 +75,12 @@ namespace GenericProjectBase.Extensions
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICouponRepository, CouponRepository>();
             services.AddScoped<ICouponService, CouponService>();
+            services.AddScoped<IStore_CategoryRepository, Store_CategoryRepository>();
+            services.AddScoped<IStore_CategoryService, Store_CategoryService>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductDetailRepository, ProductDetailRepository>();
+            services.AddScoped<IProductDetailService, ProductDetailService>();
         }
     }
 

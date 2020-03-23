@@ -1,18 +1,21 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿
 using Core.Logger.Interface;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models.Dtos;
+using System;
+using System.Threading.Tasks;
+
+// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/stores/")]
-    public class StoreController : Controller
+    [Route("api/stores-categories/")]
+    public class Store_CategoryController : Controller 
     {
-        private readonly IStoreService _storeService;
+        private readonly IStore_CategoryService _storeService;
         private readonly ILoggerManager _loggerManager;
-        public StoreController(IStoreService storeService, ILoggerManager loggerManeger )
+        public Store_CategoryController(IStore_CategoryService storeService, ILoggerManager loggerManeger)
         {
             _loggerManager = loggerManeger;
             _storeService = storeService;
@@ -25,29 +28,29 @@ namespace GenericProjectBase.Controllers
             try
             {
                 var query = await _storeService.GetAll();
-                _loggerManager.LogInfo("Stores se obtuvieron exitosamente");
+                _loggerManager.LogInfo("StoresCategories se obtuvieron exitosamente");
                 return Ok(query);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener los stores: " + e);
+                _loggerManager.LogError("Ocurrio un error al obtener los storescategories: " + e);
                 return StatusCode(500);
             }
         }
 
         [HttpGet]
         [Route("getAll")]
-        public async Task<IActionResult> GetStores()
+        public async Task<IActionResult> GetStoresCategories()
         {
             try
             {
-                var query = await _storeService.GetStores();
-                _loggerManager.LogInfo("Stores se obtuvieron exitosamente");
+                var query = await _storeService.GetStoresCategories();
+                _loggerManager.LogInfo("StoresCategories se obtuvieron exitosamente");
                 return Ok(query);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener los stores: " + e);
+                _loggerManager.LogError("Ocurrio un error al obtener los storescategories: " + e);
                 return StatusCode(500);
             }
         }
@@ -59,7 +62,7 @@ namespace GenericProjectBase.Controllers
             try
             {
                 var query = await _storeService.GetById(idStore);
-                _loggerManager.LogInfo("Store se obtuvo correctamente");
+                _loggerManager.LogInfo("Store_Categories se obtuvo correctamente");
                 return Ok(query);
             }
             catch (Exception e)
@@ -71,13 +74,13 @@ namespace GenericProjectBase.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<IActionResult> Add([FromBody] StoreDto store)
+        public async Task<IActionResult> Add([FromBody] Store_CategoryDto store)
         {
             try
             {
                 _storeService.Save(store);
                 await _storeService.SaveChanges();
-                _loggerManager.LogInfo("Store guardado exitosamente");
+                _loggerManager.LogInfo("Store_Categories guardado exitosamente");
                 return CreatedAtAction(nameof(GetById), new { idStore = store.Id }, store);
             }
             catch (Exception e)
@@ -89,12 +92,12 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpDelete]
-        [Route("delete/{idStore}")]
-        public async Task<IActionResult> DeleteById(Guid idStore)
+        [Route("delete/{idStoreCategories}")]
+        public async Task<IActionResult> DeleteById(Guid idStoreCategories)
         {
             try
             {
-                var query = await _storeService.DeleteById(idStore);
+                var query = await _storeService.DeleteById(idStoreCategories);
                 _loggerManager.LogInfo("El store fue eliminado correctamente");
                 return Ok(query);
             }
@@ -107,7 +110,7 @@ namespace GenericProjectBase.Controllers
 
         [HttpPut]
         [Route("update")]
-        public async Task<IActionResult> Update([FromBody] StoreDto store)
+        public async Task<IActionResult> Update([FromBody] Store_CategoryDto store)
         {
             try
             {

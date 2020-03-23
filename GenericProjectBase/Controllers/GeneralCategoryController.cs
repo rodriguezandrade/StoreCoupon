@@ -74,7 +74,7 @@ namespace GenericProjectBase.Controllers
             }
         }
 
-        [Route("getById/{id}")]
+        [Route("get/{id}")]
         [HttpGet]
         public async Task<IActionResult> GetById(Guid id)
         {

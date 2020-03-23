@@ -11,8 +11,8 @@ namespace Core.Services.Interfaces
     {
         Task<IQueryable<CouponDetails>> GetCoupons();
         void create(CouponDto entity);
-        Task<IQueryable<CouponDetails>> FindAll();
-        Task<CouponDetails> FindByCondition(Guid idCoupon);
+        Task<IQueryable<CouponDto>> FindAll();
+        Task<CouponDto> FindByCondition(Guid idCoupon);
         Task<CouponDto> Modify(CouponDto coupon);
         Task<CouponDto> DeleteById(Guid id);
         Task SaveChage();

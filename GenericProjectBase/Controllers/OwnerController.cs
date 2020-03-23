@@ -10,7 +10,6 @@ namespace GenericProjectBase.Controllers
     [Route("api/owners/")]
     public class OwnerController : Controller
     {
-
         private readonly IOwnerService _ownerService;
         private readonly ILoggerManager _loggerManager;
         public OwnerController(IOwnerService ownerService, ILoggerManager loggerManager)
@@ -59,6 +58,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
+                owner.Id = new Guid();
                 _ownerService.Save(owner);
                 await _ownerService.SaveChanges();
                 _loggerManager.LogInfo("Owner guardado exitosamente");

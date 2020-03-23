@@ -29,7 +29,6 @@ namespace Core.Services
 
         public void Save(OwnerDto owner)
         {
-            owner.Id = new Guid();
             var query = _mapper.Map<Owner>(owner);
             _ownerRepository.Create(query);
         }
@@ -45,10 +44,10 @@ namespace Core.Services
         {
             var modelToUpdate = await _ownerRepository.FindByCondition(x => x.Id == owner.Id);
             var model = modelToUpdate.FirstOrDefault();
-            var entity = _mapper.Map<Owner>(model);
+            var entity = _mapper.Map<Owner>(owner);
             model = entity;
             _ownerRepository.Update(model);
-            return _mapper.Map<OwnerDto>(modelToUpdate.FirstOrDefault());
+            return owner;
         }
 
         public async Task<OwnerDto> GetById(Guid id)

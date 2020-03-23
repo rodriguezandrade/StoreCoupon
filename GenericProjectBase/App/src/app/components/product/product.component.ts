@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges,, } from "@angular/core";
+import { Component, OnInit, SimpleChanges } from "@angular/core";
 import { ProductService } from "src/app/services/product.service";
 import { QueryOptions } from "src/app/services/generics/query.options";
 import { Product } from 'src/app/models/product';
@@ -28,7 +28,7 @@ export class ProductComponent implements OnInit, BaseComponent {
   }
 
   fillTable() {
-    this._productService.listWithoutFilter("product/get")
+    this._productService.listWithoutFilter("products/get")
       .subscribe(data => {
         this.products = data;
       });

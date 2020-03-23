@@ -39,7 +39,7 @@ export class ProductSaveUpdateComponent implements OnInit {
   }
 //getCategoryfromDB
   getProduct(id:string){
-        this._productService.read(id, "product/get").subscribe(rest=>{
+        this._productService.read(id, "products/get").subscribe(rest=>{
           this.product = rest;
           this.productForm = this.createForm(this.product);
          });
@@ -63,12 +63,12 @@ export class ProductSaveUpdateComponent implements OnInit {
   submit(){
     if (this.action == Actions.New) {
         console.log("new ", this.productForm.value);
-        this._productService.create(this.productForm.value, "product/save").subscribe(result=>{
+        this._productService.create(this.productForm.value, "products/save").subscribe(result=>{
         });
         this.onResetForm();
         this._router.navigate(['/home/products']);
     }else if (this.action == Actions.Edit) {
-        this._productService.update(this.productForm.value, "product/update").subscribe(result=>{
+        this._productService.update(this.productForm.value, "products/update").subscribe(result=>{
         }, error => {console.error(error)
                      alert(error)});
         this.onResetForm();

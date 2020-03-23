@@ -1,20 +1,35 @@
-<form *ngIf="productForm" [formGroup]="productForm" (ngSubmit)="submit()">
-    <div class="form-group">
-        <label for="name"> Nombre </label>
-        <input type="text" formControlName="name" class="form-control" id="Name"  placeholder="Nombre">
+<div class="container mx-auto border-top px-3">
+    <div class="mt-auto pt-3">
+        <div *ngIf="action == 2">
+            <h3 class="text-center"><b>Modificar Producto</b></h3>
+        </div>
+        <div *ngIf="action == 1">
+            <h3 class="text-center"><b>Crear Producto</b></h3>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="description"> Descripción </label>
-        <input type="text" formControlName="description" class="form-control" id="description"  placeholder="Nombre">
+    <div class="row justify-content-md-center">
+        <div class="col">
+            <form *ngIf="productForm" [formGroup]="productForm" (ngSubmit)="submit()">
+                <div class="form-group">
+                    <label for="name"> Nombre </label>
+                    <input type="text" formControlName="name" class="form-control" id="Name" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <label for="description"> Descripción </label>
+                    <input type="text" formControlName="description" class="form-control" id="description"
+                        placeholder="description">
+                </div>
+                <div class="form-group">
+                    <label for="precio"> Precio </label>
+                    <input type="number" formControlName="price" class="form-control" id="price" placeholder="Precio">
+                </div>
+                <div *ngIf="action == 2">
+                    <button type="submit" class="btn btn-warning">Modificar Producto</button>
+                </div>
+                <div *ngIf="action == 1">
+                    <button type="submit" class="btn btn-success">Crear Producto</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="precio"> Precio </label>
-        <input type="number" formControlName="price" class="form-control" id="price"  placeholder="Nombre">
-    </div>
-     <div *ngIf="action == 2">
-      <button type="submit" class="btn btn-warning">Modificar Categoria</button>
-    </div> 
-    <div *ngIf="action == 1">
-        <button type="submit" class="btn btn-success">Crear Categoria</button>
-      </div> 
-  </form>
+</div>

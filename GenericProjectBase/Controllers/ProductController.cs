@@ -7,7 +7,7 @@ using Repository.Models;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/product/")]
+    [Route("api/v{version:apiVersion}/products/")]
     [ApiVersion("1")]
     [ApiVersion("2")]
     public class ProductController : Controller

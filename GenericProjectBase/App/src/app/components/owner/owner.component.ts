@@ -2,9 +2,8 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { OwnerService } from 'src/app/services/owner.service';
 import { QueryOptions } from 'src/app/services/generics/query.options';
 import { Owner } from 'src/app/models/owner';
-import { Router } from '@angular/router';
-import { Button } from 'protractor';
-import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router'; 
+import { faTrashAlt, faEdit } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-owner',
@@ -12,6 +11,8 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./owner.component.css']
 })
 export class OwnerComponent implements OnInit {
+  faTrashAlt = faTrashAlt;
+  faEdit=faEdit; 
   owners:Owner[];
   constructor(private _ownerService:OwnerService, private _router:Router) { 
   }
@@ -21,7 +22,6 @@ export class OwnerComponent implements OnInit {
        
     this.fillTable();
 }
-
 
 fillTable(){
   this._ownerService.listWithoutFilter("owners/get")
@@ -45,10 +45,7 @@ onDelete(id:string){
   }
 }
 
-
   ngOnInit() {
     this.fillTable();
   }
-  
-
 }

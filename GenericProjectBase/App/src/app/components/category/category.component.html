@@ -1,22 +1,38 @@
-<div class="mt-auto border-top px-3 text-right">
-<h1>Categorias</h1>
-    <button type="button" class="btn btn-success" [routerLink]="['./new']"> <strong>+</strong> Agregar Categoria</button><br>
-<table class="table table-light">
-  <thead class="thead-light">
-    <tr>
-      <th>#</th>
-      <th>ID</th>
-      <th>NOMBRES</th>
-      <th>ACCIONES</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let category of categories; let indice=index">
-      <td>{{indice+1}}</td>
-      <td>{{category.id}}</td>
-      <td>{{category.name}}</td>
-      <td><button (click)="onEdit(category.id)" class="btn btn-warning">Editar</button>|<button (click)="onDelete(category.id)" class="btn btn-danger" >Borrar</button></td>
-    </tr>
-  </tbody>
-</table>
+<div class="mt-auto border-top px-3">
+  <div class="mt-auto pt-3">
+    <h3 class="text-center"><b>Categorías</b></h3>
+  </div>
+  <div class="mt-auto pb-3">
+    <button type="button" class="btn btn-success" [routerLink]="['./new']"> <strong>+</strong> Agregar
+      Categoria</button><br>
+  </div>
+  <table class="table table-light">
+    <thead class="thead-light">
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>NOMBRES</th>
+        <th>ACCIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories; let indice=index">
+        <td>{{indice+1}}</td>
+        <td>{{category.id}}</td>
+        <td>{{category.name}}</td>
+        <td>
+          <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+              <button (click)="onEdit(category.id)" class="btn btn-warning">
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </button>
+              <button (click)="onDelete(category.id)" class="btn btn-danger">
+                <fa-icon [icon]="faTrashAlt"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

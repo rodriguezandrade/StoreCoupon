@@ -36,7 +36,7 @@ namespace GenericProjectBase.Controllers
         /// <see cref="GeneralCategory"/> the sub category model. 
         /// </summary>
         /// <param name="category"></param>
-        [Authorize(Roles = Role.Admin)]
+        //[Authorize(Roles = Role.Admin)]
         [Route("save")]
         [HttpPost]
         [MapToApiVersion("2")] 

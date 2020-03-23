@@ -17,6 +17,8 @@ import { HandleErrorService } from './services/error-handler.service';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HelperService } from './services/helper/helper.service';
 
 @NgModule({
   declarations: [
@@ -36,9 +38,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ToastrModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FontAwesomeModule
   ],
-  providers: [AuthService , AuthGuard, HandleErrorService, {
+  providers: [HelperService, AuthService , AuthGuard, HandleErrorService, {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true

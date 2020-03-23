@@ -10,7 +10,6 @@ import { UserInfo } from '../../models/user-info';
 })
 export class PagesComponent implements OnInit {
   userName: string;
-
   constructor(private _authService: AuthService) { }
 
   ngOnInit() {

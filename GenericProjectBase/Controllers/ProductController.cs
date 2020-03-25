@@ -11,7 +11,7 @@ using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/products/")]
+    [Route("api/v{version:apiVersion}/[Controller]/")]
     [ApiVersion("1")]
     [ApiVersion("2")]
     public class ProductController : Controller
@@ -38,7 +38,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener los productos: " + e);
+                _loggerManager.LogError($"Ocurrio un error al obtener los productos: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -60,7 +60,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener el producto: " + e);
+                _loggerManager.LogError($"Ocurrio un error al obtener el producto: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -80,7 +80,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el producto: " + e);
+                _loggerManager.LogError($"Ocurrio un error cuando se intentaba guardar el producto: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
 
@@ -103,7 +103,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se eliminaba el producto: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se eliminaba el producto: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -123,7 +123,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se modificaba el producto: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se modificaba el producto: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }

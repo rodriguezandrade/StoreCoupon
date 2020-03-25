@@ -9,7 +9,7 @@ namespace Repository.Models.Dtos
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Guid IdSubCat { get; set; }
+        public Guid IdCategory { get; set; }
         public string CategoryName { get; set; }
     }
 }

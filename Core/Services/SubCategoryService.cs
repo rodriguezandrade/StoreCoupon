@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Repository.Models.Dtos;
-using Repository.Repositories.Utils;
 using AutoMapper;
 using System.Collections.Generic;
 using Core.Exceptions;
@@ -36,7 +35,7 @@ namespace Core.Services
 
         public async Task<IQueryable<SubCategoryDto>> GetDetails()
         {
-            var query = _subCategoryRepositoryWrapper.GetSubCategoriess().ToList();
+            var query = _subCategoryRepositoryWrapper.GetSubCategories().ToList();
             var result = _mapper.Map<List<SubCategoryDto>>(query);
             return result.AsQueryable();
         }

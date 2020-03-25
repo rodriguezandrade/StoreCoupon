@@ -14,6 +14,6 @@ namespace Repository.Models.Dtos
         public Guid SubCategoryId { get; set; }
         public Guid IdOwner { get; set; }
         public string Owner { get; set; }
-        public string SubCategorName { get; set; }
+        public string SubCategoryName { get; set; }
     }
 }

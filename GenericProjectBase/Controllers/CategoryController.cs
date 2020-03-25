@@ -11,7 +11,7 @@ using Role = Repository.Repositories.Utils.Role;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/storeCategories/")]
+    [Route("api/v{version:apiVersion}/[Controller]/")]
     [ApiVersion("2")]
     [ApiVersion("1")] 
     public class CategoryController : Controller
@@ -24,26 +24,23 @@ namespace GenericProjectBase.Controllers
             _loggerManager = loggerManager;
             _categoryService = categoryservice;
         }
-        
-         /// <summary>
+
         ///<remarks>Get the categories.</remarks>
-        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             try
-            {
-                var query = await _categoryService.Get(); 
-                return Ok(query);
+            { 
+                return Ok(await _categoryService.Get());
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener los categorys: " + e);
+                _loggerManager.LogError($"Ocurrio un error al obtener los categorys: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
-       /// <see cref="id"/> the category model. 
+        /// <see cref="Guid"/> the category model. 
         /// <summary>
         /// Get category by guid.
         /// </summary>

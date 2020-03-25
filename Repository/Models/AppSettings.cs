@@ -1,5 +1,4 @@
-﻿
-namespace Repository.Models
+﻿namespace Repository.Models
 {
     public class AppSettings
     {

@@ -23,6 +23,5 @@ namespace Repository.Models
         public CategoryStore FkCategoryStore { get; set; }
 
         public virtual ICollection<ProductDetail> Products{ get; set; }
-
     }
 }

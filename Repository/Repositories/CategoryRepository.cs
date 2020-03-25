@@ -10,7 +10,6 @@ namespace Repository.Repositories
     {
         public CategoryRepository(RepositoryContext repositoryContext): base(repositoryContext)
         {
-
         }
     }
 }

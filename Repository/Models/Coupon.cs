@@ -26,7 +26,7 @@ namespace Repository.Models
         [Required(ErrorMessage = "Foreignkey is required")]
         [ForeignKey("FkProduDtl")]
         public Guid IdProductDetail { get; set; }
-        public ProductDetail FkProduDetail { get; set; }
+        public ProductDetail FkProductDetail { get; set; }
         public virtual ICollection<CouponBook> CouponBook { get; set; }
     }
 }

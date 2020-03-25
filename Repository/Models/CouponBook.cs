@@ -19,7 +19,7 @@ namespace Repository.Models
         [ForeignKey("FkCoup")]
         public Guid IdCoupon { get; set; } 
 
-        public Coupon FkCoup { get; set; }
+        public Coupon FkCoupon { get; set; }
 
         [Required]
         public string Status { get; set; } 

@@ -9,7 +9,7 @@ using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/stores/")]
+    [Route("api/v{version:apiVersion}/[Controller]/")]
     [ApiVersion("1")]
     [ApiVersion("2")]
     public class StoreController : Controller
@@ -34,7 +34,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener los stores: " + e);
+                _loggerManager.LogError($"Ocurrio un error al obtener los stores: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -55,7 +55,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener los stores: " + e);
+                _loggerManager.LogError($"Ocurrio un error al obtener los stores: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -76,7 +76,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener el store: " + e);
+                _loggerManager.LogError($"Ocurrio un error al obtener el store: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -96,7 +96,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el store: " + e);
+                _loggerManager.LogError($"Ocurrio un error cuando se intentaba guardar el store: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
 
@@ -118,7 +118,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se eliminaba el store: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se eliminaba el store: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -137,7 +137,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se modificaba el store: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se modificaba el store: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }

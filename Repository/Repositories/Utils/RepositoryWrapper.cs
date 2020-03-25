@@ -35,7 +35,7 @@ namespace Repository.Repositories.Utils
         }
 
         //include Subcategories
-        public List<SubCategory>GetSubCategoriess() {
+        public List<SubCategory>GetSubCategories() {
             return _repositoryContext.SubCategories
                 .Include(x=>x.Category)
                 .ToList();
@@ -44,7 +44,7 @@ namespace Repository.Repositories.Utils
         //include Coupons
         public async Task<IQueryable<Coupon>> GetCoupons() { 
             var query =  await  _repositoryContext.Coupons
-                .Include(x => x.FkProduDetail)
+                .Include(x => x.FkProductDetail)
                 .ToListAsync();
             return query.AsQueryable();
         }
@@ -76,7 +76,7 @@ namespace Repository.Repositories.Utils
                 .ToListAsync();
             return query.AsQueryable();
         }
-        public void save()
+        public void Save()
         {
             _repositoryContext.SaveChanges();
         }

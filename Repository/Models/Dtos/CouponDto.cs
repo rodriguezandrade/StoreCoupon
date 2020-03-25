@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Repository.Models.Dtos
 {
@@ -11,7 +9,7 @@ namespace Repository.Models.Dtos
         public string Status { get; set; }
         public int Discount { get; set; }
         public DateTime ExpirationDate { get; set; }
-        public Guid IdProductDtl { get; set; }
+        public Guid IdProductDetail { get; set; }
         public string ProductName { get; set; }
     }
 }

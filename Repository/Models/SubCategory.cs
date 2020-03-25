@@ -21,7 +21,7 @@ namespace Repository.Models
 
         [Required(ErrorMessage = "Foreignkey is required")]
         [ForeignKey("Category")]
-        public Guid IdSubCat { get; set; }
+        public Guid IdCatetory { get; set; }
 
         public GeneralCategory Category { get; set; }  
 

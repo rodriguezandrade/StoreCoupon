@@ -26,7 +26,7 @@ namespace GenericProjectBase.Controllers.Account
         }
 
         /// <summary>
-        /// CreateAuthToken & generate JWToken
+        /// CreateAuthToken
         /// <see cref="LoginRequest"/>The login request. 
         /// </summary>
         /// <param name="loginRequest">The Request Data</param>

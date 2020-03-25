@@ -12,7 +12,7 @@ using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/subcategories/")]
+    [Route("api/v{version:apiVersion}/[Controller]/")]
     [ApiVersion("1")]
     [ApiVersion("2")]
     public class SubCategoryController : Controller
@@ -32,14 +32,12 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> Get()
         {
             try
-            {
-                var query = await _subCategoryService.GetDetails();
-                _loggerManager.LogInfo("SubCategorys se obtuvieron exitosamente");
-                return Ok(query);
+            { 
+                return Ok(await _subCategoryService.GetDetails());
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener los subcategorys: " + e);
+                _loggerManager.LogError($"Ocurrio un error al obtener los subcategorys: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -61,18 +59,16 @@ namespace GenericProjectBase.Controllers
         /// Sub category model.
         /// </returns>
         [HttpGet]
-        [Route("id}")]
-        public async Task<IActionResult> GetById(Guid idSubCategory)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
             try
-            {
-                var query = await _subCategoryService.GetById(idSubCategory);
-                _loggerManager.LogInfo("SubCategory se obtuvo correctamente");
-                return Ok(query);
+            { 
+                return Ok(await _subCategoryService.GetById(id));
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener el subcategory: " + e);
+                _loggerManager.LogError($"Ocurrio un error al obtener el subcategory: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -92,7 +88,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el subcategory: " + e);
+                _loggerManager.LogError($"Ocurrio un error cuando se intentaba guardar el subcategory: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
 
@@ -106,17 +102,15 @@ namespace GenericProjectBase.Controllers
         /// </returns>
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteById(Guid idSubCategory)
+        public async Task<IActionResult> DeleteById(Guid id)
         {
             try
-            {
-                var query = await _subCategoryService.DeleteById(idSubCategory);
-                _loggerManager.LogInfo("El subcategory fue eliminado correctamente");
-                return Ok(query);
+            { 
+                return Ok(await _subCategoryService.DeleteById(id));
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se eliminaba el subcategory: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se eliminaba el subcategory: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -130,14 +124,12 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> Update([FromBody] SubCategoryDto subcategory)
         {
             try
-            {
-                var query = await _subCategoryService.Update(subcategory);
-                _loggerManager.LogInfo("El subcategory fue modificado exitosamente");
-                return Ok(query);
+            { 
+                return Ok(await _subCategoryService.Update(subcategory));
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se modificaba el subcategory: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se modificaba el subcategory: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }

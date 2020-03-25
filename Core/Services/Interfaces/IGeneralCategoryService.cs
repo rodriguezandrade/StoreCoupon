@@ -1,6 +1,4 @@
-﻿
-using Repository.Models;
-using Repository.Models.Dtos;
+﻿using Repository.Models.Dtos;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

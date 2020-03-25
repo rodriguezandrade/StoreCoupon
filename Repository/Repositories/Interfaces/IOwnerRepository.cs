@@ -1,6 +1,4 @@
-﻿
-
-using Repository.Models;
+﻿using Repository.Models;
 
 namespace Repository.Repositories.Interfaces
 {

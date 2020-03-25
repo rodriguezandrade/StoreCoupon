@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions.Impl;
 using Core.Exceptions;
 using Core.Services.Interfaces;
 using Repository.Models;

@@ -9,7 +9,7 @@ using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/owners/")]
+    [Route("api/v{version:apiVersion}/[Controller]/")]
     [ApiVersion("1")]
     [ApiVersion("2")]
     public class OwnerController : Controller
@@ -35,7 +35,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener los owners: " + e);
+                _loggerManager.LogError($"Ocurrio un error al obtener los owners: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -59,7 +59,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener el owner: " + e);
+                _loggerManager.LogError($"Ocurrio un error al obtener el owner: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -80,7 +80,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el owner: " + e);
+                _loggerManager.LogError($"Ocurrio un error cuando se intentaba guardar el owner: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
 
@@ -103,7 +103,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se eliminaba el owner: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se eliminaba el owner: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -123,7 +123,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se modificaba el owner: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se modificaba el owner: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }

@@ -12,7 +12,7 @@ namespace Repository.Repositories.Utils
     {
         protected RepositoryContext RepositoryContext { get; set; }
 
-        public RepositoryBase(RepositoryContext repositoryContext)
+        private protected RepositoryBase(RepositoryContext repositoryContext)
         {
             RepositoryContext = repositoryContext;
         }
@@ -34,13 +34,13 @@ namespace Repository.Repositories.Utils
             await this.RepositoryContext.Set<T>().AddAsync(entity);
         }
 
-        public async void Update(T entity)
+        public void Update(T entity)
         {
             this.RepositoryContext.Set<T>().Update(entity);
             this.RepositoryContext.SaveChanges();
         }
 
-        public async void Delete(T entity)
+        public void Delete(T entity)
         {
             this.RepositoryContext.Set<T>().Remove(entity);
             this.RepositoryContext.SaveChanges();

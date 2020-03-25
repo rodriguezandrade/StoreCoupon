@@ -9,8 +9,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Core.Exceptions;
-using Core.Logger.Interface;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Core.Services
 {

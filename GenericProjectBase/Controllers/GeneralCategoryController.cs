@@ -1,19 +1,15 @@
-﻿using System;
-using System.Linq;
+﻿using System; 
 using System.Net;
 using System.Threading.Tasks;
 using Core.Exceptions;
 using Core.Logger.Interface;
 using Core.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NLog.Fluent;
-using Repository.Models;
+using Microsoft.AspNetCore.Mvc; 
 using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/categories/")]
+    [Route("api/v{version:apiVersion}/[Controller]/")]
     public class GeneralCategoryController : Controller
     {
         private readonly IGeneralCategoryService _categoryService;
@@ -35,7 +31,7 @@ namespace GenericProjectBase.Controllers
             }
             catch(Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se obtenian las Categorias Generales: "+ e);
+                _loggerManager.LogError($"Ocurrio un error mientras se obtenian las Categorias Generales: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
             
@@ -51,7 +47,7 @@ namespace GenericProjectBase.Controllers
             }
             catch(Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se guardaba la Categoria General: "+e);
+                _loggerManager.LogError($"Ocurrio un error mientras se guardaba la Categoria General: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -67,7 +63,7 @@ namespace GenericProjectBase.Controllers
             }
             catch(Exception e) 
             {
-                _loggerManager.LogError("Ocurrio un error mientras se eliminaba la Categoria General: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se eliminaba la Categoria General: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -83,7 +79,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e) 
             {
-                _loggerManager.LogError("Ocurrio un error mientras se obtenia la Categoria General: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se obtenia la Categoria General: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -98,7 +94,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se modificaba la Categoria General: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se modificaba la Categoria General: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }

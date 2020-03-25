@@ -13,7 +13,7 @@ using Repository.Models.Dtos;
 namespace GenericProjectBase.Controllers
 {
 
-    [Route("api/v{version:apiVersion}/coupons/")]
+    [Route("api/v{version:apiVersion}/[Controller]/")]
     public class CouponController : Controller
     {
         private readonly ILoggerManager _loggerManager;
@@ -27,7 +27,7 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] CouponDto coupon) {
+        public async Task<IActionResult> Add([FromBody] CouponDto coupon)
         {
             try
             {
@@ -41,16 +41,15 @@ namespace GenericProjectBase.Controllers
             }
 
         }
+
         [HttpGet]
         [Route("details")]
-        public async Task<IActionResult> GetCouponDetails() {
-            try {
-                var query = await _couponService.GetDetails(); 
-                return Ok(query);
-            } catch(Exception e) {
-                _loggerManager.LogError("Ocurrio un error al obtener los cupones: " + e);
-                return StatusCode(500);
-            }
+        public async Task<IActionResult> GetCouponDetails()
+        {
+            try
+            { 
+                return Ok(await _couponService.GetDetails());
+            } 
             catch (Exception e)
             {
                 _loggerManager.LogError($"Ocurrio un error al obtener los cupones: {e}");
@@ -59,14 +58,12 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get() {
-            try {
-                var query = await _couponService.Get(); 
-                return Ok(query);
-            } 
-            catch(Exception e) 
+        public async Task<IActionResult> Get()
+        {
+            try
             {
-                return Ok(await _couponService.FindAll());
+                var query = await _couponService.Get();
+                return Ok(await _couponService.Get());
             }
             catch (Exception e)
             {
@@ -80,12 +77,12 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             try
-            { 
+            {
                 return Ok(await _couponService.FindByCondition(id));
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener el coupon: " + e);
+                _loggerManager.LogError($"Ocurrio un error al obtener el coupon: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
@@ -95,28 +92,26 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> DeleteById(Guid id)
         {
             try
-            { 
+            {
                 return Ok(await _couponService.DeleteById(id));
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se eliminaba el coupon: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se eliminaba el coupon: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] CouponDto coupon) {
         public async Task<IActionResult> Update([FromBody] CouponDto coupon)
         {
             try
-            {
-                var query = await _couponService.Update(coupon);
-                return Ok(query);
+            { 
+                return Ok(await _couponService.Update(coupon));
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se modificaba el coupon: " + e);
+                _loggerManager.LogError($"Ocurrio un error mientras se modificaba el coupon: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }

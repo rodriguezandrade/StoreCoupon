@@ -28,7 +28,7 @@ namespace GenericProjectBase
             services.ConfigureCors();
             //services.ConfigureIISIntegration();
             services.ConfigureMySqlContext(Configuration);
-            services.ConfigureClasesWithInterfaces();
+            services.ConfigureClassesWithInterfaces();
             services.AutoMapperConfiguration();
             services.AddControllers();
             services.VersioningConfiguration();

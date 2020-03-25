@@ -3,8 +3,7 @@ using Repository.Data;
 using Repository.Models;
 using Repository.Repositories.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using System.Linq; 
 using System.Threading.Tasks;
 
 namespace Repository.Repositories.Utils
@@ -19,43 +18,62 @@ namespace Repository.Repositories.Utils
         {
             get
             {
-                if (_categoryRepository == null)
+                switch (_categoryRepository)
                 {
-                    _categoryRepository = new GeneralCategoryRepository(_repositoryContext, _repositoryWraper);
+                    case null:
+                        _categoryRepository = new GeneralCategoryRepository(_repositoryContext, _repositoryWraper);
+                        break;
                 }
 
                 return _categoryRepository;
             }
         }
 
-
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
         }
+
         //include Subcategories
         public List<SubCategory>GetSubCategoriess() {
-            return _repositoryContext.SubCategories.Include(x=>x.Category).ToList();
+            return _repositoryContext.SubCategories
+                .Include(x=>x.Category)
+                .ToList();
         }
+
         //include Coupons
         public async Task<IQueryable<Coupon>> GetCoupons() { 
-            var query =  await  _repositoryContext.Coupons.Include(x=>x.FkProduDtl).ToListAsync();
+            var query =  await  _repositoryContext.Coupons
+                .Include(x => x.FkProduDetail)
+                .ToListAsync();
             return query.AsQueryable();
         }
+
         //include Store_Categories
-        public async Task<IQueryable<Store_Category>> GetStoreCategories() {
-            var query = await _repositoryContext.Stores_Categories.Include(x => x.FkCategoryStores).Include(x => x.FkStore).ToListAsync();
+        public async Task<IQueryable<StoreCategory>> GetStoreCategories() {
+            var query = await _repositoryContext.StoresCategories
+                .Include(x => x.FkCategoryStore)
+                .Include(x => x.FkStore)
+                .ToListAsync();
             return query.AsQueryable();
         }
+
         //include ProductDetails
         public async Task<IQueryable<ProductDetail>> GetProductDetails()
         {
-            var query = await _repositoryContext.ProductDetails.Include(x => x.FkProduct).Include(x=> x.FkStoreCategory).ToListAsync();
+            var query = await _repositoryContext.ProductDetails
+                .Include(x => x.FkProduct)
+                .Include(x=> x.FkStoreCategory)
+                .ToListAsync();
             return query.AsQueryable();
         }
+
         //include Stores
         public async Task<IQueryable<Store>> GetStores() {
-            var query = await _repositoryContext.Stores.Include(x => x.SubCategory).Include(x=>x.Owner).ToListAsync();
+            var query = await _repositoryContext.Stores
+                .Include(x => x.SubCategory)
+                .Include(x=>x.Owner)
+                .ToListAsync();
             return query.AsQueryable();
         }
         public void save()

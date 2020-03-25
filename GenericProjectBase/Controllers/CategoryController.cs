@@ -9,10 +9,9 @@ using Role = Repository.Repositories.Utils.Role;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/storecategories/")]
+    [Route("api/v{version:apiVersion}/storeCategories/")]
     [ApiVersion("2")]
-    [ApiVersion("1")]
-    [Route("api/storecategories/")]
+    [ApiVersion("1")] 
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -33,8 +32,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _categoryService.GetAll();
-                _loggerManager.LogInfo("Category se obtuvieron exitosamente");
+                var query = await _categoryService.GetAll(); 
                 return Ok(query);
             }
             catch (Exception e)
@@ -57,8 +55,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _categoryService.GetById(id);
-                _loggerManager.LogInfo("Owner se obtuvo correctamente");
+                var query = await _categoryService.GetById(id); 
                 return Ok(query);
             }
             catch (Exception e)
@@ -82,16 +79,13 @@ namespace GenericProjectBase.Controllers
             try
             {
                 _categoryService.Save(category);
-                await _categoryService.SaveChanges();
-                _loggerManager.LogInfo("Owner guardado exitosamente");
                 return CreatedAtAction(nameof(GetById), new { idCategory = category.Id }, category);
             }
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el category: " + e);
                 return StatusCode(500);
-            }
-
+            } 
         }
 
         /// <summary>
@@ -107,7 +101,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 var query = await _categoryService.DeleteById(id);
-                _loggerManager.LogInfo("El category fue eliminado correctamente");
                 return Ok(query);
             }
             catch (Exception e)
@@ -129,7 +122,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 var query = await _categoryService.Update(category);
-                _loggerManager.LogInfo("El category fue modificado exitosamente");
                 return Ok(query);
             }
             catch (Exception e)
@@ -138,6 +130,5 @@ namespace GenericProjectBase.Controllers
                 return StatusCode(500);
             }
         }
-
     }
 }

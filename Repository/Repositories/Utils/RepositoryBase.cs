@@ -46,7 +46,7 @@ namespace Repository.Repositories.Utils
             this.RepositoryContext.SaveChanges();
         }
 
-        public async Task SaveChange()
+        public async Task SaveChanges()
         {
             await RepositoryContext.SaveChangesAsync();
         }

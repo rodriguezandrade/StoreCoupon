@@ -15,6 +15,5 @@ namespace Core.Services.Interfaces
         Task<ProductDetailDto> DeleteById(Guid Id);
         Task<ProductDetailDto> Update(ProductDetailDto product);
         Task<ProductDetailDto> GetById(Guid id);
-        Task SaveChanges();
     }
 }

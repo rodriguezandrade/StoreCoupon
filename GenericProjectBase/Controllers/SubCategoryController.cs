@@ -87,9 +87,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                _subCategoryService.Save(subcategory);
-                await _subCategoryService.SaveChanges();
-                _loggerManager.LogInfo("SubCategory guardado exitosamente");
+                _subCategoryService.Save(subcategory); 
                 return CreatedAtAction(nameof(GetById), new { idSubCategory = subcategory.Id }, subcategory);
             }
             catch (Exception e)

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Repository.Models.Dtos
 {
-    public class Store_CategoryDetails : Store_CategoryDto
+    public class StoreCategoryDetails : StoreCategoryDto
     {
         public string Store { get; set; }
         public string Category { get; set; }

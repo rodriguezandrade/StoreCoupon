@@ -33,6 +33,7 @@ namespace Core.Services
             category.Id = new Guid();
             var query = _mapper.Map<Product>(category);
             _productRepository.Create(query);
+            _productRepository.SaveChanges();
         }
 
         public async Task<ProductDto> DeleteById(Guid Id)
@@ -56,10 +57,6 @@ namespace Core.Services
         {
             var query = await _productRepository.FindByCondition(x => x.Id == id);
             return _mapper.Map<ProductDto>(query.FirstOrDefault());
-        }
-        public async Task SaveChanges()
-        {
-            await _productRepository.SaveChange();
-        }
+        } 
     }
 }

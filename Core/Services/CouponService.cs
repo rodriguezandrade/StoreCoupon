@@ -31,6 +31,7 @@ namespace Core.Services
             entity.Id = new Guid();
             var model = _mapper.Map<Coupon>(entity);
             _couponRepository.Create(model);
+            _couponRepository.SaveChanges();
         }
 
         public async Task<IQueryable<CouponDto>> FindAll() {
@@ -44,23 +45,16 @@ namespace Core.Services
         }
 
         public async Task<CouponDto> Modify(CouponDto coupon) {
-            var modelToUpdate = await _couponRepository.FindByCondition(x => x.Id == coupon.Id);
-            var model = modelToUpdate.FirstOrDefault();
             var entity = _mapper.Map<Coupon>(coupon);
-            model = entity;
-            _couponRepository.Update(model);
+            var modelToUpdate = await _couponRepository.FindByCondition(x => x.Id == entity.Id);
+            _couponRepository.Update(modelToUpdate.FirstOrDefault());
             return coupon;
-            
         }
 
         public async Task<CouponDto> DeleteById(Guid id) {
             var modelToDelete = await _couponRepository.FindByCondition(x => x.Id == id);
             _couponRepository.Delete(modelToDelete.FirstOrDefault());
             return _mapper.Map<CouponDto>(modelToDelete.FirstOrDefault());
-        }
-        public async Task SaveChage()
-        {
-            await _couponRepository.SaveChange();
         }
     }
 }

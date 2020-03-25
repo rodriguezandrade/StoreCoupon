@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Repository.Repositories.Interfaces
 {
-    public interface IStore_CategoryRepository : IRepositoryBase<Store_Category>
+    public interface IStoreCategoryRepository : IRepositoryBase<StoreCategory>
     {
     }
 }

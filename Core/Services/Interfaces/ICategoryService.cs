@@ -13,7 +13,6 @@ namespace Core.Services.Interfaces
         void Save(CategoryStoreDto category);
         Task<CategoryStoreDto> DeleteById(Guid Id);
         Task<CategoryStoreDto> Update(CategoryStoreDto owner);
-        Task<CategoryStoreDto> GetById(Guid id);
-        Task SaveChanges();
+        Task<CategoryStoreDto> GetById(Guid id); 
     }
 }

@@ -6,7 +6,11 @@ using Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Core.Exceptions;
+using Core.Logger.Interface;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Core.Services
 {
@@ -15,11 +19,13 @@ namespace Core.Services
         private readonly IProductDetailRepository _productDetailRepository;
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IMapper _mapper;
-        public ProductDetailService(IProductDetailRepository productDetail, IMapper mapper, IRepositoryWrapper repositoryWrapper)
+        private readonly ILoggerManager _loggerManager;
+        public ProductDetailService(IProductDetailRepository productDetail, IMapper mapper, IRepositoryWrapper repositoryWrapper, ILoggerManager loggerManager)
         {
             _productDetailRepository = productDetail;
             _mapper = mapper;
             _repositoryWrapper = repositoryWrapper;
+            _loggerManager = loggerManager;
         }
 
         public async Task<IQueryable<ProductDetailDtl>> GetProducts()
@@ -39,6 +45,7 @@ namespace Core.Services
             sc.Id = new Guid();
             var query = _mapper.Map<ProductDetail>(sc);
             _productDetailRepository.Create(query);
+            _productDetailRepository.SaveChanges();
         }
 
         public async Task<ProductDetailDto> DeleteById(Guid Id)
@@ -48,25 +55,25 @@ namespace Core.Services
             return _mapper.Map<ProductDetailDto>(modelToDelete.FirstOrDefault());
         }
 
-        public async Task<ProductDetailDto> Update(ProductDetailDto SC)
+        public async Task<ProductDetailDto> Update(ProductDetailDto productDetailDto)
         {
-            var modelToUpdate = await _productDetailRepository.FindByCondition(x => x.Id == SC.Id);
-            var model = modelToUpdate.FirstOrDefault();
-            var entity = _mapper.Map<ProductDetail>(SC);
-            model = entity;
-            _productDetailRepository.Update(model);
-            return SC;
+            var entity = _mapper.Map<ProductDetail>(productDetailDto);
+            var modelToUpdate = await _productDetailRepository.FindByCondition(x => x.Id == entity.Id);
+            if (!modelToUpdate.Any())
+            {
+                _loggerManager.LogError("Error al actualizar el producto detail fue:" + modelToUpdate);
+                throw new ApiException("", HttpStatusCode.NotFound);
+            }
+
+            _productDetailRepository.Update(entity);
+            return _mapper.Map<ProductDetailDto>(entity);
         }
 
         public async Task<ProductDetailDto> GetById(Guid id)
         {
             var query = await _productDetailRepository.FindByCondition(x => x.Id == id);
             return _mapper.Map<ProductDetailDto>(query.FirstOrDefault());
-        }
-        public async Task SaveChanges()
-        {
-            await _productDetailRepository.SaveChange();
-        }
+        } 
     }
 }
 

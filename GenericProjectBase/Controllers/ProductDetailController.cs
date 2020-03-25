@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Threading.Tasks;
 using Core.Logger.Interface;
 using Core.Services.Interfaces;
@@ -8,7 +7,7 @@ using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/productdetails/")]
+    [Route("api/v{version:apiVersion}/productDetails/")]
     public class ProductDetailController : Controller
     {
         private readonly IProductDetailService _productDetailService;
@@ -26,12 +25,11 @@ namespace GenericProjectBase.Controllers
             try
             {
                 var query = await _productDetailService.GetAll();
-                _loggerManager.LogInfo("ProductDtl se obtuvieron exitosamente");
                 return Ok(query);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener los productsDtl: " + e);
+                _loggerManager.LogError("Ocurrio un error al obtener los product detail: " + e);
                 return StatusCode(500);
             }
         }
@@ -42,30 +40,28 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _productDetailService.GetProducts();
-                _loggerManager.LogInfo("ProductDtl se obtuvieron exitosamente");
+                var query = await _productDetailService.GetProducts(); 
                 return Ok(query);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener los productsDtl: " + e);
+                _loggerManager.LogError("Ocurrio un error al obtener los product detail: " + e);
                 return StatusCode(500);
             }
         }
 
         [HttpGet]
-        [Route("get/{idProduct}")]
-        public async Task<IActionResult> GetById(Guid idProduct)
+        [Route("get/{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
             try
             {
-                var query = await _productDetailService.GetById(idProduct);
-                _loggerManager.LogInfo("ProductDtl se obtuvo correctamente");
+                var query = await _productDetailService.GetById(id); 
                 return Ok(query);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener el productDtl: " + e);
+                _loggerManager.LogError("Ocurrio un error al obtener el product detail: " + e);
                 return StatusCode(500);
             }
         }
@@ -77,31 +73,30 @@ namespace GenericProjectBase.Controllers
             try
             {
                 _productDetailService.Save(product);
-                await _productDetailService.SaveChanges();
-                _loggerManager.LogInfo("ProductDtl guardado exitosamente");
+                _loggerManager.LogInfo("Product detail guardado exitosamente");
                 return CreatedAtAction(nameof(GetById), new { idProduct = product.Id }, product);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el productDtl: " + e);
+                _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el product detail: " + e);
                 return StatusCode(500);
             }
 
         }
 
         [HttpDelete]
-        [Route("delete/{idProduct}")]
-        public async Task<IActionResult> DeleteById(Guid idProduct)
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteById(Guid id)
         {
             try
             {
-                var query = await _productDetailService.DeleteById(idProduct);
-                _loggerManager.LogInfo("El productDtl fue eliminado correctamente");
+                var query = await _productDetailService.DeleteById(id);
+                _loggerManager.LogInfo("El product detail fue eliminado correctamente");
                 return Ok(query);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se eliminaba el productDtl: " + e);
+                _loggerManager.LogError("Ocurrio un error mientras se eliminaba el product detail:" + e);
                 return StatusCode(500);
             }
         }
@@ -112,13 +107,12 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _productDetailService.Update(product);
-                _loggerManager.LogInfo("El productDtl fue modificado exitosamente");
+                var query = await _productDetailService.Update(product); 
                 return Ok(query);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se modificaba el productDtl: " + e);
+                _loggerManager.LogError("Ocurrio un error mientras se modificaba el product detail: " + e);
                 return StatusCode(500);
             }
         }

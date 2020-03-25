@@ -91,8 +91,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                _storeService.Save(store);
-                await _storeService.SaveChanges();
+                _storeService.Save(store); 
                 _loggerManager.LogInfo("Store guardado exitosamente");
                 return CreatedAtAction(nameof(GetById), new { idStore = store.Id }, store);
             }

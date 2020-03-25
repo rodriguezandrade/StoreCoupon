@@ -31,6 +31,7 @@ namespace Core.Services
         {
             var query = _mapper.Map<Owner>(owner);
             _ownerRepository.Create(query);
+            _ownerRepository.SaveChanges();
         }
 
         public async Task<OwnerDto> DeleteById(Guid Id)
@@ -42,11 +43,9 @@ namespace Core.Services
 
         public async Task<OwnerDto> Update(OwnerDto owner)
         {
-            var modelToUpdate = await _ownerRepository.FindByCondition(x => x.Id == owner.Id);
-            var model = modelToUpdate.FirstOrDefault();
             var entity = _mapper.Map<Owner>(owner);
-            model = entity;
-            _ownerRepository.Update(model);
+            var modelToUpdate = await _ownerRepository.FindByCondition(x => x.Id == entity.Id);
+            _ownerRepository.Update(modelToUpdate.FirstOrDefault());
             return owner;
         }
 
@@ -54,9 +53,6 @@ namespace Core.Services
         {
             var query = await _ownerRepository.FindByCondition(x => x.Id == id);
             return _mapper.Map<OwnerDto>(query.FirstOrDefault());
-        }
-        public async Task SaveChanges() {
-            await _ownerRepository.SaveChange();
         }
     }
 }

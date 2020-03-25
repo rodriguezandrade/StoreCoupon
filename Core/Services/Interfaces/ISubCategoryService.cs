@@ -13,7 +13,5 @@ namespace Core.Services.Interfaces
         Task<SubCategoryDto> DeleteById(Guid Id);
         Task<SubCategoryDto> Update(SubCategoryDto subcategory);
         Task<SubCategoryDto> GetById(Guid id);
-        Task SaveChanges();
-
     }
 }

@@ -40,6 +40,7 @@ namespace Core.Services
             store.Id = new Guid();
             var query = _mapper.Map<Store>(store);
             _storeRepository.Create(query);
+            _storeRepository.SaveChanges();
         }
 
         public async Task<StoreDto> DeleteById(Guid Id)
@@ -63,10 +64,6 @@ namespace Core.Services
         {
             var query = await _storeRepository.FindByCondition(x => x.Id == id);
             return _mapper.Map<StoreDto>(query.FirstOrDefault());
-        }
-        public async Task SaveChanges()
-        {
-            await _storeRepository.SaveChange();
-        }
+        } 
     }
 }

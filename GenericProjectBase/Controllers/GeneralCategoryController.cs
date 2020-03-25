@@ -11,7 +11,7 @@ using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/categories/")]
+    [Route("api/v{version:apiVersion}/categories/")]
     public class GeneralCategoryController : Controller
     {
         private readonly IGeneralCategoryService _categoryService;
@@ -29,7 +29,6 @@ namespace GenericProjectBase.Controllers
             try 
             {
                 var query = await _categoryService.GetAll();
-                _loggerManager.LogInfo("Se obtuvieron todas las Categorias Generales correctamente");
                 return Ok(query);
             }
             catch(Exception e)
@@ -47,7 +46,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 _categoryService.Save(category);
-                _loggerManager.LogInfo("Se guardo la Categoria General correctamente");
                 return CreatedAtAction(nameof(GetById), new { id = category.Id }, category);
             }
             catch(Exception e)
@@ -64,7 +62,6 @@ namespace GenericProjectBase.Controllers
             try 
             {
                 var query = await _categoryService.DeleteById(Id);
-                _loggerManager.LogInfo("La Categoria General fue eliminada correctamente");
                 return Ok(query);
             }
             catch(Exception e) 
@@ -81,7 +78,6 @@ namespace GenericProjectBase.Controllers
             try 
             {
                 var query = await _categoryService.GetById(id);
-                _loggerManager.LogInfo("Se obtuvo la Categoria General exitosamente");
                 return Ok(query);
             }
             catch (Exception e) 
@@ -98,7 +94,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 var query = await _categoryService.Update(category);
-                _loggerManager.LogInfo("Se modifico la Categoria General exitosamente");
                 return Ok(query);
             }
             catch (Exception e)

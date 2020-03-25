@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using Core.Services;
 using Core.Services.Interfaces;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +28,10 @@ namespace GenericProjectBase.Extensions
 {
     public static class MiddlewareServiceExtension
     {
+        /// <summary>
+        /// configure cors
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureCors(this IServiceCollection services)
         {
             services.AddCors(options =>
@@ -61,16 +64,19 @@ namespace GenericProjectBase.Extensions
             });
         }
 
+        /// <summary>
+        /// Swagger configuration
+        /// </summary>
+        /// <param name="services"></param>
         public static void SwaggerConfiguration(this IServiceCollection services)
         {
-
             services.AddSwaggerGen(setup =>
             {
                 setup.SwaggerDoc(
                     "v1", new OpenApiInfo
                     {
                         Title = "Admin +Cupon API",
-                        Version = "v1", 
+                        Version = "v1",
                         Description = "Web administrator app",
                         TermsOfService = new Uri("https://jearsoft.com"),
                         Contact = new OpenApiContact
@@ -138,7 +144,7 @@ namespace GenericProjectBase.Extensions
             });
         }
 
-        // Mapper Configuration
+        /// Mapper Configuration
         public static void AutoMapperConfiguration(this IServiceCollection services)
         {
             var mappingConfig = new MapperConfiguration(mc =>
@@ -150,44 +156,57 @@ namespace GenericProjectBase.Extensions
             services.AddSingleton(mapper);
         }
 
-        //Logger
+        ///Logger
         public static void ConfigureLoggerService(this IServiceCollection services)
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
         }
 
-        //Database configuration
+        ///Database configuration
         public static void ConfigureMySqlContext(this IServiceCollection services, IConfiguration config)
         {
             var connectionString = config["SqlConnection:ConnectionString"];
-            services.AddDbContext<RepositoryContext>(o => o.UseSqlServer(connectionString));
+            services.AddDbContext<RepositoryContext>(o => o
+                .UseSqlServer(connectionString));
         }
 
-        //Inyect all the interfaces with classes
-        public static void ConfigureClasesWithInterfaces(this IServiceCollection services)
+        ///Inject all the interfaces with classes
+        public static void ConfigureClassesWithInterfaces(this IServiceCollection services)
         {
+            ///Wrappers
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
+            ///Services
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IOwnerService, OwnerService>();
+            services.AddScoped<IStoreService, StoreService>();
+            services.AddScoped<ISubCategoryService, SubCategoryService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IGeneralCategoryService, GeneralCategoryService>();
+            services.AddScoped<ICouponService, CouponService>();
+            services.AddScoped<IStoreCategoryService, StoreCategoryService>();
+            services.AddScoped<IProductDetailService, ProductDetailService>();
+
+            ///Repositories
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
-            services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
-            services.AddScoped<ISubCategoryService, SubCategoryService>();
-            services.AddScoped<IStoreService, StoreService>();
             services.AddScoped<IStoreRepository, StoreRepository>();
-            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAccountRepository, AccountRepository>();
-            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IGeneralCategoryRepository, GeneralCategoryRepository>();
+            services.AddScoped<ICouponRepository, CouponRepository>();
+            services.AddScoped<IStoreCategoryRepository, StoreCategoryRepository>();
+            services.AddScoped<IProductDetailRepository, ProductDetailRepository>();
         }
 
-        //Configure jwt authentication
+        ///Configure jwt authentication
         public static void ConfigureJWToken(this IServiceCollection services, IConfiguration config)
         {
             var appSettingsSection = config.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
-
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
@@ -207,8 +226,6 @@ namespace GenericProjectBase.Extensions
                     ValidateAudience = false
                 };
             });
-
         }
     }
-
 }

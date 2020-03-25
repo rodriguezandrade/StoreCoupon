@@ -33,7 +33,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 var query = await _productService.GetAll();
-                _loggerManager.LogInfo("Productos se obtuvieron exitosamente");
                 return Ok(query);
             }
             catch (Exception e)
@@ -50,13 +49,12 @@ namespace GenericProjectBase.Controllers
         /// Product model.
         /// </returns>
         [HttpGet]
-        [Route("get/{idProduct}")]
-        public async Task<IActionResult> GetById(Guid idProduct)
+        [Route("get/{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
             try
             {
-                var query = await _productService.GetById(idProduct);
-                _loggerManager.LogInfo("Producto se obtuvo correctamente");
+                var query = await _productService.GetById(id);
                 return Ok(query);
             }
             catch (Exception e)
@@ -68,19 +66,17 @@ namespace GenericProjectBase.Controllers
 
         /// <summary>
         /// Save product
-        /// <see cref="Product"/> the product model. 
+        /// <see cref="ProductDto"/> the product model. 
         /// </summary>
-        /// <param name="Product"></param>
+        /// <param name="product"></param>
         [HttpPost]
         [Route("save")]
-        public async Task<IActionResult> Add([FromBody] ProductDto producto)
+        public async Task<IActionResult> Add([FromBody] ProductDto product)
         {
             try
             {
-                _productService.Save(producto);
-                await _productService.SaveChanges();
-                _loggerManager.LogInfo("Producto guardado exitosamente");
-                return CreatedAtAction(nameof(GetById), new { idProduct = producto.Id }, producto);
+                _productService.Save(product); 
+                return CreatedAtAction(nameof(GetById), new { idProduct = product.Id }, product);
             }
             catch (Exception e)
             {
@@ -97,13 +93,12 @@ namespace GenericProjectBase.Controllers
         /// Product deleted.
         /// </returns>
         [HttpDelete]
-        [Route("delete/{idProduct}")]
-        public async Task<IActionResult> DeleteById(Guid idProduct)
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteById(Guid id)
         {
             try
             {
-                var query = await _productService.DeleteById(idProduct);
-                _loggerManager.LogInfo("El producto fue eliminado correctamente");
+                var query = await _productService.DeleteById(id);
                 return Ok(query);
             }
             catch (Exception e)
@@ -115,17 +110,16 @@ namespace GenericProjectBase.Controllers
 
         /// <summary>
         /// Update product.
-        /// <see cref="Product"/> the product model. 
+        /// <see cref="ProductDto"/> the product model. 
         /// </summary>
-        /// <param name="Product"></param>
+        /// <param name="product"></param>
         [HttpPut]
         [Route("update")]
-        public async Task<IActionResult> Update([FromBody] ProductDto producto)
+        public async Task<IActionResult> Update([FromBody] ProductDto product)
         {
             try
             {
-                var query = await _productService.Update(producto);
-                _loggerManager.LogInfo("El producto fue modificado exitosamente");
+                var query = await _productService.Update(product);
                 return Ok(query);
             }
             catch (Exception e)

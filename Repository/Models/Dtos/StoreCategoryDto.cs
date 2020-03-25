@@ -2,7 +2,7 @@
 
 namespace Repository.Models.Dtos
 {
-    public class Store_CategoryDto
+    public class StoreCategoryDto
     {
         public Guid Id { get; set; }
         public Guid IdStore { get; set; }

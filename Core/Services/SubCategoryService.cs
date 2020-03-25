@@ -44,6 +44,7 @@ namespace Core.Services
             subcategory.Id = new Guid();
             var query = _mapper.Map<SubCategory>(subcategory);
             _subCategoryRepository.Create(query);
+            _subCategoryRepository.SaveChanges();
         }
 
         public async Task<SubCategoryDto> DeleteById(Guid Id)
@@ -67,9 +68,6 @@ namespace Core.Services
         {
             var query = await _subCategoryRepository.FindByCondition(x => x.Id == id);
             return _mapper.Map<SubCategoryDto>(query.FirstOrDefault());
-        }
-        public async Task SaveChanges() {
-            await _subCategoryRepository.SaveChange();
-        }
+        } 
     }
 }

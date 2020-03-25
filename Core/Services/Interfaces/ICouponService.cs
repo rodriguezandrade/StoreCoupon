@@ -15,6 +15,5 @@ namespace Core.Services.Interfaces
         Task<CouponDto> FindByCondition(Guid idCoupon);
         Task<CouponDto> Modify(CouponDto coupon);
         Task<CouponDto> DeleteById(Guid id);
-        Task SaveChage();
     }
 }

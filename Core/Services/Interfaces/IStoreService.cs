@@ -15,6 +15,5 @@ namespace Core.Services.Interfaces
         Task<StoreDto> DeleteById(Guid Id);
         Task<StoreDto> Update(StoreDto owner);
         Task<StoreDto> GetById(Guid id);
-        Task SaveChanges();
     }
 }

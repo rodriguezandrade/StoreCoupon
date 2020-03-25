@@ -1,21 +1,18 @@
-﻿
-using Core.Logger.Interface;
+﻿using Core.Logger.Interface;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models.Dtos;
 using System;
 using System.Threading.Tasks;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/stores-categories/")]
-    public class Store_CategoryController : Controller 
+    [Route("api/v{version:apiVersion}/storeCategories/")]
+    public class StoreCategoryController : Controller 
     {
-        private readonly IStore_CategoryService _storeService;
+        private readonly IStoreCategoryService _storeService;
         private readonly ILoggerManager _loggerManager;
-        public Store_CategoryController(IStore_CategoryService storeService, ILoggerManager loggerManeger)
+        public StoreCategoryController(IStoreCategoryService storeService, ILoggerManager loggerManeger)
         {
             _loggerManager = loggerManeger;
             _storeService = storeService;
@@ -74,12 +71,11 @@ namespace GenericProjectBase.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<IActionResult> Add([FromBody] Store_CategoryDto store)
+        public async Task<IActionResult> Add([FromBody] StoreCategoryDto store)
         {
             try
             {
-                _storeService.Save(store);
-                await _storeService.SaveChanges();
+                _storeService.Save(store); 
                 _loggerManager.LogInfo("Store_Categories guardado exitosamente");
                 return CreatedAtAction(nameof(GetById), new { idStore = store.Id }, store);
             }
@@ -110,7 +106,7 @@ namespace GenericProjectBase.Controllers
 
         [HttpPut]
         [Route("update")]
-        public async Task<IActionResult> Update([FromBody] Store_CategoryDto store)
+        public async Task<IActionResult> Update([FromBody] StoreCategoryDto store)
         {
             try
             {

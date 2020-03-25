@@ -1,22 +1,17 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Core.Logger.Interface;
-using Core.Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Repository.Models;
+using Core.Services.Interfaces; 
+using Microsoft.AspNetCore.Mvc; 
 using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
 
-    [Route("api/coupons/")]
+    [Route("api/v{version:apiVersion}/coupons/")]
     public class CouponController : Controller
     {
         private readonly ILoggerManager _loggerManager;
@@ -35,9 +30,7 @@ namespace GenericProjectBase.Controllers
             
             try
             {
-                _couponService.create(coupon);
-                await _couponService.SaveChage();
-                _loggerManager.LogInfo("Coupon guardado exitosamente");
+                _couponService.create(coupon); 
                 return CreatedAtAction(nameof(GetById), new { idCoupon = coupon.Id }, coupon);
             }
             catch(Exception e)
@@ -52,8 +45,7 @@ namespace GenericProjectBase.Controllers
         [Route("getAll")]
         public async Task<IActionResult> GetCoupons() {
             try {
-                var query = await _couponService.GetCoupons();
-                _loggerManager.LogInfo("Cupones se obtuvieron exitosamente");
+                var query = await _couponService.GetCoupons(); 
                 return Ok(query);
             } catch(Exception e) {
                 _loggerManager.LogError("Ocurrio un error al obtener los cupones: " + e);
@@ -65,8 +57,7 @@ namespace GenericProjectBase.Controllers
         [Route("get")]
         public async Task<IActionResult> Get() {
             try {
-                var query = await _couponService.FindAll();
-                _loggerManager.LogInfo("Coupones se obtuvieron exitosamente");
+                var query = await _couponService.FindAll(); 
                 return Ok(query);
             } 
             catch(Exception e) 
@@ -77,11 +68,10 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpGet]
-        [Route("get/{idCoupon}")]
-        public async Task<IActionResult> GetById(Guid idCoupon) {
+        [Route("get/{id}")]
+        public async Task<IActionResult> GetById(Guid id) {
             try {
-                var query = await _couponService.FindByCondition(idCoupon);
-                _loggerManager.LogInfo("Coupon se obtuvo correctamente");
+                var query = await _couponService.FindByCondition(id); 
                 return Ok(query);
             } catch (Exception e) {
                 _loggerManager.LogError("Ocurrio un error al obtener el coupon: " + e);
@@ -90,11 +80,10 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpDelete]
-        [Route("delete/{idCoupon}")]
-        public async Task<IActionResult> DeleteById(Guid idCoupon) {
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteById(Guid id) {
             try { 
-                var query = await _couponService.DeleteById(idCoupon);
-                _loggerManager.LogInfo("El coupon fue eliminado correctamente");
+                var query = await _couponService.DeleteById(id);
                 return Ok(query);
             } catch (Exception e) {
                 _loggerManager.LogError("Ocurrio un error mientras se eliminaba el coupon: " + e);
@@ -108,7 +97,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 var query = await _couponService.Modify(coupon);
-                _loggerManager.LogInfo("El coupon fue modificado exitosamente");
                 return Ok(query);
             }
             catch(Exception e) 

@@ -49,13 +49,12 @@ namespace GenericProjectBase.Controllers
         /// Owner model.
         /// </returns>
         [HttpGet]
-        [Route("get/{idOwner}")]
-        public async Task<IActionResult> GetById(Guid idOwner)
+        [Route("get/{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
             try
             {
-                var query = await _ownerService.GetById(idOwner);
-                _loggerManager.LogInfo("Owner se obtuvo correctamente");
+                var query = await _ownerService.GetById(id); 
                 return Ok(query);
             }
             catch (Exception e)
@@ -67,7 +66,7 @@ namespace GenericProjectBase.Controllers
 
         /// <summary>
         /// Save the owners
-        /// <see cref="Owner"/> the owner model. 
+        /// <see cref="OwnerDto"/> the owner model. 
         /// </summary>
         /// <param name="owner"></param>
         [HttpPost]
@@ -78,8 +77,7 @@ namespace GenericProjectBase.Controllers
             {
                 owner.Id = new Guid();
                 _ownerService.Save(owner);
-                await _ownerService.SaveChanges();
-                _loggerManager.LogInfo("Owner guardado exitosamente");
+              
                 return CreatedAtAction(nameof(GetById), new { idOwner = owner.Id }, owner);
             }
             catch (Exception e)
@@ -97,13 +95,12 @@ namespace GenericProjectBase.Controllers
         /// Owner deleted.
         /// </returns>
         [HttpDelete]
-        [Route("delete/{idOwner}")]
-        public async Task<IActionResult> DeleteById(Guid idOwner)
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteById(Guid id)
         {
             try
             {
-                var query = await _ownerService.DeleteById(idOwner);
-                _loggerManager.LogInfo("El owner fue eliminado correctamente");
+                var query = await _ownerService.DeleteById(id); 
                 return Ok(query);
             }
             catch (Exception e)
@@ -115,7 +112,7 @@ namespace GenericProjectBase.Controllers
 
         /// <summary>
         /// Update the owner.
-        /// <see cref="Owner"/> the owner model. 
+        /// <see cref="OwnerDto"/> the owner model. 
         /// </summary>
         /// <param name="owner"></param>
         [HttpPut]
@@ -124,8 +121,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _ownerService.Update(owner);
-                _loggerManager.LogInfo("El owner fue modificado exitosamente");
+                var query = await _ownerService.Update(owner); 
                 return Ok(query);
             }
             catch (Exception e)
@@ -134,6 +130,5 @@ namespace GenericProjectBase.Controllers
                 return StatusCode(500);
             }
         }
-
     }
 }

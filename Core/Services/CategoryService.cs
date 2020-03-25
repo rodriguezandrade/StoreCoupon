@@ -31,6 +31,7 @@ namespace Core.Services
             category.Id = new Guid();
             var query = _mapper.Map<CategoryStore>(category);
             _categoryRepository.Create(query);
+            _categoryRepository.SaveChanges();
         }
 
         public async Task<CategoryStoreDto> DeleteById(Guid Id)
@@ -42,11 +43,9 @@ namespace Core.Services
 
         public async Task<CategoryStoreDto> Update(CategoryStoreDto category)
         {
-            var modelToUpdate = await _categoryRepository.FindByCondition(x => x.Id == category.Id);
-            var model = modelToUpdate.FirstOrDefault();
             var entity = _mapper.Map<CategoryStore>(category);
-            model = entity;
-            _categoryRepository.Update(model);
+            var modelToUpdate = await _categoryRepository.FindByCondition(x => x.Id == entity.Id);
+            _categoryRepository.Update(modelToUpdate.FirstOrDefault());
             return category;
         }
 
@@ -54,10 +53,6 @@ namespace Core.Services
         {
             var query = await _categoryRepository.FindByCondition(x => x.Id == id);
             return _mapper.Map<CategoryStoreDto>(query.FirstOrDefault());
-        }
-        public async Task SaveChanges()
-        {
-            await _categoryRepository.SaveChange();
-        }
+        } 
     }
 }

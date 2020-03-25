@@ -64,13 +64,13 @@ namespace GenericProjectBase.Controllers
 
         /// <summary>
         /// Save the categories
-        /// <see cref="CategoryStoreDto"/> the sub category model. 
+        /// <see cref="CategoryOfStoreDto"/> the sub category model. 
         /// </summary>
         /// <param name="category"></param>
         //[Authorize(Roles = Role.Admin)]
         [MapToApiVersion("2")] 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] CategoryStoreDto category)
+        public async Task<IActionResult> Add([FromBody] CategoryOfStoreDto category)
         {
             try
             {
@@ -107,11 +107,11 @@ namespace GenericProjectBase.Controllers
 
         /// <summary>
         /// Update the category.
-        /// <see cref="CategoryStoreDto"/> the category model. 
+        /// <see cref="CategoryOfStoreDto"/> the category model. 
         /// </summary>
         /// <param name="category"></param>
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] CategoryStoreDto category)
+        public async Task<IActionResult> Update([FromBody] CategoryOfStoreDto category)
         {
             try
             { 

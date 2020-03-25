@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Repository.Models.Dtos.Account
+﻿namespace Repository.Models.Dtos.Account
 {
     public class UserDto
     {

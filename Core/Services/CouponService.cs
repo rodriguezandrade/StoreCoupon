@@ -23,29 +23,34 @@ namespace Core.Services
             _couponRepository = couponRepository;
             _repositoryWrapper = repositoryWrapper;
         }
-        public async Task<IQueryable<CouponDto>> GetDetails() {
-            var query = await  _repositoryWrapper.GetCoupons();
-             return _mapper.Map<List<CouponDto>>(query).AsQueryable();
-           
+        public async Task<IQueryable<CouponDto>> GetDetails()
+        {
+            var query = await _repositoryWrapper.GetCoupons();
+            return _mapper.Map<List<CouponDto>>(query).AsQueryable();
         }
-        public void create(CouponDto entity) {
+
+        public void Create(CouponDto entity)
+        {
             entity.Id = new Guid();
             var model = _mapper.Map<Coupon>(entity);
             _couponRepository.Create(model);
             _couponRepository.SaveChanges();
         }
 
-        public async Task<IQueryable<CouponDto>> Get() {
+        public async Task<IQueryable<CouponDto>> Get()
+        {
             var query = await _couponRepository.FindAll();
             return _mapper.Map<List<CouponDto>>(query).AsQueryable();
         }
 
-        public async Task<CouponDto> FindByCondition(Guid idCoupon) {
+        public async Task<CouponDto> FindByCondition(Guid idCoupon)
+        {
             var query = await _couponRepository.FindByCondition(x => x.Id == idCoupon);
             return _mapper.Map<CouponDto>(query.FirstOrDefault());
         }
 
-        public async Task<CouponDto> Update(CouponDto coupon) {
+        public async Task<CouponDto> Update(CouponDto coupon)
+        {
             var entity = _mapper.Map<Coupon>(coupon);
             var modelToUpdate = await _couponRepository.FindByCondition(x => x.Id == entity.Id);
             if (!modelToUpdate.Any())
@@ -56,7 +61,8 @@ namespace Core.Services
             return _mapper.Map<CouponDto>(entity);
         }
 
-        public async Task<CouponDto> DeleteById(Guid id) {
+        public async Task<CouponDto> DeleteById(Guid id)
+        {
             var modelToDelete = await _couponRepository.FindByCondition(x => x.Id == id);
             _couponRepository.Delete(modelToDelete.FirstOrDefault());
             return _mapper.Map<CouponDto>(modelToDelete.FirstOrDefault());

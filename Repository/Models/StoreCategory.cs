@@ -20,7 +20,7 @@ namespace Repository.Models
         [ForeignKey("FkCategoryStores")] 
         public Guid IdCategoryStore { get; set; }
 
-        public CategoryStore FkCategoryStore { get; set; }
+        public CategoryOfStore FkCategoryStore { get; set; }
 
         public virtual ICollection<ProductDetail> Products{ get; set; }
     }

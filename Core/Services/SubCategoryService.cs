@@ -18,7 +18,6 @@ namespace Core.Services
         private readonly IRepositoryWrapper _subCategoryRepositoryWrapper;
         private readonly IMapper _mapper;
 
-
         public SubCategoryService(ISubCategoryRepository subCategoryRepository, IMapper mapper, IRepositoryWrapper subCategoryRepositoryWrapper)
         {
             _subCategoryRepository = subCategoryRepository;
@@ -26,7 +25,6 @@ namespace Core.Services
             _subCategoryRepositoryWrapper = subCategoryRepositoryWrapper;
         }
 
-       
         public async Task<IQueryable<SubCategoryDto>> Get()
         {
             var query = await _subCategoryRepository.FindAll();
@@ -40,7 +38,7 @@ namespace Core.Services
             return result.AsQueryable();
         }
 
-       public void Save(SubCategoryDto subcategory)
+        public void Save(SubCategoryDto subcategory)
         {
             subcategory.Id = new Guid();
             var query = _mapper.Map<SubCategory>(subcategory);
@@ -63,7 +61,7 @@ namespace Core.Services
             {
                 throw new ApiException("No se pudo editar la subcategory", HttpStatusCode.NotFound);
             }
-           _subCategoryRepository.Update(entity);
+            _subCategoryRepository.Update(entity);
             return _mapper.Map<SubCategoryDto>(entity);
         }
 
@@ -71,6 +69,6 @@ namespace Core.Services
         {
             var query = await _subCategoryRepository.FindByCondition(x => x.Id == id);
             return _mapper.Map<SubCategoryDto>(query.FirstOrDefault());
-        } 
+        }
     }
 }

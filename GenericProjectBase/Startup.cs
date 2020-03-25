@@ -38,7 +38,7 @@ namespace GenericProjectBase
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            #region Default values at create project
+            #region Default values at Create project
             //if (env.IsDevelopment())
             //{
             //    app.UseDeveloperExceptionPage();

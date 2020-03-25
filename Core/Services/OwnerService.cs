@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Exceptions;
 using Core.Services.Interfaces;
 using Repository.Models;

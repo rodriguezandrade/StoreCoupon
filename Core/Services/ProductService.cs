@@ -59,6 +59,6 @@ namespace Core.Services
         {
             var query = await _productRepository.FindByCondition(x => x.Id == id);
             return _mapper.Map<ProductDto>(query.FirstOrDefault());
-        } 
+        }
     }
 }

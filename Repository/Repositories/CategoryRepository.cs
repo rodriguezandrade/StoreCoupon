@@ -6,7 +6,7 @@ using System;
 
 namespace Repository.Repositories
 {
-    public class CategoryRepository : RepositoryBase<CategoryStore>, ICategoryRepository
+    public class CategoryRepository : RepositoryBase<CategoryOfStore>, ICategoryRepository
     {
         public CategoryRepository(RepositoryContext repositoryContext): base(repositoryContext)
         {

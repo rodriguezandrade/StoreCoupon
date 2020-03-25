@@ -24,7 +24,7 @@ namespace Repository.Models
         public DateTime ExpirationDate { get; set; }
 
         [Required(ErrorMessage = "Foreignkey is required")]
-        [ForeignKey("FkProduDtl")]
+        [ForeignKey("FkProductDetail")]
         public Guid IdProductDetail { get; set; }
         public ProductDetail FkProductDetail { get; set; }
         public virtual ICollection<CouponBook> CouponBook { get; set; }

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Repository.Models
 {
-    public class CategoryStore
+    public class CategoryOfStore
     {
         [Key]
         public Guid Id { get; set; }

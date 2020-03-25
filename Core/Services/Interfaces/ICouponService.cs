@@ -8,7 +8,7 @@ namespace Core.Services.Interfaces
     public interface ICouponService
     {
         Task<IQueryable<CouponDto>> GetDetails();
-        void create(CouponDto entity);
+        void Create(CouponDto entity);
         Task<IQueryable<CouponDto>> Get();
         Task<CouponDto> FindByCondition(Guid idCoupon);
         Task<CouponDto> Update(CouponDto coupon);

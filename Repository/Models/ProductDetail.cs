@@ -17,13 +17,13 @@ namespace Repository.Models
         [Required(ErrorMessage = "Price is required")]
         public int Price { get; set; }
 
-        [Required(ErrorMessage = "Foreignkey is required")]
+        [Required(ErrorMessage = "Foreign key is required")]
         [ForeignKey("FkProduct")]
         public Guid IdProduct { get; set; }
 
         public Product FkProduct { get; set; }
 
-        [Required(ErrorMessage = "Foreignkey is required")]
+        [Required(ErrorMessage = "Foreign key is required")]
         [ForeignKey("FkStoreCategory")]
         public Guid IdStoreCategory { get; set; }
 

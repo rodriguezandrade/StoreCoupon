@@ -17,7 +17,7 @@ namespace Core.Services
         private readonly IProductDetailRepository _productDetailRepository;
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IMapper _mapper;
-       
+
         public ProductDetailService(IProductDetailRepository productDetail, IMapper mapper, IRepositoryWrapper repositoryWrapper)
         {
             _productDetailRepository = productDetail;
@@ -69,7 +69,7 @@ namespace Core.Services
         {
             var query = await _productDetailRepository.FindByCondition(x => x.Id == id);
             return _mapper.Map<ProductDetailDto>(query.FirstOrDefault());
-        } 
+        }
     }
 }
 

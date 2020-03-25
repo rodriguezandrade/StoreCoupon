@@ -23,7 +23,7 @@ namespace Core.Services
         }
 
         public async Task<IQueryable<GeneralCategoryDto>> Get()
-        { 
+        {
             var query = await _categoryRepository.FindAll();
             return _mapper.Map<List<GeneralCategoryDto>>(query).AsQueryable();
         }
@@ -37,7 +37,7 @@ namespace Core.Services
         }
 
         public async Task<GeneralCategoryDto> DeleteById(Guid Id)
-        { 
+        {
             var query = await _categoryRepository.DeleteById(Id);
             return _mapper.Map<GeneralCategoryDto>(query);
         }

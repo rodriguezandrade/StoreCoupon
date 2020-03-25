@@ -1,4 +1,4 @@
-﻿using Core.Services.Interfaces; 
+﻿using Core.Services.Interfaces;
 using Repository.Models.Dtos.Account;
 using Repository.Repositories.Interfaces;
 using System;

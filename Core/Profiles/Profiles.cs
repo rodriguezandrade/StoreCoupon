@@ -13,7 +13,7 @@ namespace Core.Profiles
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<OwnerDto, Owner>().ReverseMap();
             CreateMap<Coupon, CouponDto>().ReverseMap();
-            CreateMap<CategoryStore, CategoryStoreDto>().ReverseMap();
+            CreateMap<CategoryOfStore, CategoryOfStoreDto>().ReverseMap();
             CreateMap<GeneralCategoryDto, GeneralCategory>().ReverseMap();
             CreateMap<ProductDetail, ProductDetailDto>().ReverseMap();
             CreateMap<SubCategory, SubCategoryDto>()

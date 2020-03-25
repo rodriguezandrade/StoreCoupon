@@ -19,7 +19,7 @@ namespace Repository.Models
         [MaxLength(120, ErrorMessage = "Description can't be longer than 120 characters")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Foreignkey is required")]
+        [Required(ErrorMessage = "Foreign key is required")]
         [ForeignKey("Category")]
         public Guid IdCatetory { get; set; }
 

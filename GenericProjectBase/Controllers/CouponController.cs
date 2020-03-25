@@ -31,7 +31,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                _couponService.create(coupon);
+                _couponService.Create(coupon);
                 return CreatedAtAction(nameof(GetById), new { idCoupon = coupon.Id }, coupon);
             }
             catch (Exception e)

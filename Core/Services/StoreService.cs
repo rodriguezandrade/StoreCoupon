@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Core.Services
 {
-    public class StoreService : IStoreService 
+    public class StoreService : IStoreService
     {
         private readonly IStoreRepository _storeRepository;
         private readonly IRepositoryWrapper _repositoryWrapper;
@@ -68,6 +68,6 @@ namespace Core.Services
         {
             var query = await _storeRepository.FindByCondition(x => x.Id == id);
             return _mapper.Map<StoreDto>(query.FirstOrDefault());
-        } 
+        }
     }
 }

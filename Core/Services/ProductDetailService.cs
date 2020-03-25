@@ -19,19 +19,18 @@ namespace Core.Services
         private readonly IProductDetailRepository _productDetailRepository;
         private readonly IRepositoryWrapper _repositoryWrapper;
         private readonly IMapper _mapper;
-        private readonly ILoggerManager _loggerManager;
-        public ProductDetailService(IProductDetailRepository productDetail, IMapper mapper, IRepositoryWrapper repositoryWrapper, ILoggerManager loggerManager)
+       
+        public ProductDetailService(IProductDetailRepository productDetail, IMapper mapper, IRepositoryWrapper repositoryWrapper)
         {
             _productDetailRepository = productDetail;
             _mapper = mapper;
             _repositoryWrapper = repositoryWrapper;
-            _loggerManager = loggerManager;
         }
 
-        public async Task<IQueryable<ProductDetailDtl>> GetProducts()
+        public async Task<IQueryable<ProductDetailDto>> GetProducts()
         {
             var query = await _repositoryWrapper.GetProductDetails();
-            return _mapper.Map<List<ProductDetailDtl>>(query).AsQueryable();
+            return _mapper.Map<List<ProductDetailDto>>(query).AsQueryable();
         }
 
         public async Task<IQueryable<ProductDetailDto>> GetAll()
@@ -61,10 +60,8 @@ namespace Core.Services
             var modelToUpdate = await _productDetailRepository.FindByCondition(x => x.Id == entity.Id);
             if (!modelToUpdate.Any())
             {
-                _loggerManager.LogError("Error al actualizar el producto detail fue:" + modelToUpdate);
                 throw new ApiException("", HttpStatusCode.NotFound);
             }
-
             _productDetailRepository.Update(entity);
             return _mapper.Map<ProductDetailDto>(entity);
         }

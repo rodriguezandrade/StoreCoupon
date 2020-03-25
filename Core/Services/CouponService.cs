@@ -22,9 +22,9 @@ namespace Core.Services
             _couponRepository = couponRepository;
             _repositoryWrapper = repositoryWrapper;
         }
-        public async Task<IQueryable<CouponDetails>> GetCoupons() {
+        public async Task<IQueryable<CouponDto>> GetCoupons() {
             var query = await  _repositoryWrapper.GetCoupons();
-             return _mapper.Map<List<CouponDetails>>(query).AsQueryable();
+             return _mapper.Map<List<CouponDto>>(query).AsQueryable();
            
         }
         public void create(CouponDto entity) {

@@ -9,7 +9,7 @@ namespace Core.Profiles
         public Profiles()
         {
             CreateMap<GeneralCategoryDto, GeneralCategory>().ReverseMap();
-            CreateMap<SubCategory, SubCategoryDetails>()
+            CreateMap<SubCategory, SubCategoryDto>()
                 .ForMember(s=>s.CategoryName, c=>c
                     .MapFrom(cat=>cat.Category.Name));
             CreateMap<SubCategoryDto, SubCategory>().ReverseMap();
@@ -18,22 +18,22 @@ namespace Core.Profiles
             CreateMap<OwnerDto, Owner>().ReverseMap();
             CreateMap<Coupon, CouponDto>().ReverseMap();
             CreateMap<CategoryStore, CategoryStoreDto>().ReverseMap();
-            CreateMap<Coupon, CouponDetails>()
+            CreateMap<Coupon, CouponDto>()
                 .ForMember(d => d.ProductName, src=>src
                     .MapFrom(s=>s.FkProduDetail.FkProduct.Name));
-            CreateMap<Store, StoreDetails>()
+            CreateMap<Store, StoreDto>()
                 .ForMember(d => d.SubCategorName, src => src
                     .MapFrom(s => s.SubCategory.Name))
                 .ForMember(d => d.Owner, src => src
                     .MapFrom(s => $"{s.Owner.FirstName} {s.Owner.LastName}"));
             CreateMap<StoreCategory, StoreCategoryDto>().ReverseMap();
-            CreateMap<StoreCategory, StoreCategoryDetails>()
+            CreateMap<StoreCategory, StoreCategoryDto>()
                 .ForMember(d => d.Store, src => src
                     .MapFrom(s => s.FkStore.Name))
                 .ForMember(d => d.Category, src => src
                     .MapFrom(s => s.FkCategoryStore.Name));
             CreateMap<ProductDetail, ProductDetailDto>().ReverseMap();
-            CreateMap<ProductDetail, ProductDetailDtl>()
+            CreateMap<ProductDetail, ProductDetailDto>()
                 .ForMember(d => d.Product, src => src
                     .MapFrom(s => s.FkProduct.Name))
                 .ForMember(d => d.IdStoreCategory,src => src

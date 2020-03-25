@@ -12,5 +12,6 @@ namespace Repository.Models.Dtos
         public int Discount { get; set; }
         public DateTime ExpirationDate { get; set; }
         public Guid IdProductDtl { get; set; }
+        public string ProductName { get; set; }
     }
 }

@@ -32,10 +32,10 @@ namespace Core.Services
             return _mapper.Map<List<SubCategoryDto>>(query).AsQueryable();
         }
 
-        public async Task<IQueryable<SubCategoryDetails>> GetAll()
+        public async Task<IQueryable<SubCategoryDto>> GetAll()
         {
             var query = _subCategoryRepositoryWrapper.GetSubCategoriess().ToList();
-            var result = _mapper.Map<List<SubCategoryDetails>>(query);
+            var result = _mapper.Map<List<SubCategoryDto>>(query);
             return result.AsQueryable();
         }
 

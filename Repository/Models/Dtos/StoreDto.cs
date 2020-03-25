@@ -13,5 +13,7 @@ namespace Repository.Models.Dtos
         public string RFC { get; set; }
         public Guid SubCategoryId { get; set; }
         public Guid IdOwner { get; set; }
+        public string Owner { get; set; }
+        public string SubCategorName { get; set; }
     }
 }

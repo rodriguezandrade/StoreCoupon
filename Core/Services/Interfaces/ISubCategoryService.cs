@@ -8,7 +8,7 @@ namespace Core.Services.Interfaces
     public interface ISubCategoryService
     {
         Task<IQueryable<SubCategoryDto>> FindAll();
-        Task<IQueryable<SubCategoryDetails>> GetAll();
+        Task<IQueryable<SubCategoryDto>> GetAll();
         void Save(SubCategoryDto category);
         Task<SubCategoryDto> DeleteById(Guid Id);
         Task<SubCategoryDto> Update(SubCategoryDto subcategory);

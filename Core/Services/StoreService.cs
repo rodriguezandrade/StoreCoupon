@@ -22,10 +22,10 @@ namespace Core.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public async Task<IQueryable<StoreDetails>> GetStores()
+        public async Task<IQueryable<StoreDto>> GetStores()
         {
             var query = await _repositoryWrapper.GetStores();
-            var model = _mapper.Map<List<StoreDetails>>(query).AsQueryable();
+            var model = _mapper.Map<List<StoreDto>>(query).AsQueryable();
             return model;
         }
 

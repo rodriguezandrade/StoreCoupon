@@ -48,7 +48,7 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         [HttpGet]
         [Route("getAll")]
-        public async Task<IQueryable<SubCategoryDetails>> GetAll()
+        public async Task<IQueryable<SubCategoryDto>> GetAll()
         {
             return await _subCategoryService.GetAll();
         }

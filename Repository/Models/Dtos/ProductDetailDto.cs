@@ -11,5 +11,7 @@ namespace Repository.Models.Dtos
         public int Price { get; set; }
         public Guid IdProduct { get; set; }
         public Guid IdStoreCategory { get; set; }
+        public string Product { get; set; }
+        public string Category { get; set; }
     }
 }

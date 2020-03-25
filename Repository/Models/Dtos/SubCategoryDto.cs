@@ -10,5 +10,6 @@ namespace Repository.Models.Dtos
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid IdSubCat { get; set; }
+        public string CategoryName { get; set; }
     }
 }

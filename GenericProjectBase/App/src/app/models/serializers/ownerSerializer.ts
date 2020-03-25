@@ -1,5 +1,5 @@
 import { Owner } from "../owner";
-import { Actions } from 'src/app/enums/actions';
+import { Actions } from 'src/app/utils/enums/actions';
 
 export class OwnerSerializer {
   

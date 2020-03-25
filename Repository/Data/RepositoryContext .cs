@@ -20,5 +20,8 @@ namespace Repository.Data
         public DbSet<CategoryStore> CategoriesStore { get; set; }
         public DbSet<Store_Category> Stores_Categories { get; set; }
         public DbSet<ProductDetail> ProductDetails { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
     }
 }

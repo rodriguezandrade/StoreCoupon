@@ -1,23 +1,24 @@
 import { Observable, BehaviorSubject } from "rxjs";
 import { Router } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
-import { environment } from "src/environments/environment";
+import { HttpClient, HttpHeaders } from "@angular/common/http"; 
 import { Injectable } from "@angular/core";
 import { UserInfo } from "../models/user-info";
 import { Login } from "../models/login";
+import { JwtHelperService } from '@auth0/angular-jwt'; 
+import { AppSettings } from '../models/utils/appSettings';
 
 @Injectable({
   providedIn: "root"
 })
+
 export class AuthService {
-  serverUrl: string = environment.urlServer;
-  // helper = new JwtHelperService();
+  mainEndpoint: string = AppSettings.API_ENDPOINT;
+  helper = new JwtHelperService();
   token: string;
   decodedToken: any;
   userInfoBehaviour = new BehaviorSubject<UserInfo>(null);
-  userInfo: UserInfo;
-  urlController: string = environment.urlServer;
-  private ApiUrl = "login";
+  userInfo: UserInfo; 
+  private ApiUrl = "/me/auth";
 
   constructor(private _router: Router, private http: HttpClient) {
     const token = this.getToken();
@@ -46,9 +47,29 @@ export class AuthService {
     return localStorage.getItem("token");
   }
 
+  getTokenExpirationDate(authToken: string): Date {
+    this.decodedToken = this.helper.decodeToken(authToken);
+
+    if (this.decodedToken.exp === undefined) return null;
+
+    const date = new Date(0);
+    date.setUTCSeconds(this.decodedToken.exp);
+    return date;
+  }
+
+  isTokenExpired(authToken?: string): boolean {
+    if (!authToken) authToken = this.getToken();
+    if (!authToken) return true;
+
+    const date = this.getTokenExpirationDate(authToken);
+    if (date === undefined) return false; 
+
+    return !(date.valueOf() > new Date().valueOf());
+  }
+
   setUserInfo(authToken: string) {
     if (authToken) {
-      //   this.decodedToken = this.helper.decodeToken(authToken);
+      this.decodedToken = this.helper.decodeToken(authToken);
       this.userInfo = new UserInfo();
       this.userInfo.Role = this.decodedToken.role;
       this.userInfo.UserName = this.decodedToken.unique_name;
@@ -56,15 +77,23 @@ export class AuthService {
       this.userInfo = null;
     }
 
-    // this.userInfoBehaviour.next(this.userInfo);
+    this.userInfoBehaviour.next(this.userInfo);
   }
 
   isAuthenticated(): boolean {
     return this.userInfo != null;
   }
 
-  login(pro: Login) {
-    return this.http.post<Login>(this.urlController + this.ApiUrl, pro);
+  login(loginRequest: Login) {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      responseType: 'text' as 'json'
+    };
+    return this.http.post<string>(this.mainEndpoint + this.ApiUrl, loginRequest, httpOptions);
+
   }
 
   logout() {
@@ -75,7 +104,7 @@ export class AuthService {
   forgotPassword(email: string): Observable<any> {
     const userLogin = { UserName: email, Password: "" };
     return this.http.post<void>(
-      this.urlController + this.ApiUrl + "/ConfirmEmail",
+      this.mainEndpoint + this.ApiUrl + "/ConfirmEmail",
       userLogin
     );
   }

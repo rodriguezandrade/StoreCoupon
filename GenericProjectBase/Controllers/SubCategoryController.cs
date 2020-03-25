@@ -9,8 +9,10 @@ using Repository.Models;
 using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
-{   
-    [Route("api/subcategories/")]
+{
+    [Route("api/v{version:apiVersion}/subcategories/")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class SubCategoryController : Controller
     {
         private readonly ISubCategoryService _subCategoryService;
@@ -20,6 +22,10 @@ namespace GenericProjectBase.Controllers
             _loggerManager = loggerManager;
             _subCategoryService = subCategoryService;
         }
+
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("get")]
         public async Task<IActionResult> Get()
@@ -37,6 +43,9 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Get the subcategories.  
+        /// </summary>
         [HttpGet]
         [Route("getAll")]
         public async Task<IQueryable<SubCategoryDetails>> GetAll()
@@ -44,6 +53,12 @@ namespace GenericProjectBase.Controllers
             return await _subCategoryService.GetAll();
         }
 
+        /// <summary>
+        /// Get the subcategory by Id.
+        /// </summary>
+        /// <returns>
+        /// Sub category model.
+        /// </returns>
         [HttpGet]
         [Route("get/{idSubCategory}")]
         public async Task<IActionResult> GetById(Guid idSubCategory)
@@ -61,6 +76,11 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Save the sub category
+        /// <see cref="SubCategory"/>The subcategory model. 
+        /// </summary>
+        /// <param name="subcategory"></param>
         [HttpPost]
         [Route("save")]
         public async Task<IActionResult> Add([FromBody] SubCategoryDto subcategory)
@@ -80,6 +100,12 @@ namespace GenericProjectBase.Controllers
 
         }
 
+        /// <summary>
+        /// Delete subcategory by Id.
+        /// </summary>
+        /// <returns>
+        /// Sub category deleted
+        /// </returns>
         [HttpDelete]
         [Route("delete/{idSubCategory}")]
         public async Task<IActionResult> DeleteById(Guid idSubCategory)
@@ -96,6 +122,12 @@ namespace GenericProjectBase.Controllers
                 return StatusCode(500);
             }
         }
+
+        /// <summary>
+        /// Update the sub category.
+        /// <see cref="SubCategory"/> the sub category model. 
+        /// </summary>
+        /// <param name="subcategory"></param>
         [HttpPut]
         [Route("update")]
         public async Task<IActionResult> Update([FromBody] SubCategoryDto subcategory)

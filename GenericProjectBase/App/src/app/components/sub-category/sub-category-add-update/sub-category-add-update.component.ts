@@ -5,7 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { SubCategory } from 'src/app/models/subcategory';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
-import { Actions } from 'src/app/enums/actions';
+import { Actions } from 'src/app/utils/enums/actions';
 
 @Component({
   selector: 'app-sub-category-add-update',
@@ -40,10 +40,7 @@ export class SubCategoryAddUpdateComponent implements OnInit {
   getSubCategory(id:string){
         this._subCategoryService.read(id, "subcategories/get").subscribe(rest=>{  
           this.subcategories = rest;
-          this.subCategoryForm = this.createForm(this.subcategories);
-          console.log('log ' , this.subCategoryForm.value);
-          
-        
+          this.subCategoryForm = this.createForm(this.subcategories);         
          });
 
   }

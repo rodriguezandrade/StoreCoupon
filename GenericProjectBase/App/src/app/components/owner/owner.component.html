@@ -1,6 +1,12 @@
-<h1>Propietarios</h1>
-  <button type="button" class="btn btn-success" [routerLink]="['/home/owners/new']"> <strong>+</strong>Agregar Propietario</button><br>
-<table class="table table-light">
+<div class="mt-auto border-top px-3">
+  <div class="mt-auto pt-3">
+    <h3 class="text-center"><b>Propietarios</b></h3>
+  </div>
+  <div class="mt-auto pb-3">
+    <button type="button" class="btn btn-success" [routerLink]="['/home/owners/new']"> <strong>+</strong>Agregar
+      Propietario</button><br>
+  </div>
+  <table class="table table-light">
     <thead class="thead-light">
       <tr>
         <th>#</th>
@@ -24,9 +30,19 @@
         <td>{{owner.email}}</td>
         <td>{{owner.telephone}}</td>
         <td>{{owner.rfc}}</td>
-        <td><button (click)="onEdit(owner.id)" class="btn btn-warning">Editar</button>|<button (click)="onDelete(owner.id)" class="btn btn-danger" >Borrar</button></td>
+        <td>
+          <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+              <button (click)="onEdit(owner.id)" class="btn btn-warning">
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </button>
+              <button (click)="onDelete(owner.id)" class="btn btn-danger">
+                <fa-icon [icon]="faTrashAlt"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
-
-  
+</div>

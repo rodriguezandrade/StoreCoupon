@@ -7,7 +7,9 @@ using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/stores/")]
+    [Route("api/v{version:apiVersion}/stores/")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class StoreController : Controller
     {
         private readonly IStoreService _storeService;
@@ -18,6 +20,9 @@ namespace GenericProjectBase.Controllers
             _storeService = storeService;
         }
 
+        /// <summary>
+        /// Get the stores.  
+        /// </summary>
         [HttpGet]
         [Route("get")]
         public async Task<IActionResult> Get()
@@ -52,6 +57,12 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Get store by Id.
+        /// </summary>
+        /// <returns>
+        /// Store model.
+        /// </returns>
         [HttpGet]
         [Route("get/{idStore}")]
         public async Task<IActionResult> GetById(Guid idStore)
@@ -69,6 +80,11 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Save the store
+        /// <see cref="StoreDto"/>The store model. 
+        /// </summary>
+        /// <param name="store"></param>
         [HttpPost]
         [Route("save")]
         public async Task<IActionResult> Add([FromBody] StoreDto store)
@@ -88,6 +104,12 @@ namespace GenericProjectBase.Controllers
 
         }
 
+        /// <summary>
+        /// Delete store by Id.
+        /// </summary>
+        /// <returns>
+        /// Store deleted.
+        /// </returns>
         [HttpDelete]
         [Route("delete/{idStore}")]
         public async Task<IActionResult> DeleteById(Guid idStore)
@@ -105,6 +127,11 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Update the store.
+        /// <see cref="Store"/> the store model. 
+        /// </summary>
+        /// <param name="store"></param>
         [HttpPut]
         [Route("update")]
         public async Task<IActionResult> Update([FromBody] StoreDto store)

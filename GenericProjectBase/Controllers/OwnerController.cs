@@ -7,7 +7,9 @@ using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/owners/")]
+    [Route("api/v{version:apiVersion}/owners/")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class OwnerController : Controller
     {
         private readonly IOwnerService _ownerService;
@@ -18,6 +20,9 @@ namespace GenericProjectBase.Controllers
             _ownerService = ownerService;
         }
 
+        /// <summary>
+        /// Get the owners.  
+        /// </summary>
         [HttpGet]
         [Route("get")]
         public async Task<IActionResult> Get()
@@ -35,6 +40,14 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Get owner by guid.
+        ///s<see cref="Guid"/>Guid annotation. 
+        /// </summary>
+        /// <param name="idOwner"> id owner</param>
+        /// <returns>
+        /// Owner model.
+        /// </returns>
         [HttpGet]
         [Route("get/{idOwner}")]
         public async Task<IActionResult> GetById(Guid idOwner)
@@ -52,6 +65,11 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Save the owners
+        /// <see cref="Owner"/> the owner model. 
+        /// </summary>
+        /// <param name="owner"></param>
         [HttpPost]
         [Route("save")]
         public async Task<IActionResult> Add([FromBody] OwnerDto owner)
@@ -72,6 +90,12 @@ namespace GenericProjectBase.Controllers
 
         }
 
+        /// <summary>
+        /// Delete owner by Id.
+        /// </summary>
+        /// <returns>
+        /// Owner deleted.
+        /// </returns>
         [HttpDelete]
         [Route("delete/{idOwner}")]
         public async Task<IActionResult> DeleteById(Guid idOwner)
@@ -89,6 +113,11 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Update the owner.
+        /// <see cref="Owner"/> the owner model. 
+        /// </summary>
+        /// <param name="owner"></param>
         [HttpPut]
         [Route("update")]
         public async Task<IActionResult> Update([FromBody] OwnerDto owner)

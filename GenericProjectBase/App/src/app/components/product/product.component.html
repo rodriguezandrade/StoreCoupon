@@ -1,11 +1,16 @@
-<h1>Productos</h1>
-    <button type="button" class="btn btn-success" [routerLink]="['./new']"> <strong>+</strong> Agregar Producto</button><br>
+<div class="mt-auto border-top px-3"> 
+  <div class="mt-auto pt-3">
+    <h3 class="text-center"><b>Productos</b></h3>
+  </div>
+<div class="mt-auto pb-3">
+  <button type="button" class="btn btn-success" [routerLink]="['./new']"> <strong>+</strong> Agregar Producto</button><br>
+</div>
 <table class="table table-light">
   <thead class="thead-light">
     <tr>
       <th>#</th>
       <th>ID</th>
-      <th>NOMBRES</th>
+      <th>NOMBRE</th>
       <th>DESCRIPCIÓN</th>
       <th>PRECIO</th>
       <th>ACCIONES</th>
@@ -18,7 +23,15 @@
       <td>{{product.name}}</td>
       <td>{{product.description}}</td>
       <td>{{product.price}}</td>
-      <td><button (click)="onEdit(product.id)" class="btn btn-warning">Editar</button>|<button (click)="onDelete(product.id)" class="btn btn-danger" >Borrar</button></td>
+      <td> 
+        <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group mr-2" role="group" aria-label="First group">
+            <button (click)="onEdit(product.id)" class="btn btn-warning"><fa-icon [icon]="faEdit"></fa-icon></button>
+            <button (click)="onDelete(product.id)" class="btn btn-danger"><fa-icon [icon]="faTrashAlt"></fa-icon></button>
+          </div>
+        </div>
+        </td>
     </tr>
   </tbody>
 </table>
+</div>

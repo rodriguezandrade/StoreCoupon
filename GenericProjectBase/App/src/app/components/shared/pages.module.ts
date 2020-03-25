@@ -16,7 +16,7 @@ import { SubCategoryComponent } from '../sub-category/sub-category.component';
 import { SubCategoryAddUpdateComponent } from '../sub-category/sub-category-add-update/sub-category-add-update.component'; 
 import { StoreComponent } from '../store/store.component';
 import { StoreAddUpdateComponent } from '../store/store-add-update/store-add-update.component';
-  
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     declarations: [ 
@@ -49,7 +49,8 @@ import { StoreAddUpdateComponent } from '../store/store-add-update/store-add-upd
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
-        PAGES_ROUTES
+        FontAwesomeModule,
+        PAGES_ROUTES, 
     ],
     bootstrap: [PagesComponent]
 })

@@ -2,19 +2,19 @@ using GenericProjectBase.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
 using System.IO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GenericProjectBase
 {
     public class Startup
     {
         public Startup(IConfiguration configuration)
-        { 
+        {
             Configuration = configuration;
         }
 
@@ -24,19 +24,16 @@ namespace GenericProjectBase
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddSpaStaticFiles(configuration =>
-            //{
-            //    configuration.RootPath = "App/dist";
-            //});
-
+            services.ConfigureJWToken(Configuration);
             services.ConfigureCors();
-            services.ConfigureIISIntegration();
-            services.ConfigureLoggerService();
+            //services.ConfigureIISIntegration();
             services.ConfigureMySqlContext(Configuration);
             services.ConfigureClasesWithInterfaces();
             services.AutoMapperConfiguration();
             services.AddControllers();
-        } 
+            services.VersioningConfiguration();
+            services.SwaggerConfiguration();
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -69,22 +66,26 @@ namespace GenericProjectBase
             {
                 ForwardedHeaders = ForwardedHeaders.All
             });
-            
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-            //app.UseSpa(spa =>
-            //{
-            //    spa.Options.SourcePath = "App";
-            //    if (env.IsDevelopment())
-            //    {
-            //        spa.UseAngularCliServer(npmScript: "start");
-            //    }
-            //});
+            app.UseSwagger();
+            app.UseSwaggerUI(UISetup =>
+            {
+#if DEBUG
+                // For Debug in Kestrel
+                UISetup.SwaggerEndpoint("/swagger/v1/swagger.json", "Admin");
+                UISetup.SwaggerEndpoint("/swagger/v2/swagger.json", "Mobile");
 
+#else
+               // To deploy on IIS
+                UISetup.SwaggerEndpoint("/StoreCoupon/swagger/v1/swagger.json", "Admin");
+                UISetup.SwaggerEndpoint("/StoreCoupon/swagger/v2/swagger.json", "Mobile"); 
+#endif 
+            });
         }
     }
 }

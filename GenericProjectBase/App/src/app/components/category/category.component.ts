@@ -2,7 +2,9 @@ import { Component, OnInit, SimpleChanges } from "@angular/core";
 import { CategoryService } from "src/app/services/category.service";
 import { QueryOptions } from "src/app/services/generics/query.options";
 import { Category } from 'src/app/models/category';
+import { faTrashAlt, faEdit } from '@fortawesome/free-regular-svg-icons';
 import { Router } from '@angular/router';
+import { Actions } from 'src/app/utils/enums/actions';
 
 @Component({
   selector: "app-category",
@@ -10,6 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ["./category.component.css"]
 })
 export class CategoryComponent implements OnInit {
+  faTrashAlt = faTrashAlt;
+  faEdit=faEdit;
+  action:Actions;
   categories:Category[];
   constructor(private _categoryService: CategoryService, private _router:Router) { 
   }
@@ -46,5 +51,4 @@ onDelete(id:string){
     this.fillTable();
   }
   
-
 }

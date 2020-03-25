@@ -9,7 +9,9 @@ using Repository.Models.Dtos;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/products/")]
+    [Route("api/v{version:apiVersion}/products/")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -21,6 +23,9 @@ namespace GenericProjectBase.Controllers
             _loggerManager = loggerManager;
         }
 
+        /// <summary>
+        /// Get the products.  
+        /// </summary>
         [HttpGet]
         [Route("get")]
         public async Task<IActionResult> Get()
@@ -38,6 +43,12 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Get product by Id.
+        /// </summary>
+        /// <returns>
+        /// Product model.
+        /// </returns>
         [HttpGet]
         [Route("get/{idProduct}")]
         public async Task<IActionResult> GetById(Guid idProduct)
@@ -55,6 +66,11 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Save product
+        /// <see cref="Product"/> the product model. 
+        /// </summary>
+        /// <param name="Product"></param>
         [HttpPost]
         [Route("save")]
         public async Task<IActionResult> Add([FromBody] ProductDto producto)
@@ -74,6 +90,12 @@ namespace GenericProjectBase.Controllers
 
         }
 
+        /// <summary>
+        /// Delete product by Id.
+        /// </summary>
+        /// <returns>
+        /// Product deleted.
+        /// </returns>
         [HttpDelete]
         [Route("delete/{idProduct}")]
         public async Task<IActionResult> DeleteById(Guid idProduct)
@@ -91,6 +113,11 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Update product.
+        /// <see cref="Product"/> the product model. 
+        /// </summary>
+        /// <param name="Product"></param>
         [HttpPut]
         [Route("update")]
         public async Task<IActionResult> Update([FromBody] ProductDto producto)

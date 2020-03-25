@@ -4,7 +4,7 @@ import { map } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Resource } from "../../models/utils/resource";
 import { QueryOptions } from "./query.options";
-import { Actions } from 'src/app/enums/actions';
+import { Actions } from 'src/app/utils/enums/actions';
 
 
 export class BaseService<T extends Resource> {
@@ -19,7 +19,6 @@ export class BaseService<T extends Resource> {
       headers: new HttpHeaders({
         'Content-Type' : 'application/json'
       })};
-      console.log(this.serializer.toJson(item, Actions.Edit));
       
     return this.httpClient
       .post<T>(`${this.url}/${endpoint}`, this.serializer.toJson(item, Actions.New),httpOptions)

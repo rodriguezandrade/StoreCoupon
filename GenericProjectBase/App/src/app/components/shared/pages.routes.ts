@@ -12,151 +12,144 @@ import { SubCategoryComponent } from '../sub-category/sub-category.component';
 import { SubCategoryAddUpdateComponent } from '../sub-category/sub-category-add-update/sub-category-add-update.component';
 import { StoreComponent } from '../store/store.component';
 import { StoreAddUpdateComponent } from '../store/store-add-update/store-add-update.component';
+import { Roles } from 'src/app/utils/enums/roles';
 
 const pagesRoutes: Routes = [
   {
     path: "home",
     component: PagesComponent,
-    // data: { roles: [environment.roleAdmin], title: 'Home' }
+    canActivate: [AuthGuard],
+    data: { roles: [Roles.Admin, Roles.Owner, Roles.Consumer], title: 'Home' },
     children: [
       {
         path: "products",
+        canActivate: [AuthGuard],
+        data: { roles: [Roles.Admin, Roles.Consumer,  Roles.Owner], title: 'Productos' },
         children: [
           {
             path: "",
-            component: ProductComponent
-            // canActivateChild: [AuthGuard],
-            // data: { roles: [environment.roleAdmin], title: 'Categories' }
+            component: ProductComponent,
+            canActivateChild: [AuthGuard],
+            data: { roles: [Roles.Admin, Roles.Owner, Roles.Consumer], title: 'Productos' }
           },
           {
             path: "new",
-            component: ProductSaveUpdateComponent
-            // canActivate: [AuthGuard],
-            // data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
+            component: ProductSaveUpdateComponent,
+            canActivate: [AuthGuard],
+            data: { roles: [Roles.Admin, Roles.Owner], title: "Nuevo Producto" }
           },
           {
-            path:":id/edit",
-            component: ProductSaveUpdateComponent
+            path: ":id/edit",
+            component: ProductSaveUpdateComponent,
+            canActivate: [AuthGuard],
+            data: { roles: [Roles.Admin], title: "Editar Producto" }
           }
-          // {
-          //     path: ':id',
-          //     component: CategoryAddUpdateComponent,
-          //     canActivate: [AuthGuard],
-          //     data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
-          // }
         ]
       },
       {
         path: "categories",
+        canActivate: [AuthGuard],
+        data: { roles: [Roles.Admin, Roles.Owner, Roles.Consumer], title: 'Categorias' },
         children: [
           {
             path: "",
-            component: CategoryComponent
-            // canActivateChild: [AuthGuard],
-            // data: { roles: [environment.roleAdmin], title: 'Categories' }
+            component: CategoryComponent,
+            canActivateChild: [AuthGuard],
+            data: { roles: [Roles.Admin, Roles.Owner, Roles.Consumer], title: 'Categorias' }
           },
           {
             path: "new",
-            component: CategoryAddUpdateComponent
-            // canActivate: [AuthGuard],
-            // data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
+            component: CategoryAddUpdateComponent,
+            canActivate: [AuthGuard],
+            data: { roles: [Roles.Admin, Roles.Owner,], title: "Nueva Categoria" }
           },
           {
-            path:":id/edit",
-            component: CategoryAddUpdateComponent
-          }
-          // {
-          //     path: ':id',
-          //     component: CategoryAddUpdateComponent,
-          //     canActivate: [AuthGuard],
-          //     data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
-          // }
-        ]
-      },
-      {
-        path:"owners",
-        children:[
-          {
-            path:"",
-            component: OwnerComponent 
-          },
-          {
-            path:"new",
-            component: OwnerAddUpdateComponent
-          },
-          {
-            path:":id/edit",
-            component: OwnerAddUpdateComponent
+            path: ":id/edit",
+            component: CategoryAddUpdateComponent,
+            canActivate: [AuthGuard],
+            data: { roles: [Roles.Admin], title: "Editar Categoria" }
           }
         ]
       },
       {
-        path:"subcategories",
-        children:[
+        path: "owners",
+        canActivate: [AuthGuard],
+        data: { roles: [Roles.Admin], title: 'Propietarios' },
+        children: [
           {
-            path:"",
-            component: SubCategoryComponent 
+            path: "",
+            component: OwnerComponent,
+            canActivateChild: [AuthGuard],
+            data: { roles: [Roles.Admin], title: 'Propietarios' }
           },
           {
-            path:"new",
-            component: SubCategoryAddUpdateComponent
+            path: "new",
+            component: OwnerAddUpdateComponent,
+            canActivateChild: [AuthGuard],
+            data: { roles: [Roles.Admin], title: "Nuevo Propietario" }
           },
           {
-            path:":id/edit",
-            component: SubCategoryAddUpdateComponent
+            path: ":id/edit",
+            component: OwnerAddUpdateComponent,
+            canActivateChild: [AuthGuard],
+            data: { roles: [Roles.Admin], title: "Editar Propietario" }
           }
         ]
       },
       {
-        path:"stores",
-        children:[
+        path: "subcategories",
+        canActivate: [AuthGuard],
+        data: { roles: [Roles.Admin, Roles.Owner, Roles.Consumer], title: 'Subcategorias' },
+        children: [
           {
-            path:"",
-            component: StoreComponent 
+            path: "",
+            component: SubCategoryComponent,
+            canActivateChild: [AuthGuard],
+            data: { roles: [Roles.Admin, Roles.Owner, Roles.Consumer], title: 'Subcategorias' }
           },
           {
-            path:"new",
-            component: StoreAddUpdateComponent
+            path: "new",
+            component: SubCategoryAddUpdateComponent,
+            canActivateChild: [AuthGuard],
+            data: { roles: [Roles.Admin], title: 'Nueva Subcategoria' }
           },
           {
-            path:":id/edit",
-            component: StoreAddUpdateComponent
+            path: ":id/edit",
+            component: SubCategoryAddUpdateComponent,
+            canActivateChild: [AuthGuard],
+            data: { roles: [Roles.Admin], title: 'Editar Subcategoria' }
+          }
+        ]
+      },
+      {
+        path: "stores",
+        canActivate: [AuthGuard],
+        data: { roles: [Roles.Admin, Roles.Owner, Roles.Consumer], title: 'Negocios' },
+        children: [
+          {
+            path: "",
+            component: StoreComponent,
+            canActivateChild: [AuthGuard],
+            data: { roles: [Roles.Admin], title: 'Negocios' }
+          },
+          {
+            path: "new",
+            component: StoreAddUpdateComponent,
+            canActivateChild: [AuthGuard],
+            data: { roles: [Roles.Admin], title: 'Nuevo Negocio' }
+          },
+          {
+            path: ":id/edit",
+            component: StoreAddUpdateComponent,
+            canActivateChild: [AuthGuard],
+            data: { roles: [Roles.Admin], title: 'Editar Negocio' }
           }
         ]
       }
     ]
   },
 
-  //   {
-  //     path: "categories/:Id",
-  //     component: CategoryAddUpdateComponent,
-  //     canActivate: [AuthGuard],
-  //     data: { roles: [environment.roleAdmin], title: "Editar Categoria" }
-  //   },
-  //   {
-  //     path: "categories/new",
-  //     component: CategoryAddUpdateComponent,
-  //     canActivate: [AuthGuard],
-  //     data: { roles: [environment.roleAdmin], title: "Nueva Categoria" }
-  //   },
-
-  // {
-  //     path: 'addresslist', component: metecomponentequevasausar,
-  //     canActivate: [AuthGuard],
-  //     data: { roles: [environment.roleAdmin], title: 'Address Book' },
-  // },
-  // {
-  //     path: 'customers', component: metecomponentequevasausar,
-  //     canActivate: [AuthGuard],
-  //     data: { roles: [environment.roleAdmin], title: 'Customers' }
-  // },
-
-  
-
-  //temporalmente estara logeandose a home, luego seria montarla al login de inicio
-  { path: "", redirectTo: "/home", pathMatch: "full" },
-  { path: "**", redirectTo: "/home" }
-  // { path: '', redirectTo: '/login', pathMatch: 'full' },
-  //  { path: '**', redirectTo: '/login' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' }
 ];
 export const PAGES_ROUTES = RouterModule.forChild(pagesRoutes);

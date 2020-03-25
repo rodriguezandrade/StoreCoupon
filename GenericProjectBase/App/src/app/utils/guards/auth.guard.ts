@@ -18,13 +18,24 @@ export class AuthGuard implements CanActivate {
             return false;
         }
 
+        var isExpired = this.authService.isTokenExpired();
         const roles = route.data.roles;
+        if (roles !== undefined) {
+            if (!this.authService.isTokenExpired()) {
+                if (roles.indexOf(roleUser) !== -1) {
+                    return true;
+                } else {
+                    this.authService.redirectToDefaultPage();
+                    return false;
+                }
+            } else {
+                this.authService.logout();
+                return false
+            }
 
-        if (roles.indexOf(roleUser) !== -1) {
-            return true;
         } else {
-            this.authService.redirectToDefaultPage();
-            return false;
+            this.authService.logout();
+            return false
         }
     }
 }

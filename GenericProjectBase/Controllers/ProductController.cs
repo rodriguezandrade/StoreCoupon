@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Core.Exceptions;
 using Core.Logger.Interface;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +40,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error al obtener los productos: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -60,7 +62,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error al obtener el producto: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -81,7 +83,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el producto: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
 
         }
@@ -104,7 +106,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error mientras se eliminaba el producto: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -125,7 +127,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error mientras se modificaba el producto: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
     }

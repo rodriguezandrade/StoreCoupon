@@ -26,7 +26,7 @@ namespace GenericProjectBase.Controllers.Account
         }
 
         /// <summary>
-        /// Authenticate & generate JWToken
+        /// CreateAuthToken & generate JWToken
         /// <see cref="LoginRequest"/>The login request. 
         /// </summary>
         /// <param name="loginRequest">The Request Data</param>
@@ -60,11 +60,10 @@ namespace GenericProjectBase.Controllers.Account
 
             if (result.UserName == null)
             {
-                //return BadRequest(AppResources.InvalidCredentials);
                 throw new ApiException(AppResources.InvalidRequest, HttpStatusCode.BadRequest);
             }
 
-            token = _tokenManagerService.Authenticate(result);
+            token = _tokenManagerService.CreateAuthToken(result);
             return Ok(token);
         }
     }

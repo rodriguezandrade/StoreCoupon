@@ -61,6 +61,15 @@ namespace GenericProjectBase {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BadRequest.
+        /// </summary>
+        public static string BadRequest {
+            get {
+                return ResourceManager.GetString("BadRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Credentials.
         /// </summary>
         public static string InvalidCredentials {

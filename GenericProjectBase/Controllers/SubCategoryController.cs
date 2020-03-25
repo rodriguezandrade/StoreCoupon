@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Core.Exceptions;
 using Core.Logger.Interface;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +41,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error al obtener los subcategorys: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -72,7 +74,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error al obtener el subcategory: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -93,7 +95,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el subcategory: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
 
         }
@@ -117,7 +119,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error mientras se eliminaba el subcategory: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -139,7 +141,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error mientras se modificaba el subcategory: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
     }

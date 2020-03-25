@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Core.Exceptions;
 using Core.Logger.Interface;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +36,7 @@ namespace GenericProjectBase.Controllers
             catch(Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error mientras se obtenian las Categorias Generales: "+ e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
             
         } 
@@ -51,7 +53,7 @@ namespace GenericProjectBase.Controllers
             catch(Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error mientras se guardaba la Categoria General: "+e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -67,7 +69,7 @@ namespace GenericProjectBase.Controllers
             catch(Exception e) 
             {
                 _loggerManager.LogError("Ocurrio un error mientras se eliminaba la Categoria General: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -83,7 +85,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e) 
             {
                 _loggerManager.LogError("Ocurrio un error mientras se obtenia la Categoria General: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -99,7 +101,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error mientras se modificaba la Categoria General: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
     }

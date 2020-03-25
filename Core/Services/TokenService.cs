@@ -13,7 +13,7 @@ namespace Core.Services
 {
     public interface ITokenService
     {
-        string Authenticate(UserRoleDto user);
+        string CreateAuthToken(UserRoleDto user);
     }
 
     public class TokenService : ITokenService
@@ -27,7 +27,7 @@ namespace Core.Services
         }
 
         // Authentication successful so generate jwt token 
-        public string Authenticate(UserRoleDto user)
+        public string CreateAuthToken(UserRoleDto user)
         {
       
             if (user == null)

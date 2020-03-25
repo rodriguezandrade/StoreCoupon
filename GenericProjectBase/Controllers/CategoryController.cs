@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models.Dtos;
 using System;
+using System.Net;
 using System.Threading.Tasks;
+using Core.Exceptions;
 using Role = Repository.Repositories.Utils.Role;
 
 namespace GenericProjectBase.Controllers
@@ -31,14 +33,13 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> Get()
         {
             try
-            {
-                var query = await _categoryService.GetAll(); 
-                return Ok(query);
+            { 
+                return Ok(await _categoryService.GetAll());
             }
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error al obtener los categorys: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -54,14 +55,13 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             try
-            {
-                var query = await _categoryService.GetById(id); 
-                return Ok(query);
+            { 
+                return Ok(await _categoryService.GetById(id));
             }
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error al obtener el category Id: " +id + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -84,7 +84,7 @@ namespace GenericProjectBase.Controllers
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el category: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             } 
         }
 
@@ -99,14 +99,13 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> DeleteById(Guid id)
         {
             try
-            {
-                var query = await _categoryService.DeleteById(id);
-                return Ok(query);
+            { 
+                return Ok(await _categoryService.DeleteById(id));
             }
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error mientras se eliminaba el category: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
@@ -120,14 +119,13 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> Update([FromBody] CategoryStoreDto category)
         {
             try
-            {
-                var query = await _categoryService.Update(category);
-                return Ok(query);
+            { 
+                return Ok(await _categoryService.Update(category));
             }
             catch (Exception e)
             {
                 _loggerManager.LogError("Ocurrio un error mientras se modificaba el category: " + e);
-                return StatusCode(500);
+                throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
     }

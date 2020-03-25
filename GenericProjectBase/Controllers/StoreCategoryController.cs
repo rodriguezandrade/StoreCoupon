@@ -24,8 +24,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _storeService.GetAll();
-                _loggerManager.LogInfo("StoresCategories se obtuvieron exitosamente");
+                var query = await _storeService.GetAll(); 
                 return Ok(query);
             }
             catch (Exception e)
@@ -41,8 +40,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _storeService.GetStoresCategories();
-                _loggerManager.LogInfo("StoresCategories se obtuvieron exitosamente");
+                var query = await _storeService.GetStoresCategories(); 
                 return Ok(query);
             }
             catch (Exception e)
@@ -59,7 +57,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 var query = await _storeService.GetById(idStore);
-                _loggerManager.LogInfo("Store_Categories se obtuvo correctamente");
                 return Ok(query);
             }
             catch (Exception e)
@@ -76,7 +73,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 _storeService.Save(store); 
-                _loggerManager.LogInfo("Store_Categories guardado exitosamente");
                 return CreatedAtAction(nameof(GetById), new { idStore = store.Id }, store);
             }
             catch (Exception e)
@@ -93,8 +89,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _storeService.DeleteById(idStoreCategories);
-                _loggerManager.LogInfo("El store fue eliminado correctamente");
+                var query = await _storeService.DeleteById(idStoreCategories); 
                 return Ok(query);
             }
             catch (Exception e)
@@ -110,8 +105,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _storeService.Update(store);
-                _loggerManager.LogInfo("El store fue modificado exitosamente");
+                var query = await _storeService.Update(store); 
                 return Ok(query);
             }
             catch (Exception e)

@@ -28,10 +28,8 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> Get()
         {
             try
-            {
-                var query = await _storeService.GetAll();
-                _loggerManager.LogInfo("Stores se obtuvieron exitosamente");
-                return Ok(query);
+            { 
+                return Ok(await _storeService.GetAll());
             }
             catch (Exception e)
             {
@@ -40,15 +38,19 @@ namespace GenericProjectBase.Controllers
             }
         }
 
+        /// <summary>
+        /// Get stores list.
+        /// </summary>
+        /// <returns>
+        /// List of stores.
+        /// </returns>
         [HttpGet]
         [Route("getAll")]
-        public async Task<IActionResult> GetStores()
+        public async Task<IActionResult> GetStoresDetails()
         {
             try
-            {
-                var query = await _storeService.GetStores();
-                _loggerManager.LogInfo("Stores se obtuvieron exitosamente");
-                return Ok(query);
+            { 
+                return Ok(await _storeService.GetStores());
             }
             catch (Exception e)
             {
@@ -64,14 +66,12 @@ namespace GenericProjectBase.Controllers
         /// Store model.
         /// </returns>
         [HttpGet]
-        [Route("get/{idStore}")]
-        public async Task<IActionResult> GetById(Guid idStore)
+        [Route("get/{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
             try
-            {
-                var query = await _storeService.GetById(idStore);
-                _loggerManager.LogInfo("Store se obtuvo correctamente");
-                return Ok(query);
+            { 
+                return Ok(await _storeService.GetById(id));
             }
             catch (Exception e)
             {
@@ -92,7 +92,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 _storeService.Save(store); 
-                _loggerManager.LogInfo("Store guardado exitosamente");
                 return CreatedAtAction(nameof(GetById), new { idStore = store.Id }, store);
             }
             catch (Exception e)
@@ -110,14 +109,12 @@ namespace GenericProjectBase.Controllers
         /// Store deleted.
         /// </returns>
         [HttpDelete]
-        [Route("delete/{idStore}")]
-        public async Task<IActionResult> DeleteById(Guid idStore)
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteById(Guid id)
         {
             try
-            {
-                var query = await _storeService.DeleteById(idStore);
-                _loggerManager.LogInfo("El store fue eliminado correctamente");
-                return Ok(query);
+            { 
+                return Ok(await _storeService.DeleteById(id));
             }
             catch (Exception e)
             {
@@ -128,7 +125,7 @@ namespace GenericProjectBase.Controllers
 
         /// <summary>
         /// Update the store.
-        /// <see cref="Store"/> the store model. 
+        /// <see cref="StoreDto"/> the store model. 
         /// </summary>
         /// <param name="store"></param>
         [HttpPut]
@@ -136,10 +133,8 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> Update([FromBody] StoreDto store)
         {
             try
-            {
-                var query = await _storeService.Update(store);
-                _loggerManager.LogInfo("El store fue modificado exitosamente");
-                return Ok(query);
+            { 
+                return Ok(await _storeService.Update(store));
             }
             catch (Exception e)
             {

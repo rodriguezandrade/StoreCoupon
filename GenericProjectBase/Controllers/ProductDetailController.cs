@@ -73,7 +73,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 _productDetailService.Save(product);
-                _loggerManager.LogInfo("Product detail guardado exitosamente");
                 return CreatedAtAction(nameof(GetById), new { idProduct = product.Id }, product);
             }
             catch (Exception e)
@@ -91,7 +90,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 var query = await _productDetailService.DeleteById(id);
-                _loggerManager.LogInfo("El product detail fue eliminado correctamente");
                 return Ok(query);
             }
             catch (Exception e)

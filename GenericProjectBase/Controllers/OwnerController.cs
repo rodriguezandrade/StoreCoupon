@@ -30,7 +30,6 @@ namespace GenericProjectBase.Controllers
             try
             {
                 var query = await _ownerService.GetAll();
-                _loggerManager.LogInfo("Owners se obtuvieron exitosamente");
                 return Ok(query);
             }
             catch (Exception e)
@@ -77,7 +76,6 @@ namespace GenericProjectBase.Controllers
             {
                 owner.Id = new Guid();
                 _ownerService.Save(owner);
-              
                 return CreatedAtAction(nameof(GetById), new { idOwner = owner.Id }, owner);
             }
             catch (Exception e)

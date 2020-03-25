@@ -9,8 +9,8 @@ namespace Core.Services.Interfaces
 {
     public interface IProductDetailService
     {
-        Task<IQueryable<ProductDetailDto>> GetAll();
-        Task<IQueryable<ProductDetailDto>> GetProducts();
+        Task<IQueryable<ProductDetailDto>> Get();
+        Task<IQueryable<ProductDetailDto>> GetDetails();
         void Save(ProductDetailDto product);
         Task<ProductDetailDto> DeleteById(Guid Id);
         Task<ProductDetailDto> Update(ProductDetailDto product);

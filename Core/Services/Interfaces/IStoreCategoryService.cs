@@ -7,8 +7,8 @@ namespace Core.Services.Interfaces
 {
     public interface IStoreCategoryService
     {
-        Task<IQueryable<StoreCategoryDto>> GetAll();
-        Task<IQueryable<StoreCategoryDto>> GetStoresCategories();
+        Task<IQueryable<StoreCategoryDto>> Get();
+        Task<IQueryable<StoreCategoryDto>> GetDetails();
         void Save(StoreCategoryDto category);
         Task<StoreCategoryDto> DeleteById(Guid Id);
         Task<StoreCategoryDto> Update(StoreCategoryDto owner);

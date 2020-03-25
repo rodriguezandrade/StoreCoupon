@@ -26,12 +26,11 @@ namespace GenericProjectBase.Controllers
         /// Get the owners.  
         /// </summary>
         [HttpGet]
-        [Route("get")]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var query = await _ownerService.GetAll();
+                var query = await _ownerService.Get();
                 return Ok(query);
             }
             catch (Exception e)
@@ -45,12 +44,12 @@ namespace GenericProjectBase.Controllers
         /// Get owner by guid.
         ///s<see cref="Guid"/>Guid annotation. 
         /// </summary>
-        /// <param name="idOwner"> id owner</param>
+        /// <param name="id"> id owner</param>
         /// <returns>
         /// Owner model.
         /// </returns>
         [HttpGet]
-        [Route("get/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             try
@@ -71,7 +70,6 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <param name="owner"></param>
         [HttpPost]
-        [Route("save")]
         public async Task<IActionResult> Add([FromBody] OwnerDto owner)
         {
             try
@@ -95,7 +93,7 @@ namespace GenericProjectBase.Controllers
         /// Owner deleted.
         /// </returns>
         [HttpDelete]
-        [Route("delete/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteById(Guid id)
         {
             try
@@ -116,7 +114,6 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <param name="owner"></param>
         [HttpPut]
-        [Route("update")]
         public async Task<IActionResult> Update([FromBody] OwnerDto owner)
         {
             try

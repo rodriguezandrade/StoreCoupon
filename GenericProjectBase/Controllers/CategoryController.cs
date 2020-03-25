@@ -29,12 +29,12 @@ namespace GenericProjectBase.Controllers
         ///<remarks>Get the categories.</remarks>
         /// </summary>
         [HttpGet]
-        [Route("get")]
         public async Task<IActionResult> Get()
         {
             try
-            { 
-                return Ok(await _categoryService.GetAll());
+            {
+                var query = await _categoryService.Get(); 
+                return Ok(query);
             }
             catch (Exception e)
             {
@@ -51,7 +51,7 @@ namespace GenericProjectBase.Controllers
         /// Category model.
         /// </returns>
         [HttpGet]
-        [Route("get/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             try
@@ -71,7 +71,6 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <param name="category"></param>
         //[Authorize(Roles = Role.Admin)]
-        [Route("save")]
         [MapToApiVersion("2")] 
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CategoryStoreDto category)
@@ -95,7 +94,7 @@ namespace GenericProjectBase.Controllers
         /// Category deleted.
         /// </returns>
         [HttpDelete]
-        [Route("delete/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteById(Guid id)
         {
             try
@@ -115,7 +114,6 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <param name="category"></param>
         [HttpPut]
-        [Route("update")]
         public async Task<IActionResult> Update([FromBody] CategoryStoreDto category)
         {
             try

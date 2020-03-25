@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using Core.Exceptions;
 using Core.Services.Interfaces;
 using Repository.Models;
 using Repository.Models.Dtos;
@@ -7,6 +8,7 @@ using Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Core.Services
@@ -21,7 +23,7 @@ namespace Core.Services
             _mapper = mapper;
         }
 
-        public async Task<IQueryable<OwnerDto>> GetAll()
+        public async Task<IQueryable<OwnerDto>> Get()
         {
             var query = await _ownerRepository.FindAll();
             return _mapper.Map<List<OwnerDto>>(query).AsQueryable();
@@ -45,8 +47,12 @@ namespace Core.Services
         {
             var entity = _mapper.Map<Owner>(owner);
             var modelToUpdate = await _ownerRepository.FindByCondition(x => x.Id == entity.Id);
-            _ownerRepository.Update(modelToUpdate.FirstOrDefault());
-            return owner;
+            if (!modelToUpdate.Any())
+            {
+                throw new ApiException("No se pudo editar el owner", HttpStatusCode.NotFound);
+            }
+            _ownerRepository.Update(entity);
+            return _mapper.Map<OwnerDto>(entity);
         }
 
         public async Task<OwnerDto> GetById(Guid id)

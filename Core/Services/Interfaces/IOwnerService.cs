@@ -8,7 +8,7 @@ namespace Core.Services.Interfaces
 {
     public interface IOwnerService
     {
-        Task<IQueryable<OwnerDto>> GetAll();
+        Task<IQueryable<OwnerDto>> Get();
         void Save(OwnerDto category);
         Task<OwnerDto> DeleteById(Guid Id);
         Task<OwnerDto> Update(OwnerDto owner);

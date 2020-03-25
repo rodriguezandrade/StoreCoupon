@@ -29,12 +29,11 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("get")]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var query = await _subCategoryService.GetAll();
+                var query = await _subCategoryService.GetDetails();
                 _loggerManager.LogInfo("SubCategorys se obtuvieron exitosamente");
                 return Ok(query);
             }
@@ -49,10 +48,10 @@ namespace GenericProjectBase.Controllers
         /// Get the subcategories.  
         /// </summary>
         [HttpGet]
-        [Route("getAll")]
-        public async Task<IQueryable<SubCategoryDto>> GetAll()
+        [Route("details")]
+        public async Task<IQueryable<SubCategoryDto>> GetSubCategoryDetails()
         {
-            return await _subCategoryService.GetAll();
+            return await _subCategoryService.GetDetails();
         }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace GenericProjectBase.Controllers
         /// Sub category model.
         /// </returns>
         [HttpGet]
-        [Route("get/{idSubCategory}")]
+        [Route("id}")]
         public async Task<IActionResult> GetById(Guid idSubCategory)
         {
             try
@@ -84,7 +83,6 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <param name="subcategory"></param>
         [HttpPost]
-        [Route("save")]
         public async Task<IActionResult> Add([FromBody] SubCategoryDto subcategory)
         {
             try
@@ -107,7 +105,7 @@ namespace GenericProjectBase.Controllers
         /// Sub category deleted
         /// </returns>
         [HttpDelete]
-        [Route("delete/{idSubCategory}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteById(Guid idSubCategory)
         {
             try
@@ -129,7 +127,6 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <param name="subcategory"></param>
         [HttpPut]
-        [Route("update")]
         public async Task<IActionResult> Update([FromBody] SubCategoryDto subcategory)
         {
             try

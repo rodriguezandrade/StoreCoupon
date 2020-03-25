@@ -27,13 +27,13 @@ namespace Core.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public async Task<IQueryable<ProductDetailDto>> GetProducts()
+        public async Task<IQueryable<ProductDetailDto>> GetDetails()
         {
             var query = await _repositoryWrapper.GetProductDetails();
             return _mapper.Map<List<ProductDetailDto>>(query).AsQueryable();
         }
 
-        public async Task<IQueryable<ProductDetailDto>> GetAll()
+        public async Task<IQueryable<ProductDetailDto>> Get()
         {
             var query = await _productDetailRepository.FindAll();
             return _mapper.Map<List<ProductDetailDto>>(query).AsQueryable();
@@ -60,8 +60,9 @@ namespace Core.Services
             var modelToUpdate = await _productDetailRepository.FindByCondition(x => x.Id == entity.Id);
             if (!modelToUpdate.Any())
             {
-                throw new ApiException("", HttpStatusCode.NotFound);
+                throw new ApiException("No se pudo editar el ProductDetail", HttpStatusCode.NotFound);
             }
+
             _productDetailRepository.Update(entity);
             return _mapper.Map<ProductDetailDto>(entity);
         }

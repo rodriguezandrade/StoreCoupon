@@ -25,12 +25,12 @@ namespace GenericProjectBase.Controllers
             _loggerManager = loggerManager;
         }
 
-        [Route("getAll")]
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             try 
             {
-                var query = await _categoryService.GetAll();
+                var query = await _categoryService.Get();
                 return Ok(query);
             }
             catch(Exception e)
@@ -40,10 +40,9 @@ namespace GenericProjectBase.Controllers
             }
             
         } 
-
-        [Route("save")]
+    
         [HttpPost]
-        public IActionResult Save([FromBody] GeneralCategoryDto category)
+        public IActionResult Add([FromBody] GeneralCategoryDto category)
         {   
             try
             {
@@ -57,7 +56,7 @@ namespace GenericProjectBase.Controllers
             }
         }
 
-        [Route("delete/{id}")]
+        [Route("{id}")]
         [HttpDelete]
         public async Task<IActionResult> DeleteByName(Guid Id)
         {
@@ -73,7 +72,7 @@ namespace GenericProjectBase.Controllers
             }
         }
 
-        [Route("get/{id}")]
+        [Route("{id}")]
         [HttpGet]
         public async Task<IActionResult> GetById(Guid id)
         {
@@ -90,7 +89,6 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpPut]
-        [Route("update")]
         public async Task<IActionResult> Update([FromBody]GeneralCategoryDto category)
         {
             try

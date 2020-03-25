@@ -21,12 +21,11 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpGet]
-        [Route("get")]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var query = await _storeService.GetAll(); 
+                var query = await _storeService.Get(); 
                 return Ok(query);
             }
             catch (Exception e)
@@ -37,12 +36,12 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpGet]
-        [Route("getAll")]
-        public async Task<IActionResult> GetStoresCategories()
+        [Route("details")]
+        public async Task<IActionResult> GetStoresCategoriesDetails()
         {
             try
             {
-                var query = await _storeService.GetStoresCategories(); 
+                var query = await _storeService.GetDetails(); 
                 return Ok(query);
             }
             catch (Exception e)
@@ -53,12 +52,12 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpGet]
-        [Route("get/{idStore}")]
-        public async Task<IActionResult> GetById(Guid idStore)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
             try
             {
-                var query = await _storeService.GetById(idStore);
+                var query = await _storeService.GetById(id);
                 return Ok(query);
             }
             catch (Exception e)
@@ -69,7 +68,6 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpPost]
-        [Route("save")]
         public async Task<IActionResult> Add([FromBody] StoreCategoryDto store)
         {
             try
@@ -86,7 +84,7 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpDelete]
-        [Route("delete/{idStoreCategories}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteById(Guid idStoreCategories)
         {
             try
@@ -102,7 +100,6 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpPut]
-        [Route("update")]
         public async Task<IActionResult> Update([FromBody] StoreCategoryDto store)
         {
             try

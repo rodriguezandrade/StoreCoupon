@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Services.Interfaces;
 using Repository.Models;
 using Repository.Models.Dtos;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Core.Services
@@ -22,7 +24,7 @@ namespace Core.Services
             _couponRepository = couponRepository;
             _repositoryWrapper = repositoryWrapper;
         }
-        public async Task<IQueryable<CouponDto>> GetCoupons() {
+        public async Task<IQueryable<CouponDto>> GetDetails() {
             var query = await  _repositoryWrapper.GetCoupons();
              return _mapper.Map<List<CouponDto>>(query).AsQueryable();
            
@@ -34,7 +36,7 @@ namespace Core.Services
             _couponRepository.SaveChanges();
         }
 
-        public async Task<IQueryable<CouponDto>> FindAll() {
+        public async Task<IQueryable<CouponDto>> Get() {
             var query = await _couponRepository.FindAll();
             return _mapper.Map<List<CouponDto>>(query).AsQueryable();
         }
@@ -44,11 +46,15 @@ namespace Core.Services
             return _mapper.Map<CouponDto>(query.FirstOrDefault());
         }
 
-        public async Task<CouponDto> Modify(CouponDto coupon) {
+        public async Task<CouponDto> Update(CouponDto coupon) {
             var entity = _mapper.Map<Coupon>(coupon);
             var modelToUpdate = await _couponRepository.FindByCondition(x => x.Id == entity.Id);
-            _couponRepository.Update(modelToUpdate.FirstOrDefault());
-            return coupon;
+            if (!modelToUpdate.Any())
+            {
+                throw new ApiException("No se pudo editar el coupon", HttpStatusCode.NotFound);
+            }
+            _couponRepository.Update(entity);
+            return _mapper.Map<CouponDto>(entity);
         }
 
         public async Task<CouponDto> DeleteById(Guid id) {

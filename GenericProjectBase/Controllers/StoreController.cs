@@ -26,12 +26,11 @@ namespace GenericProjectBase.Controllers
         /// Get the stores.  
         /// </summary>
         [HttpGet]
-        [Route("get")]
         public async Task<IActionResult> Get()
         {
             try
             { 
-                return Ok(await _storeService.GetAll());
+                return Ok(await _storeService.Get());
             }
             catch (Exception e)
             {
@@ -47,12 +46,12 @@ namespace GenericProjectBase.Controllers
         /// List of stores.
         /// </returns>
         [HttpGet]
-        [Route("getAll")]
+        [Route("details")]
         public async Task<IActionResult> GetStoresDetails()
         {
             try
             { 
-                return Ok(await _storeService.GetStores());
+                return Ok(await _storeService.GetDetails());
             }
             catch (Exception e)
             {
@@ -68,7 +67,7 @@ namespace GenericProjectBase.Controllers
         /// Store model.
         /// </returns>
         [HttpGet]
-        [Route("get/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             try
@@ -88,7 +87,6 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <param name="store"></param>
         [HttpPost]
-        [Route("save")]
         public async Task<IActionResult> Add([FromBody] StoreDto store)
         {
             try
@@ -111,7 +109,7 @@ namespace GenericProjectBase.Controllers
         /// Store deleted.
         /// </returns>
         [HttpDelete]
-        [Route("delete/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteById(Guid id)
         {
             try
@@ -131,7 +129,6 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <param name="store"></param>
         [HttpPut]
-        [Route("update")]
         public async Task<IActionResult> Update([FromBody] StoreDto store)
         {
             try

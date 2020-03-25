@@ -9,11 +9,11 @@ namespace Core.Services.Interfaces
 {
     public interface ICouponService
     {
-        Task<IQueryable<CouponDto>> GetCoupons();
+        Task<IQueryable<CouponDto>> GetDetails();
         void create(CouponDto entity);
-        Task<IQueryable<CouponDto>> FindAll();
+        Task<IQueryable<CouponDto>> Get();
         Task<CouponDto> FindByCondition(Guid idCoupon);
-        Task<CouponDto> Modify(CouponDto coupon);
+        Task<CouponDto> Update(CouponDto coupon);
         Task<CouponDto> DeleteById(Guid id);
     }
 }

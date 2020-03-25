@@ -9,7 +9,7 @@ namespace Core.Services.Interfaces
 {
     public interface IGeneralCategoryService
     {
-        Task<IQueryable<GeneralCategoryDto>> GetAll();
+        Task<IQueryable<GeneralCategoryDto>> Get();
         void Save(GeneralCategoryDto category);
         Task<GeneralCategoryDto> DeleteById(Guid Id);
         Task<GeneralCategoryDto> Update(GeneralCategoryDto model);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions.Impl;
+using Core.Exceptions;
 using Core.Services.Interfaces;
 using Repository.Models;
 using Repository.Models.Dtos;
@@ -7,6 +8,7 @@ using Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Core.Services
@@ -21,7 +23,7 @@ namespace Core.Services
             _mapper = mapper;
         }
 
-        public async Task<IQueryable<GeneralCategoryDto>> GetAll()
+        public async Task<IQueryable<GeneralCategoryDto>> Get()
         { 
             var query = await _categoryRepository.FindAll();
             return _mapper.Map<List<GeneralCategoryDto>>(query).AsQueryable();
@@ -41,11 +43,16 @@ namespace Core.Services
             return _mapper.Map<GeneralCategoryDto>(query);
         }
 
-        public async Task<GeneralCategoryDto> Update(GeneralCategoryDto model)
+        public async Task<GeneralCategoryDto> Update(GeneralCategoryDto category)
         {
-            var query = _mapper.Map<GeneralCategory>(model);
-            var resp = await _categoryRepository.Modify(query);
-            return _mapper.Map<GeneralCategoryDto>(resp);
+            var entity = _mapper.Map<GeneralCategory>(category);
+            var modelToUpdate = await _categoryRepository.FindByCondition(x => x.Id == entity.Id);
+            if (!modelToUpdate.Any())
+            {
+                throw new ApiException("No se pudo editar la GeneralCategory", HttpStatusCode.NotFound);
+            }
+            _categoryRepository.Update(entity);
+            return _mapper.Map<GeneralCategoryDto>(entity);
         }
 
         public async Task<GeneralCategoryDto> GetById(Guid id)

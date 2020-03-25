@@ -21,12 +21,11 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpGet]
-        [Route("get")]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var query = await _productDetailService.GetAll();
+                var query = await _productDetailService.Get();
                 return Ok(query);
             }
             catch (Exception e)
@@ -37,12 +36,12 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpGet]
-        [Route("getAll")]
-        public async Task<IActionResult> GetProductDtl()
+        [Route("details")]
+        public async Task<IActionResult> GetProductDetails()
         {
             try
             {
-                var query = await _productDetailService.GetProducts(); 
+                var query = await _productDetailService.GetDetails(); 
                 return Ok(query);
             }
             catch (Exception e)
@@ -53,7 +52,7 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpGet]
-        [Route("get/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             try
@@ -69,7 +68,6 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpPost]
-        [Route("save")]
         public async Task<IActionResult> Add([FromBody] ProductDetailDto product)
         {
             try
@@ -86,7 +84,7 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpDelete]
-        [Route("delete/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteById(Guid id)
         {
             try
@@ -102,7 +100,6 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpPut]
-        [Route("update")]
         public async Task<IActionResult> Update([FromBody] ProductDetailDto product)
         {
             try

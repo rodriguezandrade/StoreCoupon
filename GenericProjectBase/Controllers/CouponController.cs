@@ -27,10 +27,8 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpPost]
-        [Route("save")]
-        public async Task<IActionResult> Add([FromBody] CouponDto coupon)
+        public async Task<IActionResult> Add([FromBody] CouponDto coupon) {
         {
-
             try
             {
                 _couponService.create(coupon);
@@ -44,12 +42,14 @@ namespace GenericProjectBase.Controllers
 
         }
         [HttpGet]
-        [Route("getAll")]
-        public async Task<IActionResult> GetCoupons()
-        {
-            try
-            { 
-                return Ok(await _couponService.GetCoupons());
+        [Route("details")]
+        public async Task<IActionResult> GetCouponDetails() {
+            try {
+                var query = await _couponService.GetDetails(); 
+                return Ok(query);
+            } catch(Exception e) {
+                _loggerManager.LogError("Ocurrio un error al obtener los cupones: " + e);
+                return StatusCode(500);
             }
             catch (Exception e)
             {
@@ -59,10 +59,12 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpGet]
-        [Route("get")]
-        public async Task<IActionResult> Get()
-        {
-            try
+        public async Task<IActionResult> Get() {
+            try {
+                var query = await _couponService.Get(); 
+                return Ok(query);
+            } 
+            catch(Exception e) 
             {
                 return Ok(await _couponService.FindAll());
             }
@@ -74,7 +76,7 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpGet]
-        [Route("get/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             try
@@ -89,7 +91,7 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpDelete]
-        [Route("delete/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteById(Guid id)
         {
             try
@@ -104,12 +106,12 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpPut]
-        [Route("update")]
+        public async Task<IActionResult> Update([FromBody] CouponDto coupon) {
         public async Task<IActionResult> Update([FromBody] CouponDto coupon)
         {
             try
             {
-                var query = await _couponService.Modify(coupon);
+                var query = await _couponService.Update(coupon);
                 return Ok(query);
             }
             catch (Exception e)

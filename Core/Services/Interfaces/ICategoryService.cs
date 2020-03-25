@@ -9,7 +9,7 @@ namespace Core.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Task<IQueryable<CategoryStoreDto>> GetAll();
+        Task<IQueryable<CategoryStoreDto>> Get();
         void Save(CategoryStoreDto category);
         Task<CategoryStoreDto> DeleteById(Guid Id);
         Task<CategoryStoreDto> Update(CategoryStoreDto owner);

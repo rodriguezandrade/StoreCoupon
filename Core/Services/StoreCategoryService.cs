@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Services.Interfaces;
 using Repository.Models;
 using Repository.Models.Dtos;
@@ -6,6 +7,7 @@ using Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Core.Services
@@ -22,13 +24,13 @@ namespace Core.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public async Task<IQueryable<StoreCategoryDto>> GetStoresCategories()
+        public async Task<IQueryable<StoreCategoryDto>> GetDetails()
         {
             var query = await _repositoryWrapper.GetStoreCategories();
             return _mapper.Map<List<StoreCategoryDto>>(query).AsQueryable();
         }
 
-        public async Task<IQueryable<StoreCategoryDto>> GetAll()
+        public async Task<IQueryable<StoreCategoryDto>> Get()
         {
             var query = await _storeCategoryRepository.FindAll();
             return _mapper.Map<List<StoreCategoryDto>>(query).AsQueryable();
@@ -49,14 +51,16 @@ namespace Core.Services
             return _mapper.Map<StoreCategoryDto>(modelToDelete.FirstOrDefault());
         }
 
-        public async Task<StoreCategoryDto> Update(StoreCategoryDto SC)
+        public async Task<StoreCategoryDto> Update(StoreCategoryDto storeCategory)
         {
-            var modelToUpdate = await _storeCategoryRepository.FindByCondition(x => x.Id == SC.Id);
-            var model = modelToUpdate.FirstOrDefault();
-            var entity = _mapper.Map<StoreCategory>(SC);
-            model = entity;
-            _storeCategoryRepository.Update(model);
-            return SC;
+            var entity = _mapper.Map<StoreCategory>(storeCategory);
+            var modelToUpdate = await _storeCategoryRepository.FindByCondition(x => x.Id == entity.Id);
+            if (!modelToUpdate.Any())
+            {
+                throw new ApiException("No se pudo editar el storeCategory", HttpStatusCode.NotFound);
+            }
+            _storeCategoryRepository.Update(entity);
+            return _mapper.Map<StoreCategoryDto>(entity);
         }
 
         public async Task<StoreCategoryDto> GetById(Guid id)

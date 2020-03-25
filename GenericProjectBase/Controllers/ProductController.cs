@@ -29,12 +29,11 @@ namespace GenericProjectBase.Controllers
         /// Get the products.  
         /// </summary>
         [HttpGet]
-        [Route("get")]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var query = await _productService.GetAll();
+                var query = await _productService.Get();
                 return Ok(query);
             }
             catch (Exception e)
@@ -51,7 +50,7 @@ namespace GenericProjectBase.Controllers
         /// Product model.
         /// </returns>
         [HttpGet]
-        [Route("get/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             try
@@ -72,7 +71,6 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <param name="product"></param>
         [HttpPost]
-        [Route("save")]
         public async Task<IActionResult> Add([FromBody] ProductDto product)
         {
             try
@@ -95,7 +93,7 @@ namespace GenericProjectBase.Controllers
         /// Product deleted.
         /// </returns>
         [HttpDelete]
-        [Route("delete/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteById(Guid id)
         {
             try
@@ -116,7 +114,6 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <param name="product"></param>
         [HttpPut]
-        [Route("update")]
         public async Task<IActionResult> Update([FromBody] ProductDto product)
         {
             try

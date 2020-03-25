@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Services.Interfaces;
 using Repository.Models;
 using Repository.Models.Dtos;
@@ -6,6 +7,7 @@ using Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Core.Services
@@ -22,14 +24,14 @@ namespace Core.Services
             _repositoryWrapper = repositoryWrapper;
         }
 
-        public async Task<IQueryable<StoreDto>> GetStores()
+        public async Task<IQueryable<StoreDto>> GetDetails()
         {
             var query = await _repositoryWrapper.GetStores();
             var model = _mapper.Map<List<StoreDto>>(query).AsQueryable();
             return model;
         }
 
-        public async Task<IQueryable<StoreDto>> GetAll()
+        public async Task<IQueryable<StoreDto>> Get()
         {
             var query = await _storeRepository.FindAll();
             return _mapper.Map<List<StoreDto>>(query).AsQueryable();
@@ -52,12 +54,14 @@ namespace Core.Services
 
         public async Task<StoreDto> Update(StoreDto store)
         {
-            var modelToUpdate = await _storeRepository.FindByCondition(x => x.Id == store.Id);
-            var model = modelToUpdate.FirstOrDefault();
             var entity = _mapper.Map<Store>(store);
-            model = entity;
-            _storeRepository.Update(model);
-            return store;
+            var modelToUpdate = await _storeRepository.FindByCondition(x => x.Id == entity.Id);
+            if (!modelToUpdate.Any())
+            {
+                throw new ApiException("No se pudo editar el store", HttpStatusCode.NotFound);
+            }
+            _storeRepository.Update(entity);
+            return _mapper.Map<StoreDto>(entity);
         }
 
         public async Task<StoreDto> GetById(Guid id)

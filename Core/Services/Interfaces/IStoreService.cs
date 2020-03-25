@@ -9,8 +9,8 @@ namespace Core.Services.Interfaces
 {
     public interface IStoreService
     {
-        Task<IQueryable<StoreDto>> GetAll();
-        Task<IQueryable<StoreDto>> GetStores();
+        Task<IQueryable<StoreDto>> Get();
+        Task<IQueryable<StoreDto>> GetDetails();
         void Save(StoreDto category);
         Task<StoreDto> DeleteById(Guid Id);
         Task<StoreDto> Update(StoreDto owner);

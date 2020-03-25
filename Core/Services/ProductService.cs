@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Services.Interfaces;
 using Repository.Models;
 using Repository.Models.Dtos;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,7 +24,7 @@ namespace Core.Services
             _mapper = mapper;
         }
 
-        public async Task<IQueryable<ProductDto>> GetAll()
+        public async Task<IQueryable<ProductDto>> Get()
         {
             var query = await _productRepository.FindAll();
             return _mapper.Map<List<ProductDto>>(query).AsQueryable();
@@ -43,14 +45,16 @@ namespace Core.Services
             return _mapper.Map<ProductDto>(modelToDelete.FirstOrDefault());
         }
 
-        public async Task<ProductDto> Update(ProductDto owner)
+        public async Task<ProductDto> Update(ProductDto product)
         {
-            var modelToUpdate = await _productRepository.FindByCondition(x => x.Id == owner.Id);
-            var model = modelToUpdate.FirstOrDefault();
-            var entity = _mapper.Map<Product>(owner);
-            model = entity;
-            _productRepository.Update(model);
-            return owner;
+            var entity = _mapper.Map<Product>(product);
+            var modelToUpdate = await _productRepository.FindByCondition(x => x.Id == entity.Id);
+            if (!modelToUpdate.Any())
+            {
+                throw new ApiException("No se pudo editar el product", HttpStatusCode.NotFound);
+            }
+            _productRepository.Update(entity);
+            return _mapper.Map<ProductDto>(entity);
         }
 
         public async Task<ProductDto> GetById(Guid id)

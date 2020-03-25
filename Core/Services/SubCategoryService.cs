@@ -8,6 +8,8 @@ using Repository.Models.Dtos;
 using Repository.Repositories.Utils;
 using AutoMapper;
 using System.Collections.Generic;
+using Core.Exceptions;
+using System.Net;
 
 namespace Core.Services
 {
@@ -26,13 +28,13 @@ namespace Core.Services
         }
 
        
-        public async Task<IQueryable<SubCategoryDto>> FindAll()
+        public async Task<IQueryable<SubCategoryDto>> Get()
         {
             var query = await _subCategoryRepository.FindAll();
             return _mapper.Map<List<SubCategoryDto>>(query).AsQueryable();
         }
 
-        public async Task<IQueryable<SubCategoryDto>> GetAll()
+        public async Task<IQueryable<SubCategoryDto>> GetDetails()
         {
             var query = _subCategoryRepositoryWrapper.GetSubCategoriess().ToList();
             var result = _mapper.Map<List<SubCategoryDto>>(query);
@@ -56,12 +58,14 @@ namespace Core.Services
 
         public async Task<SubCategoryDto> Update(SubCategoryDto subcategory)
         {
-            var modelToUpdate = await _subCategoryRepository.FindByCondition(x => x.Id == subcategory.Id);
-            var model = modelToUpdate.FirstOrDefault();
             var entity = _mapper.Map<SubCategory>(subcategory);
-            model = entity;
-            _subCategoryRepository.Update(model);
-            return subcategory;
+            var modelToUpdate = await _subCategoryRepository.FindByCondition(x => x.Id == entity.Id);
+            if (!modelToUpdate.Any())
+            {
+                throw new ApiException("No se pudo editar la subcategory", HttpStatusCode.NotFound);
+            }
+           _subCategoryRepository.Update(entity);
+            return _mapper.Map<SubCategoryDto>(entity);
         }
 
         public async Task<SubCategoryDto> GetById(Guid id)

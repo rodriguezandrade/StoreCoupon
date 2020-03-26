@@ -10,7 +10,7 @@ using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/[Controller]/")]
+    [Route("api/v{version:apiVersion}/users/")]
     [ApiVersion("1")]
     [ApiVersion("2")]
     public class UserController : Controller
@@ -36,7 +36,7 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError($"Ocurrio un error al obtener los owners: {e}");
+                _loggerManager.LogError($"Ocurrio un error al obtener los users: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }

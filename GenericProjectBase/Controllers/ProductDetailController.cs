@@ -10,7 +10,7 @@ using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/[Controller]/")]
+    [Route("api/v{version:apiVersion}/productDetails/")]
     public class ProductDetailController : Controller
     {
         private readonly IProductDetailService _productDetailService;

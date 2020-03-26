@@ -14,7 +14,7 @@ using Store.Coupon.Web;
 namespace GenericProjectBase.Controllers
 {
 
-    [Route("api/v{version:apiVersion}/[Controller]/")]
+    [Route("api/v{version:apiVersion}/coupons/")]
     public class CouponController : Controller
     {
         private readonly ILoggerManager _loggerManager;

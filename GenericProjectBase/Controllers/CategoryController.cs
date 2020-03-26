@@ -12,7 +12,7 @@ using Role = Repository.Repositories.Utils.Role;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/[Controller]/")]
+    [Route("api/v{version:apiVersion}/categories/")]
     [ApiVersion("2")]
     [ApiVersion("1")] 
     public class CategoryController : Controller

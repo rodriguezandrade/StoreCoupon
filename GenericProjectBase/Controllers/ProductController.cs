@@ -12,7 +12,7 @@ using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/[Controller]/")]
+    [Route("api/v{version:apiVersion}/products/")]
     [ApiVersion("1")]
     [ApiVersion("2")]
     public class ProductController : Controller

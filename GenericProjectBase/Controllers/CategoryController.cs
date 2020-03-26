@@ -7,6 +7,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Core.Exceptions;
+using Store.Coupon.Web;
 using Role = Repository.Repositories.Utils.Role;
 
 namespace GenericProjectBase.Controllers
@@ -40,9 +41,9 @@ namespace GenericProjectBase.Controllers
             }
         }
 
-        /// <see cref="Guid"/> the category model. 
+        /// <see cref="Guid"/> the storeCategory model. 
         /// <summary>
-        /// Get category by guid.
+        /// Get storeCategory by guid.
         /// </summary>
         /// <returns>
         /// Category model.
@@ -57,29 +58,30 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error al obtener el category Id: " +id + e);
+                _loggerManager.LogError("Ocurrio un error al obtener el storeCategory Id: " +id + e);
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
         /// <summary>
         /// Save the categories
-        /// <see cref="CategoryOfStoreDto"/> the sub category model. 
+        /// <see cref="StoreCategoryDto"/> the sub storeCategory model. 
         /// </summary>
-        /// <param name="category"></param>
+        /// <param name="storeCategory"></param>
         //[Authorize(Roles = Role.Admin)]
         [MapToApiVersion("2")] 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] CategoryOfStoreDto category)
+        public async Task<IActionResult> Add([FromBody] StoreCategoryDto storeCategory)
         {
             try
             {
-                _categoryService.Save(category);
-                return CreatedAtAction(nameof(GetById), new { idCategory = category.Id }, category);
+                _categoryService.Save(storeCategory);
+                // ReSharper disable once Mvc.ActionNotResolved
+                return CreatedAtAction(nameof(GetById), new { idCategory = storeCategory.Id }, storeCategory);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el category: " + e);
+                _loggerManager.LogError("Ocurrio un error cuando se intentaba guardar el storeCategory: " + e);
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             } 
         }
@@ -100,26 +102,26 @@ namespace GenericProjectBase.Controllers
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se eliminaba el category: " + e);
+                _loggerManager.LogError("Ocurrio un error mientras se eliminaba el storeCategory: " + e);
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
         /// <summary>
-        /// Update the category.
-        /// <see cref="CategoryOfStoreDto"/> the category model. 
+        /// Update the storeCategory.
+        /// <see cref="StoreCategoryDto"/> the storeCategory model. 
         /// </summary>
-        /// <param name="category"></param>
+        /// <param name="storeCategory"></param>
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] CategoryOfStoreDto category)
+        public async Task<IActionResult> Update([FromBody] StoreCategoryDto storeCategory)
         {
             try
             { 
-                return Ok(await _categoryService.Update(category));
+                return Ok(await _categoryService.Update(storeCategory));
             }
             catch (Exception e)
             {
-                _loggerManager.LogError("Ocurrio un error mientras se modificaba el category: " + e);
+                _loggerManager.LogError("Ocurrio un error mientras se modificaba el storeCategory: " + e);
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }

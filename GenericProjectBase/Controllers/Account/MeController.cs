@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Repository.Models.Dtos.Account;
 using Microsoft.AspNetCore.Authorization;
 using System.Net;
+using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers.Account
 {

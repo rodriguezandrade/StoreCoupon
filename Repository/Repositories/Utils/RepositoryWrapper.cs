@@ -44,16 +44,16 @@ namespace Repository.Repositories.Utils
         //include Coupons
         public async Task<IQueryable<Coupon>> GetCoupons() { 
             var query =  await  _repositoryContext.Coupons
-                .Include(x => x.FkProductDetail)
+                .Include(x => x.ProductDetail)
                 .ToListAsync();
             return query.AsQueryable();
         }
 
         //include Store_Categories
-        public async Task<IQueryable<StoreCategory>> GetStoreCategories() {
-            var query = await _repositoryContext.StoresCategories
-                .Include(x => x.FkCategoryStore)
-                .Include(x => x.FkStore)
+        public async Task<IQueryable<StoreCategoryDetail>> GetStoreCategories() {
+            var query = await _repositoryContext.StoresCategoryDetails
+                .Include(x => x.StoreCategory)
+                .Include(x => x.Store)
                 .ToListAsync();
             return query.AsQueryable();
         }
@@ -62,8 +62,8 @@ namespace Repository.Repositories.Utils
         public async Task<IQueryable<ProductDetail>> GetProductDetails()
         {
             var query = await _repositoryContext.ProductDetails
-                .Include(x => x.FkProduct)
-                .Include(x=> x.FkStoreCategory)
+                .Include(x => x.Product)
+                .Include(x=> x.StoreCategoryDetail)
                 .ToListAsync();
             return query.AsQueryable();
         }
@@ -72,7 +72,7 @@ namespace Repository.Repositories.Utils
         public async Task<IQueryable<Store>> GetStores() {
             var query = await _repositoryContext.Stores
                 .Include(x => x.SubCategory)
-                .Include(x=>x.Owner)
+                //.Include(x=>x.UserDetail)
                 .ToListAsync();
             return query.AsQueryable();
         }

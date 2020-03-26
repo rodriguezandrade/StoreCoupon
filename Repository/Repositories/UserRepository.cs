@@ -5,9 +5,9 @@ using Repository.Repositories.Utils;
 
 namespace Repository.Repositories
 {
-     public class OwnerRepository : RepositoryBase<Owner>, IOwnerRepository
+     public class UserRepository : RepositoryBase<User>, IUserRepository
     { 
-        public OwnerRepository(RepositoryContext repositoryContext): base(repositoryContext)
+        public UserRepository(RepositoryContext repositoryContext): base(repositoryContext)
         {
         }
     }

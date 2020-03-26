@@ -7,6 +7,11 @@ namespace Repository.Models
 {
     public class ProductDetail
     {
+        public ProductDetail()
+        {
+            Coupons = new HashSet<Coupon>();
+        }
+
         [Key]
         public Guid Id { get; set; }
 
@@ -21,13 +26,13 @@ namespace Repository.Models
         [ForeignKey("FkProduct")]
         public Guid IdProduct { get; set; }
 
-        public Product FkProduct { get; set; }
+        public Product Product { get; set; }
 
         [Required(ErrorMessage = "Foreign key is required")]
-        [ForeignKey("FkStoreCategory")]
-        public Guid IdStoreCategory { get; set; }
+        [ForeignKey("StoreCategoryDetail")]
+        public Guid IdStoreCategoryDetail { get; set; }
 
-        public StoreCategory FkStoreCategory { get; set; }
+        public StoreCategoryDetail StoreCategoryDetail { get; set; }
 
         public virtual ICollection<Coupon> Coupons { get; set; }
     }

@@ -9,6 +9,7 @@ using Core.Logger.Interface;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models.Dtos;
+using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers
 {
@@ -32,6 +33,8 @@ namespace GenericProjectBase.Controllers
             try
             {
                 _couponService.Create(coupon);
+                // ReSharper disable once Mvc.ActionNotResolved
+
                 return CreatedAtAction(nameof(GetById), new { idCoupon = coupon.Id }, coupon);
             }
             catch (Exception e)

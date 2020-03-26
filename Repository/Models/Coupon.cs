@@ -6,7 +6,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Repository.Models
 {
     public class Coupon
-    { 
+    {
+        public Coupon()
+        {
+            CouponDetails = new HashSet<CouponDetail>();
+        }
+
         [Key]
         public Guid Id { get; set; }
 
@@ -23,10 +28,10 @@ namespace Repository.Models
         [Required(ErrorMessage ="Expiration Date is required")]
         public DateTime ExpirationDate { get; set; }
 
-        [Required(ErrorMessage = "Foreignkey is required")]
-        [ForeignKey("FkProductDetail")]
+        [Required(ErrorMessage = "Foreign key is required")]
+        [ForeignKey("ProductDetail")]
         public Guid IdProductDetail { get; set; }
-        public ProductDetail FkProductDetail { get; set; }
-        public virtual ICollection<CouponBook> CouponBook { get; set; }
+        public ProductDetail ProductDetail { get; set; }
+        public virtual ICollection<CouponDetail> CouponDetails { get; set; }
     }
 }

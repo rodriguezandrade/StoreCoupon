@@ -178,7 +178,7 @@ namespace GenericProjectBase.Extensions
 
             ///Services
             services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IOwnerService, OwnerService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStoreService, StoreService>();
             services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddScoped<IProductService, ProductService>();
@@ -191,7 +191,7 @@ namespace GenericProjectBase.Extensions
 
             ///Repositories
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
             services.AddScoped<IStoreRepository, StoreRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

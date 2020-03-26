@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Store.Coupon.Web</name>
+    </assembly>
+    <members>
+        <member name="T:Store.Coupon.Web.AppResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Store.Coupon.Web.AppResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Store.Coupon.Web.AppResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Store.Coupon.Web.AppResources.BadRequest">
+            <summary>
+              Looks up a localized string similar to BadRequest.
+            </summary>
+        </member>
+        <member name="P:Store.Coupon.Web.AppResources.InvalidCredentials">
+            <summary>
+              Looks up a localized string similar to Invalid Credentials.
+            </summary>
+        </member>
+        <member name="P:Store.Coupon.Web.AppResources.InvalidRequest">
+            <summary>
+              Looks up a localized string similar to Invalid Request.
+            </summary>
+        </member>
+        <member name="P:Store.Coupon.Web.AppResources.TemplateForgotPassword">
+            <summary>
+              Looks up a localized string similar to Data send to your email.
+            </summary>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.Account.MeController.Authenticate(Repository.Models.Dtos.Account.LoginRequest)">
+            <summary>
+            CreateAuthToken
+            <see cref="T:Repository.Models.Dtos.Account.LoginRequest"/>The login request. 
+            </summary>
+            <param name="loginRequest">The Request Data</param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.CategoryController.Get">
+            <remarks>Get the categories.</remarks>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.CategoryController.GetById(System.Guid)">
+            <see cref="T:System.Guid"/> the storeCategory model. 
+            <summary>
+            Get storeCategory by guid.
+            </summary>
+            <returns>
+            Category model.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.CategoryController.Add(Repository.Models.Dtos.StoreCategoryDto)">
+            <summary>
+            Save the categories
+            <see cref="T:Repository.Models.Dtos.StoreCategoryDto"/> the sub storeCategory model. 
+            </summary>
+            <param name="storeCategory"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.CategoryController.DeleteById(System.Guid)">
+            <summary>
+            Delete Category by Id.
+            </summary>
+            <returns>
+            Category deleted.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.CategoryController.Update(Repository.Models.Dtos.StoreCategoryDto)">
+            <summary>
+            Update the storeCategory.
+            <see cref="T:Repository.Models.Dtos.StoreCategoryDto"/> the storeCategory model. 
+            </summary>
+            <param name="storeCategory"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.ProductController.Get">
+            <summary>
+            Get the products.  
+            </summary>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.ProductController.GetById(System.Guid)">
+            <summary>
+            Get product by Id.
+            </summary>
+            <returns>
+            Product model.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.ProductController.Add(Repository.Models.Dtos.ProductDto)">
+            <summary>
+            Save product
+            <see cref="T:Repository.Models.Dtos.ProductDto"/> the product model. 
+            </summary>
+            <param name="product"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.ProductController.DeleteById(System.Guid)">
+            <summary>
+            Delete product by Id.
+            </summary>
+            <returns>
+            Product deleted.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.ProductController.Update(Repository.Models.Dtos.ProductDto)">
+            <summary>
+            Update product.
+            <see cref="T:Repository.Models.Dtos.ProductDto"/> the product model. 
+            </summary>
+            <param name="product"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.Get">
+            <summary>
+            Get the stores.  
+            </summary>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.GetStoresDetails">
+            <summary>
+            Get stores list.
+            </summary>
+            <returns>
+            List of stores.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.GetById(System.Guid)">
+            <summary>
+            Get store by Id.
+            </summary>
+            <returns>
+            Store model.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.Add(Repository.Models.Dtos.StoreDto)">
+            <summary>
+            Save the store
+            <see cref="T:Repository.Models.Dtos.StoreDto"/>The store model. 
+            </summary>
+            <param name="store"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.DeleteById(System.Guid)">
+            <summary>
+            Delete store by Id.
+            </summary>
+            <returns>
+            Store deleted.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.Update(Repository.Models.Dtos.StoreDto)">
+            <summary>
+            Update the store.
+            <see cref="T:Repository.Models.Dtos.StoreDto"/> the store model. 
+            </summary>
+            <param name="store"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.SubCategoryController.Get">
+            <summary>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.SubCategoryController.GetSubCategoryDetails">
+            <summary>
+            Get the subcategories.  
+            </summary>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.SubCategoryController.GetById(System.Guid)">
+            <summary>
+            Get the subcategory by Id.
+            </summary>
+            <returns>
+            Sub category model.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.SubCategoryController.Add(Repository.Models.Dtos.SubCategoryDto)">
+            <summary>
+            Save the sub category
+            <see cref="T:Repository.Models.SubCategory"/>The subcategory model. 
+            </summary>
+            <param name="subcategory"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.SubCategoryController.DeleteById(System.Guid)">
+            <summary>
+            Delete subcategory by Id.
+            </summary>
+            <returns>
+            Sub category deleted
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.SubCategoryController.Update(Repository.Models.Dtos.SubCategoryDto)">
+            <summary>
+            Update the sub category.
+            <see cref="T:Repository.Models.SubCategory"/> the sub category model. 
+            </summary>
+            <param name="subcategory"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.UserController.Get">
+            <summary>
+            Get the owners.  
+            </summary>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.UserController.GetById(System.Int32)">
+             <summary>
+             Get user by guid.
+            s<see cref="T:System.Guid"/>Guid annotation. 
+             </summary>
+             <param name="id"> id user</param>
+             <returns>
+             UserDetail model.
+             </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.UserController.Add(Repository.Models.Dtos.UserDto)">
+            <summary>
+            Save the owners
+            <see cref="T:Repository.Models.Dtos.UserDto"/> the user model. 
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.UserController.DeleteById(System.Int32)">
+            <summary>
+            Delete user by Id.
+            </summary>
+            <returns>
+            UserDetail deleted.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.UserController.Update(Repository.Models.Dtos.UserDto)">
+            <summary>
+            Update the user.
+            <see cref="T:Repository.Models.Dtos.UserDto"/> the user model. 
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.ConfigureCors(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            configure cors
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.VersioningConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            IIS Integration
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.SwaggerConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Swagger configuration
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.AutoMapperConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            Mapper Configuration
+        </member>
+        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.ConfigureLoggerService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            Logger
+        </member>
+        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.ConfigureMySqlContext(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            Database configuration
+        </member>
+        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.ConfigureClassesWithInterfaces(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            Inject all the interfaces with classes
+        </member>
+        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.ConfigureJWToken(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            Configure jwt authentication
+        </member>
+    </members>
+</doc>

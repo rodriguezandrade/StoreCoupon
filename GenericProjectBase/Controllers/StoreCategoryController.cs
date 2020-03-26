@@ -6,6 +6,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Core.Exceptions;
+using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers
 {
@@ -68,11 +69,12 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] StoreCategoryDto store)
+        public async Task<IActionResult> Add([FromBody] StoreCategoryDetailDto store)
         {
             try
             {
                 _storeService.Save(store); 
+                // ReSharper disable once Mvc.ActionNotResolved
                 return CreatedAtAction(nameof(GetById), new { idStore = store.Id }, store);
             }
             catch (Exception e)
@@ -100,7 +102,7 @@ namespace GenericProjectBase.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] StoreCategoryDto store)
+        public async Task<IActionResult> Update([FromBody] StoreCategoryDetailDto store)
         {
             try
             {

@@ -6,6 +6,7 @@ using Core.Logger.Interface;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models.Dtos;
+using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers
 {
@@ -91,7 +92,8 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                _storeService.Save(store); 
+                _storeService.Save(store);
+                // ReSharper disable once Mvc.ActionNotResolved
                 return CreatedAtAction(nameof(GetById), new { idStore = store.Id }, store);
             }
             catch (Exception e)

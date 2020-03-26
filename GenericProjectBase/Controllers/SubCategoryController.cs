@@ -9,6 +9,7 @@ using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models;
 using Repository.Models.Dtos;
+using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers
 {
@@ -83,7 +84,8 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                _subCategoryService.Save(subcategory); 
+                _subCategoryService.Save(subcategory);
+                // ReSharper disable once Mvc.ActionNotResolved
                 return CreatedAtAction(nameof(GetById), new { idSubCategory = subcategory.Id }, subcategory);
             }
             catch (Exception e)

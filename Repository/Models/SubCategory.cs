@@ -7,7 +7,11 @@ namespace Repository.Models
 {
     public class SubCategory
     {
-      
+        public SubCategory()
+        {
+            Stores = new HashSet<Store>();
+        }
+
         [Key] 
         public Guid Id { get; set; }
 
@@ -21,11 +25,11 @@ namespace Repository.Models
 
         [Required(ErrorMessage = "Foreign key is required")]
         [ForeignKey("Category")]
-        public Guid IdCatetory { get; set; }
+        public Guid IdCategory { get; set; }
 
         public GeneralCategory Category { get; set; }  
 
-        public virtual ICollection<Store> Store { get; set; }
+        public virtual ICollection<Store> Stores { get; set; }
     }
 
 }

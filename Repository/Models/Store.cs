@@ -7,6 +7,11 @@ namespace Repository.Models
 {
     public class Store
     {
+        public Store()
+        {
+            StoreCategoryDetails = new HashSet<StoreCategoryDetail>();
+        }
+
         [Key]
         public Guid Id { get; set; }
 
@@ -38,13 +43,8 @@ namespace Repository.Models
         [ForeignKey("SubCategory")]
         public Guid SubCategoryId  { get; set; } 
 
-        public SubCategory SubCategory { get; set; } 
-
-        [ForeignKey("Owner")]
-        public Guid IdOwner { get; set; }
-
-        public Owner Owner { get; set; }
-        public virtual ICollection<StoreCategory> StoreCategories { get; set; }
-
+        public SubCategory SubCategory { get; set; }
+        
+        public virtual ICollection<StoreCategoryDetail> StoreCategoryDetails { get; set; }
     }
 }

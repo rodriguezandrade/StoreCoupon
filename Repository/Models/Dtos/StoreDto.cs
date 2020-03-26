@@ -12,8 +12,8 @@ namespace Repository.Models.Dtos
         public string Email { get; set; }
         public string RFC { get; set; }
         public Guid SubCategoryId { get; set; }
-        public Guid IdOwner { get; set; }
-        public string Owner { get; set; }
+        public int IdUser { get; set; }
+        public string User { get; set; }
         public string SubCategoryName { get; set; }
     }
 }

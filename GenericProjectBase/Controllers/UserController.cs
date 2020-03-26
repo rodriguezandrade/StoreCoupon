@@ -6,20 +6,21 @@ using Core.Logger.Interface;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models.Dtos;
+using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers
 {
     [Route("api/v{version:apiVersion}/[Controller]/")]
     [ApiVersion("1")]
     [ApiVersion("2")]
-    public class OwnerController : Controller
+    public class UserController : Controller
     {
-        private readonly IOwnerService _ownerService;
+        private readonly IUserService _userService;
         private readonly ILoggerManager _loggerManager;
-        public OwnerController(IOwnerService ownerService, ILoggerManager loggerManager)
+        public UserController(IUserService userService, ILoggerManager loggerManager)
         {
             _loggerManager = loggerManager;
-            _ownerService = ownerService;
+            _userService = userService;
         }
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _ownerService.Get();
+                var query = await _userService.Get();
                 return Ok(query);
             }
             catch (Exception e)
@@ -41,89 +42,89 @@ namespace GenericProjectBase.Controllers
         }
 
         /// <summary>
-        /// Get owner by guid.
+        /// Get user by guid.
         ///s<see cref="Guid"/>Guid annotation. 
         /// </summary>
-        /// <param name="id"> id owner</param>
+        /// <param name="id"> id user</param>
         /// <returns>
-        /// Owner model.
+        /// UserDetail model.
         /// </returns>
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                var query = await _ownerService.GetById(id); 
+                var query = await _userService.GetById(id); 
                 return Ok(query);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError($"Ocurrio un error al obtener el owner: {e}");
+                _loggerManager.LogError($"Ocurrio un error al obtener el user: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
         /// <summary>
         /// Save the owners
-        /// <see cref="OwnerDto"/> the owner model. 
+        /// <see cref="UserDto"/> the user model. 
         /// </summary>
-        /// <param name="owner"></param>
+        /// <param name="user"></param>
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] OwnerDto owner)
+        public async Task<IActionResult> Add([FromBody] UserDto user)
         {
             try
-            {
-                owner.Id = new Guid();
-                _ownerService.Save(owner);
-                return CreatedAtAction(nameof(GetById), new { idOwner = owner.Id }, owner);
+            { 
+                _userService.Save(user);
+                // ReSharper disable once Mvc.ActionNotResolved
+                return CreatedAtAction(nameof(GetById), new { idOwner = user.Id }, user);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError($"Ocurrio un error cuando se intentaba guardar el owner: {e}");
+                _loggerManager.LogError($"Ocurrio un error cuando se intentaba guardar el user: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
 
         }
 
         /// <summary>
-        /// Delete owner by Id.
+        /// Delete user by Id.
         /// </summary>
         /// <returns>
-        /// Owner deleted.
+        /// UserDetail deleted.
         /// </returns>
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteById(Guid id)
+        public async Task<IActionResult> DeleteById(int id)
         {
             try
             {
-                var query = await _ownerService.DeleteById(id); 
+                var query = await _userService.DeleteById(id); 
                 return Ok(query);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError($"Ocurrio un error mientras se eliminaba el owner: {e}");
+                _loggerManager.LogError($"Ocurrio un error mientras se eliminaba el user: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }
 
         /// <summary>
-        /// Update the owner.
-        /// <see cref="OwnerDto"/> the owner model. 
+        /// Update the user.
+        /// <see cref="UserDto"/> the user model. 
         /// </summary>
-        /// <param name="owner"></param>
+        /// <param name="user"></param>
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] OwnerDto owner)
+        public async Task<IActionResult> Update([FromBody] UserDto user)
         {
             try
             {
-                var query = await _ownerService.Update(owner); 
+                var query = await _userService.Update(user); 
                 return Ok(query);
             }
             catch (Exception e)
             {
-                _loggerManager.LogError($"Ocurrio un error mientras se modificaba el owner: {e}");
+                _loggerManager.LogError($"Ocurrio un error mientras se modificaba el user: {e}");
                 throw new ApiException(AppResources.BadRequest, HttpStatusCode.BadRequest);
             }
         }

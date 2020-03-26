@@ -2,7 +2,7 @@
 
 namespace Repository.Repositories.Interfaces
 {
-    public interface IStoreCategoryRepository : IRepositoryBase<StoreCategory>
+    public interface IStoreCategoryRepository : IRepositoryBase<StoreCategoryDetail>
     {
     }
 }

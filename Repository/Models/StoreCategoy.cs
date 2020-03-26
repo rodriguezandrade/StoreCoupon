@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Repository.Models
 {
-    public class CategoryOfStore
+    public class StoreCategoy
     {
+        public StoreCategoy()
+        {
+            StoreCategoryDetails = new HashSet<StoreCategoryDetail>();
+        }
+
         [Key]
         public Guid Id { get; set; }
 
@@ -15,7 +19,7 @@ namespace Repository.Models
 
         public string Name { get; set; } 
 
-        public virtual ICollection<StoreCategory> StoreSubCategoryStore { get; set; }
+        public virtual ICollection<StoreCategoryDetail> StoreCategoryDetails{ get; set; }
     }
 }
  

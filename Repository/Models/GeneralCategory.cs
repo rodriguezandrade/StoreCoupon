@@ -6,6 +6,11 @@ namespace Repository.Models
 {
     public class GeneralCategory
     {
+        public GeneralCategory()
+        {
+            SubCategories = new HashSet<SubCategory>();
+        }
+
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Name is required")]

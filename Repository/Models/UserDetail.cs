@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Repository.Models
 {
-    public class Owner
+    public class UserDetail
     {
         [Key] 
         public Guid Id { get; set; }
@@ -32,6 +32,18 @@ namespace Repository.Models
         [StringLength(13, ErrorMessage = "RFC needs 13 characters in length")]
         public string RFC { get; set; }
 
-        public virtual ICollection<Store> Stores { get; set; }
+        //public virtual ICollection<Store> Stores { get; set; }
+
+        [Required(ErrorMessage = "Foreign key is required")]
+        [ForeignKey("User")]
+        public int IdUser { get; set; }
+
+        public User User { get; set; }
+
+        [Required(ErrorMessage = "Foreign key is required")]
+        [ForeignKey("Store")]
+        public Guid IdStore { get; set; }
+
+        public Store Store { get; set; }
     }
 }

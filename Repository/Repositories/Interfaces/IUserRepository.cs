@@ -2,7 +2,7 @@
 
 namespace Repository.Repositories.Interfaces
 {
-    public interface IOwnerRepository : IRepositoryBase<Owner>
+    public interface IUserRepository : IRepositoryBase<User>
     {
     }
 }

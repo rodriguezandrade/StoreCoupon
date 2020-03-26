@@ -11,9 +11,9 @@ namespace Core.Profiles
             CreateMap<SubCategoryDto, SubCategory>().ReverseMap();
             CreateMap<StoreDto, Store>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
-            CreateMap<OwnerDto, Owner>().ReverseMap();
+            CreateMap<UserDto, User>().ReverseMap();
             CreateMap<Coupon, CouponDto>().ReverseMap();
-            CreateMap<CategoryOfStore, CategoryOfStoreDto>().ReverseMap();
+            CreateMap<StoreCategoy, StoreCategoryDto>().ReverseMap();
             CreateMap<GeneralCategoryDto, GeneralCategory>().ReverseMap();
             CreateMap<ProductDetail, ProductDetailDto>().ReverseMap();
             CreateMap<SubCategory, SubCategoryDto>()
@@ -22,27 +22,27 @@ namespace Core.Profiles
 
             CreateMap<Coupon, CouponDto>()
                 .ForMember(d => d.ProductName, src=>src
-                    .MapFrom(s=>s.FkProductDetail.FkProduct.Name));
+                    .MapFrom(s=>s.ProductDetail.Product.Name));
 
-            CreateMap<Store, StoreDto>()
-                .ForMember(d => d.SubCategoryName, src => src
-                    .MapFrom(s => s.SubCategory.Name))
-                .ForMember(d => d.Owner, src => src
-                    .MapFrom(s => $"{s.Owner.FirstName} {s.Owner.LastName}"));
+            //CreateMap<Store, StoreDto>()
+            //    .ForMember(d => d.SubCategoryName, src => src
+            //        .MapFrom(s => s.SubCategory.Name))
+            //    .ForMember(d => d.User, src => src
+            //        .MapFrom(s => $"{s.User.FirstName} {s.User.LastName}"));
 
-            CreateMap<StoreCategory, StoreCategoryDto>().ReverseMap();
+            CreateMap<StoreCategoryDetail, StoreCategoryDetailDto>().ReverseMap();
 
-            CreateMap<StoreCategory, StoreCategoryDto>()
+            CreateMap<StoreCategoryDetail, StoreCategoryDetailDto>()
                 .ForMember(d => d.Store, src => src
-                    .MapFrom(s => s.FkStore.Name))
+                    .MapFrom(s => s.Store.Name))
                 .ForMember(d => d.Category, src => src
-                    .MapFrom(s => s.FkCategoryStore.Name));
+                    .MapFrom(s => s.StoreCategory.Name));
 
             CreateMap<ProductDetail, ProductDetailDto>()
                 .ForMember(d => d.Product, src => src
-                    .MapFrom(s => s.FkProduct.Name))
+                    .MapFrom(s => s.Product.Name))
                 .ForMember(d => d.IdStoreCategory,src => src
-                    .MapFrom(s => s.FkStoreCategory.FkCategoryStore != null ? s.FkStoreCategory.FkCategoryStore.Name : null));
+                    .MapFrom(s => s.StoreCategoryDetail.StoreCategory != null ? s.StoreCategoryDetail.StoreCategory.Name : null));
         }
     }
 }

@@ -22,43 +22,43 @@ namespace Core.Services
             _mapper = mapper;
         }
 
-        public async Task<IQueryable<CategoryOfStoreDto>> Get()
+        public async Task<IQueryable<StoreCategoryDto>> Get()
         {
             var query = await _categoryRepository.FindAll();
-            return _mapper.Map<List<CategoryOfStoreDto>>(query).AsQueryable();
+            return _mapper.Map<List<StoreCategoryDto>>(query).AsQueryable();
         }
 
-        public void Save(CategoryOfStoreDto category)
+        public void Save(StoreCategoryDto storeCategory)
         {
-            category.Id = new Guid();
-            var query = _mapper.Map<CategoryOfStore>(category);
+            storeCategory.Id = new Guid();
+            var query = _mapper.Map<StoreCategoy>(storeCategory);
             _categoryRepository.Create(query);
             _categoryRepository.SaveChanges();
         }
 
-        public async Task<CategoryOfStoreDto> DeleteById(Guid Id)
+        public async Task<StoreCategoryDto> DeleteById(Guid Id)
         {
             var modelToDelete = await _categoryRepository.FindByCondition(x => x.Id == Id);
             _categoryRepository.Delete(modelToDelete.FirstOrDefault());
-            return _mapper.Map<CategoryOfStoreDto>(modelToDelete.FirstOrDefault());
+            return _mapper.Map<StoreCategoryDto>(modelToDelete.FirstOrDefault());
         }
 
-        public async Task<CategoryOfStoreDto> Update(CategoryOfStoreDto category)
+        public async Task<StoreCategoryDto> Update(StoreCategoryDto storeCategory)
         {
-            var entity = _mapper.Map<CategoryOfStore>(category);
+            var entity = _mapper.Map<StoreCategoy>(storeCategory);
             var modelToUpdate = await _categoryRepository.FindByCondition(x => x.Id == entity.Id);
             if (!modelToUpdate.Any())
             {
                 throw new ApiException("No se pudo editar la categoryStore", HttpStatusCode.NotFound);
             }
             _categoryRepository.Update(entity);
-            return _mapper.Map<CategoryOfStoreDto>(entity);
+            return _mapper.Map<StoreCategoryDto>(entity);
         }
 
-        public async Task<CategoryOfStoreDto> GetById(Guid id)
+        public async Task<StoreCategoryDto> GetById(Guid id)
         {
             var query = await _categoryRepository.FindByCondition(x => x.Id == id);
-            return _mapper.Map<CategoryOfStoreDto>(query.FirstOrDefault());
+            return _mapper.Map<StoreCategoryDto>(query.FirstOrDefault());
         }
     }
 }

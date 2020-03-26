@@ -7,11 +7,11 @@ namespace Core.Services.Interfaces
 {
     public interface IStoreCategoryService
     {
-        Task<IQueryable<StoreCategoryDto>> Get();
-        Task<IQueryable<StoreCategoryDto>> GetDetails();
-        void Save(StoreCategoryDto category);
-        Task<StoreCategoryDto> DeleteById(Guid Id);
-        Task<StoreCategoryDto> Update(StoreCategoryDto owner);
-        Task<StoreCategoryDto> GetById(Guid id);
+        Task<IQueryable<StoreCategoryDetailDto>> Get();
+        Task<IQueryable<StoreCategoryDetailDto>> GetDetails();
+        void Save(StoreCategoryDetailDto categoryDetail);
+        Task<StoreCategoryDetailDto> DeleteById(Guid Id);
+        Task<StoreCategoryDetailDto> Update(StoreCategoryDetailDto owner);
+        Task<StoreCategoryDetailDto> GetById(Guid id);
     }
 }

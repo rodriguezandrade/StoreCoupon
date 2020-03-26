@@ -5,6 +5,11 @@ namespace Repository.Models
 {
     public class Role 
     {
+        public Role()
+        {
+            Users = new HashSet<UserRole>();
+        }
+
         [Key]
         public int Id { get; set; }
 

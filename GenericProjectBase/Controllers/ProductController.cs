@@ -8,6 +8,7 @@ using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Models;
 using Repository.Models.Dtos;
+using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers
 {
@@ -75,7 +76,8 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                _productService.Save(product); 
+                _productService.Save(product);
+                // ReSharper disable once Mvc.ActionNotResolved
                 return CreatedAtAction(nameof(GetById), new { idProduct = product.Id }, product);
             }
             catch (Exception e)

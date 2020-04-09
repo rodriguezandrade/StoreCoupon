@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class InitialDatabase : Migration
+    public partial class initialdatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,8 +60,7 @@ namespace Repository.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(nullable: false),
                     Email = table.Column<string>(maxLength: 40, nullable: false),
                     UserName = table.Column<string>(maxLength: 50, nullable: false),
                     IsEmailConfirmed = table.Column<bool>(nullable: false),
@@ -99,6 +98,7 @@ namespace Repository.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<int>(nullable: false),
+                    UserId1 = table.Column<Guid>(nullable: true),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -111,11 +111,11 @@ namespace Repository.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRoles_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_UserRoles_Users_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -178,7 +178,7 @@ namespace Repository.Migrations
                     Email = table.Column<string>(maxLength: 40, nullable: false),
                     Telephone = table.Column<int>(nullable: false),
                     RFC = table.Column<string>(maxLength: 13, nullable: false),
-                    IdUser = table.Column<int>(nullable: false),
+                    IdUser = table.Column<Guid>(nullable: false),
                     IdStore = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -253,7 +253,7 @@ namespace Repository.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    IdUser = table.Column<int>(nullable: false),
+                    IdUser = table.Column<Guid>(nullable: false),
                     IdCoupon = table.Column<Guid>(nullable: false),
                     Status = table.Column<string>(nullable: false)
                 },
@@ -335,9 +335,9 @@ namespace Repository.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_UserId",
+                name: "IX_UserRoles_UserId1",
                 table: "UserRoles",
-                column: "UserId");
+                column: "UserId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

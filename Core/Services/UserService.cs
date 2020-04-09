@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Core.Exceptions;
 using Core.Services.Interfaces;
-using Repository.Models;
-using Repository.Models.Dtos;
+using Repository.Models; 
+using Repository.Models.Dtos.Account;
 using Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;

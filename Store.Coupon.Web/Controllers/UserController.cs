@@ -5,7 +5,7 @@ using Core.Exceptions;
 using Core.Logger.Interface;
 using Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Repository.Models.Dtos;
+using Repository.Models.Dtos.Account;
 using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers
@@ -75,7 +75,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                user.Id = Guid.NewGuid();
+                //user.Id = Guid.NewGuid();
                 _userService.Save(user);
                 return CreatedAtAction(nameof(GetById), new { version = HttpContext.GetRequestedApiVersion().ToString(), id = user.Id }, user);
             }

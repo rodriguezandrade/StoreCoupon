@@ -1,7 +1,8 @@
-﻿using Repository.Models.Dtos;
+﻿
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Repository.Models.Dtos.Account;
 
 namespace Core.Services.Interfaces
 {

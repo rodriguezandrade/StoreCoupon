@@ -10,8 +10,8 @@ using Repository.Data;
 namespace Repository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20200326005004_Initial-Database")]
-    partial class InitialDatabase
+    [Migration("20200409044102_initial-database")]
+    partial class initialdatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,8 +61,8 @@ namespace Repository.Migrations
                     b.Property<Guid>("IdCoupon")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdUser")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -267,10 +267,9 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -318,8 +317,8 @@ namespace Repository.Migrations
                     b.Property<Guid>("IdStore")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IdUser")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -356,11 +355,14 @@ namespace Repository.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("UserRoles");
                 });
@@ -460,9 +462,7 @@ namespace Repository.Migrations
 
                     b.HasOne("Repository.Models.User", "User")
                         .WithMany("Roles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

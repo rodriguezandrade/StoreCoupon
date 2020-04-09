@@ -45,6 +45,11 @@ namespace Repository.Models
 
         public SubCategory SubCategory { get; set; }
         
+        [Required(ErrorMessage = "Foreign key is required")]
+        [ForeignKey("User")]
+        public Guid UserId  { get; set; } 
+
+        public UserDetail User { get; set; }
         public virtual ICollection<StoreCategoryDetail> StoreCategoryDetails { get; set; }
     }
 }

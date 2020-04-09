@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,10 +23,6 @@ namespace Repository.Models
         [MaxLength(120, ErrorMessage = "Address can't be longer than 120 characters")]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Email is required")]
-        [MaxLength(40, ErrorMessage = "Email can't be longer than 40 characters")]
-        public string Email { get; set; }
-
         [Required(ErrorMessage = "Telephone is required")]
         public int Telephone { get; set; } 
 
@@ -39,11 +37,6 @@ namespace Repository.Models
         public Guid IdUser { get; set; }
 
         public User User { get; set; }
-
-        [Required(ErrorMessage = "Foreign key is required")]
-        [ForeignKey("Store")]
-        public Guid IdStore { get; set; }
-
-        public Store Store { get; set; }
+        public virtual ICollection<Store> Stores { get; set; }
     }
 }

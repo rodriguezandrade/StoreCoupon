@@ -35,13 +35,13 @@ namespace Repository.Repositories.Utils
             SaveChanges();
         }
 
-        public async void Update(T entity)
+        public void Update(T entity)
         {
             RepositoryContext.Set<T>().Update(entity);
             SaveChanges();
         }
 
-        public async void Delete(T entity)
+        public void Delete(T entity)
         {
             RepositoryContext.Set<T>().Remove(entity);
             SaveChanges();

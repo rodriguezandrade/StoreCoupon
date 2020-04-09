@@ -40,7 +40,6 @@ namespace Core.Services
 
         public void Save(SubCategoryDto subcategory)
         {
-            subcategory.Id = new Guid();
             var query = _mapper.Map<SubCategory>(subcategory);
             _subCategoryRepository.Create(query);
             _subCategoryRepository.SaveChanges();

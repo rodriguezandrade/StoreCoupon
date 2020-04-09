@@ -1,4 +1,4 @@
-using GenericProjectBase.Extensions;
+using StoreCouponWeb.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -7,9 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
 using System.IO;
-using Microsoft.AspNetCore.Mvc;
 
-namespace GenericProjectBase
+namespace StoreCouponWeb
 {
     public class Startup
     {
@@ -33,6 +32,8 @@ namespace GenericProjectBase
             services.AddControllers();
             services.VersioningConfiguration();
             services.SwaggerConfiguration();
+            services.ConfigureLoggerService();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

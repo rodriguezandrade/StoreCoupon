@@ -1,4 +1,5 @@
-﻿using System;
+﻿//using System;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using Core.Exceptions;
@@ -42,7 +43,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _productDetailService.GetDetails(); 
+                var query = await _productDetailService.GetDetails();
                 return Ok(query);
             }
             catch (Exception e)
@@ -58,7 +59,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _productDetailService.GetById(id); 
+                var query = await _productDetailService.GetById(id);
                 return Ok(query);
             }
             catch (Exception e)
@@ -73,9 +74,10 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                _productDetailService.Save(product); 
+                product.Id = Guid.NewGuid();
+                _productDetailService.Save(product);
                 // ReSharper disable once Mvc.ActionNotResolved
-                return CreatedAtAction(nameof(GetById), new { idProduct = product.Id }, product);
+                return CreatedAtAction(nameof(GetById), new { version = HttpContext.GetRequestedApiVersion().ToString(), id = product.Id }, product);
             }
             catch (Exception e)
             {
@@ -106,7 +108,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _productDetailService.Update(product); 
+                var query = await _productDetailService.Update(product);
                 return Ok(query);
             }
             catch (Exception e)

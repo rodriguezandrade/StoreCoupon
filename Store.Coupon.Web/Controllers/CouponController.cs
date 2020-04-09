@@ -15,6 +15,8 @@ namespace GenericProjectBase.Controllers
 {
 
     [Route("api/v{version:apiVersion}/coupons/")]
+    [ApiVersion("2")]
+    [ApiVersion("1")]
     public class CouponController : Controller
     {
         private readonly ILoggerManager _loggerManager;
@@ -26,16 +28,15 @@ namespace GenericProjectBase.Controllers
             _couponService = couponService;
             _mapper = mapper;
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CouponDto coupon)
         {
             try
             {
+                coupon.Id = Guid.NewGuid();
                 _couponService.Create(coupon);
-                // ReSharper disable once Mvc.ActionNotResolved
-
-                return CreatedAtAction(nameof(GetById), new { idCoupon = coupon.Id }, coupon);
+                return CreatedAtAction(nameof(GetById), new { version = HttpContext.GetRequestedApiVersion().ToString(), id = coupon.Id }, coupon);
             }
             catch (Exception e)
             {

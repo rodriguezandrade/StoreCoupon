@@ -40,17 +40,17 @@
               Looks up a localized string similar to Data send to your email.
             </summary>
         </member>
-        <member name="M:GenericProjectBase.Controllers.Account.MeController.Authenticate(Repository.Models.Dtos.Account.LoginRequest)">
+        <member name="M:StoreCouponWeb.Controllers.Account.MeController.Authenticate(Repository.Models.Dtos.Account.LoginRequest)">
             <summary>
             CreateAuthToken
             <see cref="T:Repository.Models.Dtos.Account.LoginRequest"/>The login request. 
             </summary>
             <param name="loginRequest">The Request Data</param>
         </member>
-        <member name="M:GenericProjectBase.Controllers.CategoryController.Get">
+        <member name="M:StoreCouponWeb.Controllers.CategoryController.Get">
             <remarks>Get the categories.</remarks>
         </member>
-        <member name="M:GenericProjectBase.Controllers.CategoryController.GetById(System.Guid)">
+        <member name="M:StoreCouponWeb.Controllers.CategoryController.GetById(System.Guid)">
             <see cref="T:System.Guid"/> the storeCategory model. 
             <summary>
             Get storeCategory by guid.
@@ -59,14 +59,14 @@
             Category model.
             </returns>
         </member>
-        <member name="M:GenericProjectBase.Controllers.CategoryController.Add(Repository.Models.Dtos.StoreCategoryDto)">
+        <member name="M:StoreCouponWeb.Controllers.CategoryController.Add(Repository.Models.Dtos.StoreCategoryDto)">
             <summary>
             Save the categories
             <see cref="T:Repository.Models.Dtos.StoreCategoryDto"/> the sub storeCategory model. 
             </summary>
             <param name="storeCategory"></param>
         </member>
-        <member name="M:GenericProjectBase.Controllers.CategoryController.DeleteById(System.Guid)">
+        <member name="M:StoreCouponWeb.Controllers.CategoryController.DeleteById(System.Guid)">
             <summary>
             Delete Category by Id.
             </summary>
@@ -74,90 +74,45 @@
             Category deleted.
             </returns>
         </member>
-        <member name="M:GenericProjectBase.Controllers.CategoryController.Update(Repository.Models.Dtos.StoreCategoryDto)">
+        <member name="M:StoreCouponWeb.Controllers.CategoryController.Update(Repository.Models.Dtos.StoreCategoryDto)">
             <summary>
             Update the storeCategory.
             <see cref="T:Repository.Models.Dtos.StoreCategoryDto"/> the storeCategory model. 
             </summary>
             <param name="storeCategory"></param>
         </member>
-        <member name="M:GenericProjectBase.Controllers.ProductController.Get">
+        <member name="M:StoreCouponWeb.Extensions.MiddlewareServiceExtension.ConfigureCors(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Get the products.  
+            configure cors
             </summary>
+            <param name="services"></param>
         </member>
-        <member name="M:GenericProjectBase.Controllers.ProductController.GetById(System.Guid)">
+        <member name="M:StoreCouponWeb.Extensions.MiddlewareServiceExtension.VersioningConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Get product by Id.
+            IIS Integration
             </summary>
-            <returns>
-            Product model.
-            </returns>
+            <param name="services"></param>
         </member>
-        <member name="M:GenericProjectBase.Controllers.ProductController.Add(Repository.Models.Dtos.ProductDto)">
+        <member name="M:StoreCouponWeb.Extensions.MiddlewareServiceExtension.SwaggerConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Save product
-            <see cref="T:Repository.Models.Dtos.ProductDto"/> the product model. 
+            Swagger configuration
             </summary>
-            <param name="product"></param>
+            <param name="services"></param>
         </member>
-        <member name="M:GenericProjectBase.Controllers.ProductController.DeleteById(System.Guid)">
-            <summary>
-            Delete product by Id.
-            </summary>
-            <returns>
-            Product deleted.
-            </returns>
+        <member name="M:StoreCouponWeb.Extensions.MiddlewareServiceExtension.AutoMapperConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            Mapper Configuration
         </member>
-        <member name="M:GenericProjectBase.Controllers.ProductController.Update(Repository.Models.Dtos.ProductDto)">
-            <summary>
-            Update product.
-            <see cref="T:Repository.Models.Dtos.ProductDto"/> the product model. 
-            </summary>
-            <param name="product"></param>
+        <member name="M:StoreCouponWeb.Extensions.MiddlewareServiceExtension.ConfigureLoggerService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            Logger
         </member>
-        <member name="M:GenericProjectBase.Controllers.StoreController.Get">
-            <summary>
-            Get the stores.  
-            </summary>
+        <member name="M:StoreCouponWeb.Extensions.MiddlewareServiceExtension.ConfigureMySqlContext(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            Database configuration
         </member>
-        <member name="M:GenericProjectBase.Controllers.StoreController.GetStoresDetails">
-            <summary>
-            Get stores list.
-            </summary>
-            <returns>
-            List of stores.
-            </returns>
+        <member name="M:StoreCouponWeb.Extensions.MiddlewareServiceExtension.ConfigureClassesWithInterfaces(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            Inject all the interfaces with classes
         </member>
-        <member name="M:GenericProjectBase.Controllers.StoreController.GetById(System.Guid)">
-            <summary>
-            Get store by Id.
-            </summary>
-            <returns>
-            Store model.
-            </returns>
-        </member>
-        <member name="M:GenericProjectBase.Controllers.StoreController.Add(Repository.Models.Dtos.StoreDto)">
-            <summary>
-            Save the store
-            <see cref="T:Repository.Models.Dtos.StoreDto"/>The store model. 
-            </summary>
-            <param name="store"></param>
-        </member>
-        <member name="M:GenericProjectBase.Controllers.StoreController.DeleteById(System.Guid)">
-            <summary>
-            Delete store by Id.
-            </summary>
-            <returns>
-            Store deleted.
-            </returns>
-        </member>
-        <member name="M:GenericProjectBase.Controllers.StoreController.Update(Repository.Models.Dtos.StoreDto)">
-            <summary>
-            Update the store.
-            <see cref="T:Repository.Models.Dtos.StoreDto"/> the store model. 
-            </summary>
-            <param name="store"></param>
+        <member name="M:StoreCouponWeb.Extensions.MiddlewareServiceExtension.ConfigureJWToken(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            Configure jwt authentication
         </member>
         <member name="M:GenericProjectBase.Controllers.SubCategoryController.Get">
             <summary>
@@ -204,7 +159,7 @@
             Get the owners.  
             </summary>
         </member>
-        <member name="M:GenericProjectBase.Controllers.UserController.GetById(System.Int32)">
+        <member name="M:GenericProjectBase.Controllers.UserController.GetById(System.Guid)">
              <summary>
              Get user by guid.
             s<see cref="T:System.Guid"/>Guid annotation. 
@@ -221,7 +176,7 @@
             </summary>
             <param name="user"></param>
         </member>
-        <member name="M:GenericProjectBase.Controllers.UserController.DeleteById(System.Int32)">
+        <member name="M:GenericProjectBase.Controllers.UserController.DeleteById(System.Guid)">
             <summary>
             Delete user by Id.
             </summary>
@@ -235,39 +190,6 @@
             <see cref="T:Repository.Models.Dtos.UserDto"/> the user model. 
             </summary>
             <param name="user"></param>
-        </member>
-        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.ConfigureCors(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            configure cors
-            </summary>
-            <param name="services"></param>
-        </member>
-        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.VersioningConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            IIS Integration
-            </summary>
-            <param name="services"></param>
-        </member>
-        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.SwaggerConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Swagger configuration
-            </summary>
-            <param name="services"></param>
-        </member>
-        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.AutoMapperConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            Mapper Configuration
-        </member>
-        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.ConfigureLoggerService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            Logger
-        </member>
-        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.ConfigureMySqlContext(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
-            Database configuration
-        </member>
-        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.ConfigureClassesWithInterfaces(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            Inject all the interfaces with classes
-        </member>
-        <member name="M:GenericProjectBase.Extensions.MiddlewareServiceExtension.ConfigureJWToken(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
-            Configure jwt authentication
         </member>
     </members>
 </doc>

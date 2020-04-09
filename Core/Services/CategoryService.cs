@@ -25,12 +25,12 @@ namespace Core.Services
         public async Task<IQueryable<StoreCategoryDto>> Get()
         {
             var query = await _categoryRepository.FindAll();
+          
             return _mapper.Map<List<StoreCategoryDto>>(query).AsQueryable();
         }
 
         public void Save(StoreCategoryDto storeCategory)
         {
-            storeCategory.Id = new Guid();
             var query = _mapper.Map<StoreCategoy>(storeCategory);
             _categoryRepository.Create(query);
             _categoryRepository.SaveChanges();

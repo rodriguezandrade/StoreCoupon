@@ -51,7 +51,7 @@ namespace GenericProjectBase.Controllers
         /// </returns>
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             try
             {
@@ -74,10 +74,10 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> Add([FromBody] UserDto user)
         {
             try
-            { 
+            {
+                user.Id = Guid.NewGuid();
                 _userService.Save(user);
-                // ReSharper disable once Mvc.ActionNotResolved
-                return CreatedAtAction(nameof(GetById), new { idOwner = user.Id }, user);
+                return CreatedAtAction(nameof(GetById), new { version = HttpContext.GetRequestedApiVersion().ToString(), id = user.Id }, user);
             }
             catch (Exception e)
             {
@@ -95,7 +95,7 @@ namespace GenericProjectBase.Controllers
         /// </returns>
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteById(int id)
+        public async Task<IActionResult> DeleteById(Guid id)
         {
             try
             {

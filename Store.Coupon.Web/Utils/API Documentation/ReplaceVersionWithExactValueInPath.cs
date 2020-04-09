@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace GenericProjectBase.Utils.API_Documentation
+namespace StoreCouponWeb.Utils.API_Documentation
 {
     public class ReplaceVersionWithExactValueInPath : IDocumentFilter
     {

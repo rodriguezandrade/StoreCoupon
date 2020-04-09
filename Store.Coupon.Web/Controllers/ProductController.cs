@@ -20,7 +20,7 @@ namespace GenericProjectBase.Controllers
         private readonly IProductService _productService;
         private readonly ILoggerManager _loggerManager;
 
-        public ProductController(IProductService productService,ILoggerManager loggerManager)
+        public ProductController(IProductService productService, ILoggerManager loggerManager)
         {
             _productService = productService;
             _loggerManager = loggerManager;
@@ -76,9 +76,10 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
+                product.Id = Guid.NewGuid();
                 _productService.Save(product);
                 // ReSharper disable once Mvc.ActionNotResolved
-                return CreatedAtAction(nameof(GetById), new { idProduct = product.Id }, product);
+                return CreatedAtAction(nameof(GetById), new { version = HttpContext.GetRequestedApiVersion().ToString(), id = product.Id }, product);
             }
             catch (Exception e)
             {

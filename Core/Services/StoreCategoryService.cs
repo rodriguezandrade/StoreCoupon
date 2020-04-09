@@ -38,7 +38,6 @@ namespace Core.Services
 
         public void Save(StoreCategoryDetailDto sc)
         {
-            sc.Id = new Guid();
             var query = _mapper.Map<StoreCategoryDetail>(sc);
             _storeCategoryRepository.Create(query);
             _storeCategoryRepository.SaveChanges();

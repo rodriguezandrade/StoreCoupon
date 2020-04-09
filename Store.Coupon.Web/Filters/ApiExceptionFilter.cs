@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Web.Http.Filters;
 using Store.Coupon.Web;
 
-namespace GenericProjectBase.Filters
+namespace StoreCouponWeb.Filters
 {
     public class ApiExceptionFilter : ExceptionFilterAttribute
     {

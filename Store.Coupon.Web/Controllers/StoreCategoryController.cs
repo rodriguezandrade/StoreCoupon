@@ -11,7 +11,7 @@ using Store.Coupon.Web;
 namespace GenericProjectBase.Controllers
 {
     [Route("api/v{version:apiVersion}/storeCategory/")]
-    public class StoreCategoryController : Controller 
+    public class StoreCategoryController : Controller
     {
         private readonly IStoreCategoryService _storeService;
         private readonly ILoggerManager _loggerManager;
@@ -26,7 +26,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _storeService.Get(); 
+                var query = await _storeService.Get();
                 return Ok(query);
             }
             catch (Exception e)
@@ -42,7 +42,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _storeService.GetDetails(); 
+                var query = await _storeService.GetDetails();
                 return Ok(query);
             }
             catch (Exception e)
@@ -73,7 +73,8 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                _storeService.Save(store); 
+                store.Id = Guid.NewGuid();
+                _storeService.Save(store);
                 // ReSharper disable once Mvc.ActionNotResolved
                 return CreatedAtAction(nameof(GetById), new { idStore = store.Id }, store);
             }
@@ -87,11 +88,11 @@ namespace GenericProjectBase.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteById(Guid idStoreCategories)
+        public async Task<IActionResult> DeleteById(Guid id)
         {
             try
             {
-                var query = await _storeService.DeleteById(idStoreCategories); 
+                var query = await _storeService.DeleteById(id);
                 return Ok(query);
             }
             catch (Exception e)
@@ -106,7 +107,7 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
-                var query = await _storeService.Update(store); 
+                var query = await _storeService.Update(store);
                 return Ok(query);
             }
             catch (Exception e)

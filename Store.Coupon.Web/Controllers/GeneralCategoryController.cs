@@ -10,7 +10,8 @@ using Store.Coupon.Web;
 
 namespace GenericProjectBase.Controllers
 {
-    [Route("api/v{version:apiVersion}/generalCategory/")]
+    [Route("api/v{version:apiVersion}/generalCategories/")]
+    [ApiVersion("1")]
     public class GeneralCategoryController : Controller
     {
         private readonly IGeneralCategoryService _categoryService;
@@ -43,9 +44,9 @@ namespace GenericProjectBase.Controllers
         {   
             try
             {
+                category.Id = Guid.NewGuid();
                 _categoryService.Save(category);
-                // ReSharper disable once Mvc.ActionNotResolved
-                return CreatedAtAction(nameof(GetById), new { id = category.Id }, category);
+                return CreatedAtAction(nameof(GetById), new { version = HttpContext.GetRequestedApiVersion().ToString(), id = category.Id }, category);
             }
             catch(Exception e)
             {

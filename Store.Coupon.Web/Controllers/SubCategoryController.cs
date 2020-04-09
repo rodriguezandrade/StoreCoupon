@@ -84,9 +84,9 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
+                subcategory.Id = Guid.NewGuid();
                 _subCategoryService.Save(subcategory);
-                // ReSharper disable once Mvc.ActionNotResolved
-                return CreatedAtAction(nameof(GetById), new { idSubCategory = subcategory.Id }, subcategory);
+                return CreatedAtAction(nameof(GetById), new { version = HttpContext.GetRequestedApiVersion().ToString(), id = subcategory.Id }, subcategory);
             }
             catch (Exception e)
             {

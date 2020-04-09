@@ -17,7 +17,7 @@ namespace GenericProjectBase.Controllers
     {
         private readonly IStoreService _storeService;
         private readonly ILoggerManager _loggerManager;
-        public StoreController(IStoreService storeService, ILoggerManager loggerManeger )
+        public StoreController(IStoreService storeService, ILoggerManager loggerManeger)
         {
             _loggerManager = loggerManeger;
             _storeService = storeService;
@@ -30,7 +30,7 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> Get()
         {
             try
-            { 
+            {
                 return Ok(await _storeService.Get());
             }
             catch (Exception e)
@@ -51,7 +51,7 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> GetStoresDetails()
         {
             try
-            { 
+            {
                 return Ok(await _storeService.GetDetails());
             }
             catch (Exception e)
@@ -72,7 +72,7 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> GetById(Guid id)
         {
             try
-            { 
+            {
                 return Ok(await _storeService.GetById(id));
             }
             catch (Exception e)
@@ -92,9 +92,10 @@ namespace GenericProjectBase.Controllers
         {
             try
             {
+                store.Id = Guid.NewGuid();
                 _storeService.Save(store);
                 // ReSharper disable once Mvc.ActionNotResolved
-                return CreatedAtAction(nameof(GetById), new { idStore = store.Id }, store);
+                return CreatedAtAction(nameof(GetById), new { version = HttpContext.GetRequestedApiVersion().ToString(), idStore = store.Id }, store);
             }
             catch (Exception e)
             {
@@ -115,7 +116,7 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> DeleteById(Guid id)
         {
             try
-            { 
+            {
                 return Ok(await _storeService.DeleteById(id));
             }
             catch (Exception e)
@@ -134,7 +135,7 @@ namespace GenericProjectBase.Controllers
         public async Task<IActionResult> Update([FromBody] StoreDto store)
         {
             try
-            { 
+            {
                 return Ok(await _storeService.Update(store));
             }
             catch (Exception e)

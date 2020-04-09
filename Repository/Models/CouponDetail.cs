@@ -11,7 +11,7 @@ namespace Repository.Models
 
         [Required(ErrorMessage = "Foreign key is required")]
         [ForeignKey("User")]
-        public int IdUser { get; set; }
+        public Guid IdUser { get; set; }
 
         public User User { get; set; }
 

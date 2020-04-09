@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Repository.Models
@@ -12,7 +13,7 @@ namespace Repository.Models
         }
 
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// Account Data
         [Required(ErrorMessage = "Email is required")]

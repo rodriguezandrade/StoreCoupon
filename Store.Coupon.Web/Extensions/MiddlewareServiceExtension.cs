@@ -17,14 +17,14 @@ using Core.Logger.Interface;
 using Core.Logger;
 using Repository.Models;
 using System.Text;
-using GenericProjectBase.Utils.API_Documentation;
+using StoreCouponWeb.Utils.API_Documentation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace GenericProjectBase.Extensions
+namespace StoreCouponWeb.Extensions
 {
     public static class MiddlewareServiceExtension
     {

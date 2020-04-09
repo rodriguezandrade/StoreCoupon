@@ -31,7 +31,6 @@ namespace Core.Services
 
         public void Create(CouponDto entity)
         {
-            entity.Id = new Guid();
             var model = _mapper.Map<Coupon>(entity);
             _couponRepository.Create(model);
             _couponRepository.SaveChanges();

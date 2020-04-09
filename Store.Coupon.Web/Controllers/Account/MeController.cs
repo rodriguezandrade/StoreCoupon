@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Net;
 using Store.Coupon.Web;
 
-namespace GenericProjectBase.Controllers.Account
+namespace StoreCouponWeb.Controllers.Account
 {
     [Authorize]
     [ApiController]

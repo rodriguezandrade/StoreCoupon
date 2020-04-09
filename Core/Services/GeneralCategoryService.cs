@@ -30,7 +30,6 @@ namespace Core.Services
 
         public void Save(GeneralCategoryDto category)
         {
-            category.Id = new Guid();
             var query = _mapper.Map<GeneralCategory>(category);
             _categoryRepository.Save(query);
             _categoryRepository.SaveChanges();

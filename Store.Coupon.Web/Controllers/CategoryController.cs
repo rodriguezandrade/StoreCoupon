@@ -10,7 +10,7 @@ using Core.Exceptions;
 using Store.Coupon.Web;
 using Role = Repository.Repositories.Utils.Role;
 
-namespace GenericProjectBase.Controllers
+namespace StoreCouponWeb.Controllers
 {
     [Route("api/v{version:apiVersion}/categories/")]
     [ApiVersion("2")]
@@ -18,7 +18,7 @@ namespace GenericProjectBase.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
-        private readonly ILoggerManager _loggerManager;
+       private readonly ILoggerManager _loggerManager;
 
         public CategoryController(ILoggerManager loggerManager, ICategoryService categoryservice)
         {
@@ -69,15 +69,15 @@ namespace GenericProjectBase.Controllers
         /// </summary>
         /// <param name="storeCategory"></param>
         //[Authorize(Roles = Role.Admin)]
-        [MapToApiVersion("2")] 
+        [MapToApiVersion("1")] 
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] StoreCategoryDto storeCategory)
         {
-            try
+            try 
             {
+                storeCategory.Id =  Guid.NewGuid();
                 _categoryService.Save(storeCategory);
-                // ReSharper disable once Mvc.ActionNotResolved
-                return CreatedAtAction(nameof(GetById), new { idCategory = storeCategory.Id }, storeCategory);
+                return CreatedAtAction(nameof(GetById), new { version = HttpContext.GetRequestedApiVersion().ToString(), id = storeCategory.Id }, storeCategory);
             }
             catch (Exception e)
             {

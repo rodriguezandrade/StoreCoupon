@@ -28,10 +28,10 @@ namespace Core.Services
             return _mapper.Map<List<ProductDto>>(query).AsQueryable();
         }
 
-        public void Save(ProductDto category)
+        public void Save(ProductDto product)
         {
-            category.Id = new Guid();
-            var query = _mapper.Map<Product>(category);
+            
+            var query = _mapper.Map<Product>(product);
             _productRepository.Create(query);
             _productRepository.SaveChanges();
         }

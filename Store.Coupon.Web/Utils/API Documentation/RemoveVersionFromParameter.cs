@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using IOperationFilter = Swashbuckle.AspNetCore.SwaggerGen.IOperationFilter;
 
-namespace GenericProjectBase.Utils.API_Documentation
+namespace StoreCouponWeb.Utils.API_Documentation
 {
     public class RemoveVersionFromParameter : IOperationFilter
     {

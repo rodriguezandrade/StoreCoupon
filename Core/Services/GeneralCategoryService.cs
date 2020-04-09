@@ -32,7 +32,6 @@ namespace Core.Services
         {
             var query = _mapper.Map<GeneralCategory>(category);
             _categoryRepository.Save(query);
-            _categoryRepository.SaveChanges();
         }
 
         public async Task<GeneralCategoryDto> DeleteById(Guid Id)

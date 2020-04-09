@@ -12,6 +12,6 @@ namespace Repository.Repositories.Interfaces
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);
-        Task SaveChanges();
+        void SaveChanges();
     }
 }

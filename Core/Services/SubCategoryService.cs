@@ -42,7 +42,6 @@ namespace Core.Services
         {
             var query = _mapper.Map<SubCategory>(subcategory);
             _subCategoryRepository.Create(query);
-            _subCategoryRepository.SaveChanges();
         }
 
         public async Task<SubCategoryDto> DeleteById(Guid Id)

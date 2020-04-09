@@ -33,7 +33,6 @@ namespace Core.Services
         {
             var model = _mapper.Map<Coupon>(entity);
             _couponRepository.Create(model);
-            _couponRepository.SaveChanges();
         }
 
         public async Task<IQueryable<CouponDto>> Get()

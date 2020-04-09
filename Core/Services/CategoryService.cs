@@ -33,7 +33,6 @@ namespace Core.Services
         {
             var query = _mapper.Map<StoreCategoy>(storeCategory);
             _categoryRepository.Create(query);
-            _categoryRepository.SaveChanges();
         }
 
         public async Task<StoreCategoryDto> DeleteById(Guid Id)

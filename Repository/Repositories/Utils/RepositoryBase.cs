@@ -31,24 +31,25 @@ namespace Repository.Repositories.Utils
 
         public async void Create(T entity)
         {
-            await this.RepositoryContext.Set<T>().AddAsync(entity);
+            await RepositoryContext.Set<T>().AddAsync(entity);
+            SaveChanges();
         }
 
-        public void Update(T entity)
+        public async void Update(T entity)
         {
-            this.RepositoryContext.Set<T>().Update(entity);
-            this.RepositoryContext.SaveChanges();
+            RepositoryContext.Set<T>().Update(entity);
+            SaveChanges();
         }
 
-        public void Delete(T entity)
+        public async void Delete(T entity)
         {
-            this.RepositoryContext.Set<T>().Remove(entity);
-            this.RepositoryContext.SaveChanges();
+            RepositoryContext.Set<T>().Remove(entity);
+            SaveChanges();
         }
 
-        public async Task SaveChanges()
+        public void SaveChanges()
         {
-            await RepositoryContext.SaveChangesAsync();
+            RepositoryContext.SaveChanges();
         }
     }
 }

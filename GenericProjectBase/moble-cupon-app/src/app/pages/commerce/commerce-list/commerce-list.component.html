@@ -1,0 +1,24 @@
+<ion-toolbar>
+  <ion-buttons slot="primary">
+    <ion-button (click)="clickedStar()">
+      <ion-icon slot="icon-only" name="star"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title> Lista de tiendas </ion-title>
+  <ion-buttons slot="end">
+    <ion-menu-button autoHide="false"></ion-menu-button>
+  </ion-buttons>
+</ion-toolbar>
+<ion-content>
+  <div class="container"> 
+
+    <div *ngIf="commercesList" class="row">
+      <div class="col-6 col-sm-6" *ngFor="let c of commercesList">
+        <figure class="img-space rounded" [routerLink]="['/commerce' , c.id ]">
+        </figure>
+        <p class="o-ellypsis p-0 m-0 font-weight-bold"> {{ c.name }} </p>
+        <p class="o-ellypsis p-0 m-0"> {{ c.FiscalName }} </p>
+      </div> 
+    </div>
+  </div>
+</ion-content> 

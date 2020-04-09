@@ -1,0 +1,34 @@
+  /*
+   * Text settings
+   * -------------------------------------------
+   */
+    .o-ellypsis{
+        white-space: nowrap;
+        width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ctm-shadow{
+        -webkit-box-shadow: 10px 10px 5px 0px rgba(214,207,214,0.7);
+        -moz-box-shadow: 10px 10px 5px 0px rgba(214,207,214,0.7);
+        box-shadow: 10px 10px 5px 0px rgba(214,207,214,0.7);
+    }
+
+    .details-img-space{
+        display: block;
+        position: relative;
+        background-color: gray;
+        height: 83vh;
+        width: 100%;
+        margin: 0px;
+    }
+
+    .img-space{
+        display: block;
+        position: relative;
+        background-color: gray;
+        height: 150px;
+        width: 100%;
+        margin: 0px;
+    }

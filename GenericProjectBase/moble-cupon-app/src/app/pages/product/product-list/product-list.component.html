@@ -1,0 +1,32 @@
+<ion-toolbar>
+  <ion-buttons slot="primary">
+    <ion-button (click)="clickedStar()">
+      <ion-icon slot="icon-only" name="star"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title> Lista de productos </ion-title>
+  <ion-buttons slot="end">
+    <ion-menu-button autoHide="false"></ion-menu-button>
+  </ion-buttons>
+</ion-toolbar>
+<ion-content>
+  <div class="container"> 
+    <div class="row">
+      <div class="col-12">
+        <h1 class="text-center"  > 
+          Productos  <ion-icon [routerLink]="['./', 0]" color="primary" name="add-circle-outline"></ion-icon>
+        </h1> 
+        <button (click)="test()">test</button>
+      </div>
+    </div>
+    <div *ngIf="productList" class="row">
+      <div class="col-6 col-sm-6" *ngFor="let p of productList">
+        <figure class="img-space rounded">
+        </figure>
+        <p class="o-ellypsis p-0 m-0 font-weight-bold"> {{ p.name }} </p>
+        <p class="o-ellypsis p-0 m-0"> {{ p.description }} </p>
+      </div> 
+    </div>
+  
+  </div>
+</ion-content> 

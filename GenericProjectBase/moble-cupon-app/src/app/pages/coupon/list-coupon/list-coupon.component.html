@@ -1,0 +1,31 @@
+<ion-toolbar>
+  <ion-buttons slot="primary">
+    <ion-button (click)="clickedStar()">
+      <ion-icon slot="icon-only" name="star"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title> Lista de Cupones </ion-title>
+  <ion-buttons slot="end">
+    <ion-menu-button autoHide="false"></ion-menu-button>
+  </ion-buttons>
+</ion-toolbar>
+<ion-content>
+  <div class="container"> 
+    <div class="row">
+      <div class="col-12">
+        <h1 class="text-center"  > 
+          Cupones  <ion-icon [routerLink]="['./', 0]" color="primary" name="add-circle-outline"></ion-icon>
+        </h1> 
+      </div>
+    </div>
+    <div *ngIf="couponList" class="row">
+      <div class="col-6 col-sm-6" *ngFor="let c of couponList">
+        <figure class="img-space rounded">
+        </figure>
+        <p class="o-ellypsis p-0 m-0 font-weight-bold"> {{ c.name }} </p>
+        <p class="o-ellypsis p-0 m-0"> {{ c.discount }} </p>
+      </div> 
+    </div>
+  
+  </div>
+</ion-content> 

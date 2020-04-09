@@ -1,0 +1,8 @@
+{
+	"/api-cupon/*": {
+	  "target": "https://my-json-server.typicode.com/Jeffunez",
+		"secure": false,
+		"logLevel": "debug",
+		"changeOrigin": true
+	}
+}

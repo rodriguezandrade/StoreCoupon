@@ -1,0 +1,102 @@
+{
+	"variables": [],
+	"info": {
+		"name": "cuponMobileApp",
+		"_postman_id": "1cc83acf-06b4-cde4-fdef-43acc9e312cf",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://my-json-server.typicode.com/Jeffunez/api-cupon/cuponList",
+			"request": {
+				"url": "https://my-json-server.typicode.com/Jeffunez/api-cupon/cuponList",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "obtener lista de cupones"
+			},
+			"response": []
+		},
+		{
+			"name": "https://my-json-server.typicode.com/Jeffunez/api-cupon/cuponList",
+			"request": {
+				"url": "https://my-json-server.typicode.com/Jeffunez/api-cupon/cuponList",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"name\": \"Cupon 4\",\n        \"status\": false,\n        \"discount\": 40,\n        \"idProduct\": 4\n    }"
+				},
+				"description": "crear cupon"
+			},
+			"response": []
+		},
+		{
+			"name": "https://my-json-server.typicode.com/Jeffunez/api-cupon/cuponList/3",
+			"request": {
+				"url": "https://my-json-server.typicode.com/Jeffunez/api-cupon/cuponList/3",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"name\": \"Cupon 3 editado\",\n        \"status\": true,\n        \"discount\": 30,\n        \"idProduct\": 3\n    }"
+				},
+				"description": "editar cupon por id"
+			},
+			"response": []
+		},
+		{
+			"name": "https://my-json-server.typicode.com/Jeffunez/api-cupon/cuponList/3",
+			"request": {
+				"url": "https://my-json-server.typicode.com/Jeffunez/api-cupon/cuponList/3",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "detalles por id"
+			},
+			"response": []
+		},
+		{
+			"name": "https://my-json-server.typicode.com/Jeffunez/api-cupon/cuponList/3",
+			"request": {
+				"url": "https://my-json-server.typicode.com/Jeffunez/api-cupon/cuponList/3",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "delete por id"
+			},
+			"response": []
+		}
+	]
+}

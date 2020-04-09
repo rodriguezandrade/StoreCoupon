@@ -1,0 +1,24 @@
+<ion-toolbar color="primary">
+  <ion-buttons slot="start">
+    <ion-icon [routerLink]="['/category']" size="large" name="chevron-back-outline"></ion-icon>
+  </ion-buttons>
+  <ion-buttons slot="secondary">
+    <ion-button>
+      <ion-icon slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title> Detalles de Categoria </ion-title>
+</ion-toolbar>
+<ion-content>
+  <div class="container"> 
+
+    <div *ngIf="category" class="row">
+      <div class="col-12 col-sm-6 p-0" >
+        <figure class="details-img-space">
+        </figure>
+        <p class="o-ellypsis p-0 m-0 font-weight-bold"> {{ category.name }} </p>
+        <p class="o-ellypsis p-0 m-0"> {{ category.description }} </p>
+      </div> 
+    </div>
+  </div>
+</ion-content>

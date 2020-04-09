@@ -1,0 +1,50 @@
+<ion-toolbar>
+  <ion-buttons slot="primary">
+    <ion-button (click)="clickedStar()">
+      <ion-icon slot="icon-only" name="star"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title> 
+    <ion-icon [routerLink]="['/product']" name="chevron-back-outline"></ion-icon>
+    Product Manager 
+  </ion-title>
+  <ion-buttons slot="end">
+    <ion-menu-button autoHide="false"></ion-menu-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+
+  <div class="container p-0">
+    <div style="height: 70vh !important;" class="row d-flex flex-wrap align-content-center h-100">
+      <div class="col-12 col-sm-6 offset-md-3 p-0">
+        <div class="card ctm-shadow" >
+          <div class="card-body">
+            <h4 class="card-title text-center"> Nuevo Producto </h4>
+            <form [formGroup]="productForm" (submit)="saveProduct()">
+
+              <div class="form-row">
+                <div class="form-group col-12 col-sm-12">
+                  <label for="name"> Nombre del Producto </label>
+                  <input type="text" class="form-control" formControlName="name" id="name" placeholder="Escribe el nombre" />
+                  <control-messages [control]="productForm.get('name')" ></control-messages>
+                </div>
+                <div class="form-group col-12 col-sm-12">
+                  <label for="description"> Descripción del Producto </label>
+                  <input type="text" class="form-control" formControlName="description" id="description" placeholder="Describe el producto" />
+                  <control-messages [control]="productForm.get('description')" ></control-messages>
+                </div>
+                <div class="form-group col-12 col-sm-12">
+                  <label for="price"> Precio del Producto </label>
+                  <input type="number" class="form-control" formControlName="price" id="price" placeholder="Precio del producto" />
+                  <control-messages [control]="productForm.get('price')" ></control-messages>
+                </div>
+              </div>
+              <button class="btn btn-primary" type="submit" [disabled]="!productForm.valid">Submit</button>
+            </form>          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</ion-content>

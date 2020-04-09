@@ -38,6 +38,11 @@ namespace Core.Services
         public async Task<StoreCategoryDto> DeleteById(Guid Id)
         {
             var modelToDelete = await _categoryRepository.FindByCondition(x => x.Id == Id);
+            if (!modelToDelete.Any())
+            {
+                throw new ApiException("No se pudo Eliminar la categoria ", HttpStatusCode.NotFound);
+            }
+
             _categoryRepository.Delete(modelToDelete.FirstOrDefault());
             return _mapper.Map<StoreCategoryDto>(modelToDelete.FirstOrDefault());
         }

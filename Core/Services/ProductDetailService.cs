@@ -46,6 +46,10 @@ namespace Core.Services
         public async Task<ProductDetailDto> DeleteById(Guid Id)
         {
             var modelToDelete = await _productDetailRepository.FindByCondition(x => x.Id == Id);
+            if (!modelToDelete.Any())
+            {
+                throw new ApiException("No se pudo Eliminar el product detail ", HttpStatusCode.NotFound);
+            }
             _productDetailRepository.Delete(modelToDelete.FirstOrDefault());
             return _mapper.Map<ProductDetailDto>(modelToDelete.FirstOrDefault());
         }

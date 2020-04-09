@@ -62,6 +62,11 @@ namespace Core.Services
         public async Task<CouponDto> DeleteById(Guid id)
         {
             var modelToDelete = await _couponRepository.FindByCondition(x => x.Id == id);
+            if (!modelToDelete.Any())
+            {
+                throw new ApiException("No se pudo Eliminar el cupon ", HttpStatusCode.NotFound);
+            }
+
             _couponRepository.Delete(modelToDelete.FirstOrDefault());
             return _mapper.Map<CouponDto>(modelToDelete.FirstOrDefault());
         }

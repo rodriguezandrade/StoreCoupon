@@ -9,7 +9,7 @@ namespace Repository.Repositories.Interfaces
     {
         Task<IQueryable<GeneralCategory>> GetAll();
         GeneralCategory Save(GeneralCategory model);
-        Task<GeneralCategory> DeleteById(Guid Id);
+        Task<GeneralCategory> DeleteById(IQueryable<GeneralCategory> model);
         Task<GeneralCategory> Modify(GeneralCategory model);
         Task<GeneralCategory> GetById(Guid id);
         Task<IQueryable> GetCategories();

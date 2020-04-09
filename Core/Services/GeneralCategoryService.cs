@@ -36,7 +36,13 @@ namespace Core.Services
 
         public async Task<GeneralCategoryDto> DeleteById(Guid Id)
         {
-            var query = await _categoryRepository.DeleteById(Id);
+            var modelToEliminate = await _categoryRepository.FindByCondition(x => x.Id == Id);
+            if (!modelToEliminate.Any())
+            {
+                throw new ApiException("No se pudo eliminar GeneralCategory", HttpStatusCode.NotFound);
+            }
+
+            var query = await _categoryRepository.DeleteById(modelToEliminate);
             return _mapper.Map<GeneralCategoryDto>(query);
         }
 

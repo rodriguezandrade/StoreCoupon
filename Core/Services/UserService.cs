@@ -37,6 +37,10 @@ namespace Core.Services
         public async Task<UserDto> DeleteById(Guid Id)
         {
             var modelToDelete = await _userRepository.FindByCondition(x => x.Id == Id);
+            if (!modelToDelete.Any())
+            {
+                throw new ApiException("No se pudo Eliminar el usuario ", HttpStatusCode.NotFound);
+            }
             _userRepository.Delete(modelToDelete.FirstOrDefault());
             return _mapper.Map<UserDto>(modelToDelete.FirstOrDefault());
         }

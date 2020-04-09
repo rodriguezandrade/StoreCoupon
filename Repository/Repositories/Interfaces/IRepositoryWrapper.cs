@@ -13,6 +13,5 @@ namespace Repository.Repositories.Interfaces
         Task<IQueryable<Store>> GetStores();
         Task<IQueryable<StoreCategoryDetail>> GetStoreCategories();
         Task<IQueryable<ProductDetail>> GetProductDetails();
-        void Save();
     }
 }

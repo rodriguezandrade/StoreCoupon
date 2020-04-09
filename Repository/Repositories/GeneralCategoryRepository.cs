@@ -4,15 +4,14 @@ using Repository.Repositories.Interfaces;
 using Repository.Models;
 using System.Linq;
 using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using System.Threading.Tasks; 
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
     public class GeneralCategoryRepository : RepositoryBase<GeneralCategory>, IGeneralCategoryRepository
     {
-        private IRepositoryWrapper _repositoryWrapper;
+        private readonly IRepositoryWrapper _repositoryWrapper;
         public GeneralCategoryRepository
            (
             RepositoryContext repositoryContext,
@@ -20,7 +19,7 @@ namespace Repository.Repositories
            )
              : base(repositoryContext)
         {
-            _repositoryWrapper = repositoryWrapper; 
+            _repositoryWrapper = repositoryWrapper;
         }
 
         public async Task<IQueryable<GeneralCategory>> GetAll()
@@ -31,30 +30,21 @@ namespace Repository.Repositories
         public GeneralCategory Save(GeneralCategory model)
         {
             _repositoryWrapper.Category.Create(model);
-            _repositoryWrapper.Save();
-
             return model;
         }
 
         public async Task<IQueryable> GetCategories()
         {
-            List<GeneralCategory> categories = new List<GeneralCategory>();
-            categories = await this.RepositoryContext.Set<GeneralCategory>()
+            var categories = await RepositoryContext.Set<GeneralCategory>()
                 .AsNoTracking()
                 .ToListAsync();
             var query = from cat in categories select new { cat.Name, cat.Id };
             return query.AsQueryable();
         }
 
-        public async Task<GeneralCategory> DeleteById(Guid Id)
+        public async Task<GeneralCategory> DeleteById(IQueryable<GeneralCategory> modelToEliminate)
         {
-            var modelToEliminate = await _repositoryWrapper.Category
-                                                              .FindByCondition(x => x.Id == Id);
-            _repositoryWrapper.Category
-                .Delete(modelToEliminate
-                    .FirstOrDefault());
-
-            _repositoryWrapper.Save();
+            _repositoryWrapper.Category.Delete(modelToEliminate.FirstOrDefault());
             return modelToEliminate.FirstOrDefault();
         }
 
@@ -65,7 +55,6 @@ namespace Repository.Repositories
 
             entity.FirstOrDefault().Name = model.Name;
             _repositoryWrapper.Category.Update(entity.FirstOrDefault());
-            _repositoryWrapper.Save();
             return model;
         }
 

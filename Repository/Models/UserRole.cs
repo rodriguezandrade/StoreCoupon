@@ -21,7 +21,7 @@ namespace Repository.Models
             {
                 return false;
             }
-
+             
             return RoleId == other.RoleId && UserId == other.UserId;
         }
 

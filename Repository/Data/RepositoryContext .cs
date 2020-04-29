@@ -7,7 +7,7 @@ namespace Repository.Data
     {
         public RepositoryContext(DbContextOptions options)
         : base(options)
-        {
+        { 
         }
         public DbSet<GeneralCategory> GeneralCategories { get; set; }
         public DbSet<Coupon> Coupons { get; set; }

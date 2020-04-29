@@ -11,7 +11,7 @@ namespace Repository.Models
 
         [Required(ErrorMessage = "Foreign key is required")]
         [ForeignKey("User")]
-        public Guid IdUser { get; set; }
+        public int IdUser { get; set; }
 
         public User User { get; set; }
 
@@ -19,7 +19,7 @@ namespace Repository.Models
         [ForeignKey("Coupon")]
         public Guid IdCoupon { get; set; } 
 
-        public Coupon Coupon { get; set; }
+        public Coupon Coupon { get; set; }  
 
         [Required]
         public string Status { get; set; } 

@@ -9,9 +9,9 @@ export class OwnerSerializer {
     owner.firstName = json.firstName;
     owner.lastName = json.lastName;
     owner.address = json.address;
-    owner.email = json.email;
     owner.telephone = json.telephone;
     owner.rfc = json.rfc;
+    owner.idUser = json.idUser;
     // owner.cookedOn = moment(json.cookedOn, 'mm-dd-yyyy hh:mm');
 
     return owner;
@@ -23,9 +23,9 @@ export class OwnerSerializer {
         firstName : owner.firstName,
         lastName : owner.lastName,
         address : owner.address,
-        email : owner.email,
         telephone : +owner.telephone,
-        rfc : owner.rfc
+        rfc : owner.rfc,
+        idUser : +owner.idUser
       };
     }else if(accion == Actions.Edit){
       
@@ -34,9 +34,9 @@ export class OwnerSerializer {
         firstName : owner.firstName,
         lastName : owner.lastName,
         address : owner.address,
-        email : owner.email,
         telephone : +owner.telephone,
-        rfc : owner.rfc
+        rfc : owner.rfc,
+        idUser : +owner.idUser
       };
     }
     

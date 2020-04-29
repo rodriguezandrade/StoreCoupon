@@ -6,11 +6,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Repository.Models
 {
     public class StoreCategoryDetail
-    {
+    { 
         public StoreCategoryDetail()
         {
             ProductDetails = new HashSet<ProductDetail>();
-        }
+        } 
 
         [Key]
         public Guid Id { get; set; }

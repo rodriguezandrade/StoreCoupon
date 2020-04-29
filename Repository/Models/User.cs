@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Repository.Models
 {
-    public class User
+    public class User 
     {
         public User()
         {
             CouponDetails = new HashSet<CouponDetail>();
             Roles = new HashSet<UserRole>();
-        }
+        } 
 
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// Account Data
         [Required(ErrorMessage = "Email is required")]

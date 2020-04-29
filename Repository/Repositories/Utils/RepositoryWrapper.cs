@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.Data;
 using Repository.Models;
+using Repository.Models.Dtos;
 using Repository.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq; 
@@ -76,6 +77,7 @@ namespace Repository.Repositories.Utils
                 .ToListAsync();
             return query.AsQueryable();
         }
+
         public void Save()
         {
             _repositoryContext.SaveChanges();

@@ -8,7 +8,7 @@ namespace Repository.Models
     public class ProductDetail
     {
         public ProductDetail()
-        {
+        {  
             Coupons = new HashSet<Coupon>();
         }
 

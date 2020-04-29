@@ -9,6 +9,7 @@ namespace Repository.Repositories
     { 
         public UserRepository(RepositoryContext repositoryContext): base(repositoryContext)
         {
+
         }
     }
 }

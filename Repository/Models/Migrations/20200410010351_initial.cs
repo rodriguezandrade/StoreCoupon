@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class initialdatabase : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+          
             migrationBuilder.CreateTable(
                 name: "GeneralCategories",
                 columns: table => new
@@ -60,7 +61,8 @@ namespace Repository.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(maxLength: 40, nullable: false),
                     UserName = table.Column<string>(maxLength: 50, nullable: false),
                     IsEmailConfirmed = table.Column<bool>(nullable: false),
@@ -92,13 +94,36 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(maxLength: 40, nullable: false),
+                    LastName = table.Column<string>(maxLength: 40, nullable: false),
+                    Address = table.Column<string>(maxLength: 120, nullable: false),
+                    Telephone = table.Column<int>(nullable: false),
+                    RFC = table.Column<string>(maxLength: 13, nullable: false),
+                    IdUser = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserDetails_Users_IdUser",
+                        column: x => x.IdUser,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserRoles",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<int>(nullable: false),
-                    UserId1 = table.Column<Guid>(nullable: true),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -111,11 +136,11 @@ namespace Repository.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRoles_Users_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_UserRoles_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -129,7 +154,8 @@ namespace Repository.Migrations
                     Telephone = table.Column<int>(nullable: false),
                     Email = table.Column<string>(maxLength: 40, nullable: false),
                     RFC = table.Column<string>(maxLength: 12, nullable: false),
-                    SubCategoryId = table.Column<Guid>(nullable: false)
+                    SubCategoryId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -140,6 +166,12 @@ namespace Repository.Migrations
                         principalTable: "SubCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Stores_UserDetails_UserId",
+                        column: x => x.UserId,
+                        principalTable: "UserDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -163,37 +195,6 @@ namespace Repository.Migrations
                         name: "FK_StoresCategoryDetails_StoreCategories_IdStoreCategory",
                         column: x => x.IdStoreCategory,
                         principalTable: "StoreCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserDetails",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    FirstName = table.Column<string>(maxLength: 40, nullable: false),
-                    LastName = table.Column<string>(maxLength: 40, nullable: false),
-                    Address = table.Column<string>(maxLength: 120, nullable: false),
-                    Email = table.Column<string>(maxLength: 40, nullable: false),
-                    Telephone = table.Column<int>(nullable: false),
-                    RFC = table.Column<string>(maxLength: 13, nullable: false),
-                    IdUser = table.Column<Guid>(nullable: false),
-                    IdStore = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserDetails_Stores_IdStore",
-                        column: x => x.IdStore,
-                        principalTable: "Stores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserDetails_Users_IdUser",
-                        column: x => x.IdUser,
-                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -253,7 +254,7 @@ namespace Repository.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    IdUser = table.Column<Guid>(nullable: false),
+                    IdUser = table.Column<int>(nullable: false),
                     IdCoupon = table.Column<Guid>(nullable: false),
                     Status = table.Column<string>(nullable: false)
                 },
@@ -305,6 +306,11 @@ namespace Repository.Migrations
                 column: "SubCategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Stores_UserId",
+                table: "Stores",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StoresCategoryDetails_IdStore",
                 table: "StoresCategoryDetails",
                 column: "IdStore");
@@ -320,11 +326,6 @@ namespace Repository.Migrations
                 column: "IdCategory");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserDetails_IdStore",
-                table: "UserDetails",
-                column: "IdStore");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserDetails_IdUser",
                 table: "UserDetails",
                 column: "IdUser");
@@ -335,18 +336,15 @@ namespace Repository.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_UserId1",
+                name: "IX_UserRoles_UserId",
                 table: "UserRoles",
-                column: "UserId1");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "CouponDetails");
-
-            migrationBuilder.DropTable(
-                name: "UserDetails");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
@@ -356,9 +354,6 @@ namespace Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "Roles");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "ProductDetails");
@@ -379,7 +374,13 @@ namespace Repository.Migrations
                 name: "SubCategories");
 
             migrationBuilder.DropTable(
+                name: "UserDetails");
+
+            migrationBuilder.DropTable(
                 name: "GeneralCategories");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

@@ -25,13 +25,13 @@ namespace Repository.Models
         [Required(ErrorMessage = "Discount is required")]
         public int Discount { get; set; }
 
-        [Required(ErrorMessage ="Expiration Date is required")]
+        [Required(ErrorMessage ="Expiration Date is required ")]
         public DateTime ExpirationDate { get; set; }
 
         [Required(ErrorMessage = "Foreign key is required")]
         [ForeignKey("ProductDetail")]
         public Guid IdProductDetail { get; set; }
-        public ProductDetail ProductDetail { get; set; }
+        public ProductDetail ProductDetail { get; set; } 
         public virtual ICollection<CouponDetail> CouponDetails { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace Repository.Models
     public class UserDetail
     {
         [Key] 
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage ="FirstName is required")]
         [MaxLength(40, ErrorMessage ="FirstName can't be longer than 40 characters")]
@@ -34,9 +34,9 @@ namespace Repository.Models
 
         [Required(ErrorMessage = "Foreign key is required")]
         [ForeignKey("User")]
-        public Guid IdUser { get; set; }
+        public int IdUser { get; set; } 
 
-        public User User { get; set; }
+        public User User { get; set; } 
         public virtual ICollection<Store> Stores { get; set; }
     }
 }

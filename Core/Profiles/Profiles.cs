@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Repository.Models;
 using Repository.Models.Dtos;
+using Repository.Models.Dtos.Account;
 
 namespace Core.Profiles
 {
@@ -9,6 +10,7 @@ namespace Core.Profiles
         public Profiles()
         {
             CreateMap<SubCategoryDto, SubCategory>().ReverseMap();
+            CreateMap<UserDetailDto, UserDetail>().ReverseMap();
             CreateMap<StoreDto, Store>().ReverseMap();
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<UserDto, User>().ReverseMap();

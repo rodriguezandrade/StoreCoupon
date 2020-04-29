@@ -10,7 +10,7 @@ namespace Repository.Models
         {
             StoreCategoryDetails = new HashSet<StoreCategoryDetail>();
         }
-
+          
         [Key]
         public Guid Id { get; set; }
 

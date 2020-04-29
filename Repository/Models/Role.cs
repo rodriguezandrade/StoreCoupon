@@ -13,7 +13,7 @@ namespace Repository.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required]  
         [StringLength(50)]
         //[Display(Name = nameof(AppResources.Name), ResourceType = typeof(AppResources))]
         public string Name { get; set; }

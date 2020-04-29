@@ -188,6 +188,7 @@ namespace StoreCouponWeb.Extensions
             services.AddScoped<ICouponService, CouponService>();
             services.AddScoped<IStoreCategoryService, StoreCategoryService>();
             services.AddScoped<IProductDetailService, ProductDetailService>();
+            services.AddScoped<IUserDetailService, UserDetailService>();
 
             ///Repositories
             services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -200,6 +201,7 @@ namespace StoreCouponWeb.Extensions
             services.AddScoped<ICouponRepository, CouponRepository>();
             services.AddScoped<IStoreCategoryRepository, StoreCategoryRepository>();
             services.AddScoped<IProductDetailRepository, ProductDetailRepository>();
+            services.AddScoped<IUserDetailRepository, UserDetailRepository>();
         }
 
         ///Configure jwt authentication

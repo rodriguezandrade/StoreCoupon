@@ -26,7 +26,7 @@ export class CategoryComponent implements OnInit {
 
 
 fillTable(){
-  this._categoryService.listWithoutFilter("categories/getAll")
+  this._categoryService.listWithoutFilter("Generalcategories")
   .subscribe(data =>{
     this.categories=data;
   });
@@ -38,7 +38,7 @@ onEdit(id: string) {
 
 onDelete(id:string){
   if (confirm("¿Esta seguro que desea eliminar este registro?")){;
-  this._categoryService.delete(id,"categories/delete").subscribe(res=>{
+  this._categoryService.delete(id,"Generalcategories").subscribe(res=>{
     console.log(res);
   });
   } else {

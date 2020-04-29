@@ -11,7 +11,7 @@ namespace Repository.Models
             SubCategories = new HashSet<SubCategory>();
         }
 
-        public Guid Id { get; set; }
+        public Guid Id { get; set; }  
 
         [Required(ErrorMessage = "Name is required")]
         [StringLength(60, ErrorMessage = "Name can't be longer than 60 characters")]

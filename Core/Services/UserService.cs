@@ -34,7 +34,7 @@ namespace Core.Services
             _userRepository.Create(query);
         }
 
-        public async Task<UserDto> DeleteById(Guid Id)
+        public async Task<UserDto> DeleteById(int Id)
         {
             var modelToDelete = await _userRepository.FindByCondition(x => x.Id == Id);
             if (!modelToDelete.Any())
@@ -57,7 +57,7 @@ namespace Core.Services
             return _mapper.Map<UserDto>(entity);
         }
 
-        public async Task<UserDto> GetById(Guid id)
+        public async Task<UserDto> GetById(int id)
         {
             var query = await _userRepository.FindByCondition(x => x.Id == id);
             return _mapper.Map<UserDto>(query.FirstOrDefault());

@@ -114,6 +114,84 @@
         <member name="M:StoreCouponWeb.Extensions.MiddlewareServiceExtension.ConfigureJWToken(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             Configure jwt authentication
         </member>
+        <member name="M:GenericProjectBase.Controllers.ProductController.Get">
+            <summary>
+            Get the products.  
+            </summary>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.ProductController.GetById(System.Guid)">
+            <summary>
+            Get product by Id.
+            </summary>
+            <returns>
+            Product model.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.ProductController.Add(Repository.Models.Dtos.ProductDto)">
+            <summary>
+            Save product
+            <see cref="T:Repository.Models.Dtos.ProductDto"/> the product model. 
+            </summary>
+            <param name="product"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.ProductController.DeleteById(System.Guid)">
+            <summary>
+            Delete product by Id.
+            </summary>
+            <returns>
+            Product deleted.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.ProductController.Update(Repository.Models.Dtos.ProductDto)">
+            <summary>
+            Update product.
+            <see cref="T:Repository.Models.Dtos.ProductDto"/> the product model. 
+            </summary>
+            <param name="product"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.Get">
+            <summary>
+            Get the stores.  
+            </summary>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.GetStoresDetails">
+            <summary>
+            Get stores list.
+            </summary>
+            <returns>
+            List of stores.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.GetById(System.Guid)">
+            <summary>
+            Get store by Id.
+            </summary>
+            <returns>
+            Store model.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.Add(Repository.Models.Dtos.StoreDto)">
+            <summary>
+            Save the store
+            <see cref="T:Repository.Models.Dtos.StoreDto"/>The store model. 
+            </summary>
+            <param name="store"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.DeleteById(System.Guid)">
+            <summary>
+            Delete store by Id.
+            </summary>
+            <returns>
+            Store deleted.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.StoreController.Update(Repository.Models.Dtos.StoreDto)">
+            <summary>
+            Update the store.
+            <see cref="T:Repository.Models.Dtos.StoreDto"/> the store model. 
+            </summary>
+            <param name="store"></param>
+        </member>
         <member name="M:GenericProjectBase.Controllers.SubCategoryController.Get">
             <summary>
             </summary>
@@ -156,10 +234,10 @@
         </member>
         <member name="M:GenericProjectBase.Controllers.UserController.Get">
             <summary>
-            Get the owners.  
+            Get the users.  
             </summary>
         </member>
-        <member name="M:GenericProjectBase.Controllers.UserController.GetById(System.Guid)">
+        <member name="M:GenericProjectBase.Controllers.UserController.GetById(System.Int32)">
              <summary>
              Get user by guid.
             s<see cref="T:System.Guid"/>Guid annotation. 
@@ -169,14 +247,14 @@
              UserDetail model.
              </returns>
         </member>
-        <member name="M:GenericProjectBase.Controllers.UserController.Add(Repository.Models.Dtos.UserDto)">
+        <member name="M:GenericProjectBase.Controllers.UserController.Add(Repository.Models.Dtos.Account.UserDto)">
             <summary>
             Save the owners
-            <see cref="T:Repository.Models.Dtos.UserDto"/> the user model. 
+            <see cref="T:Repository.Models.Dtos.Account.UserDto"/> the user model. 
             </summary>
             <param name="user"></param>
         </member>
-        <member name="M:GenericProjectBase.Controllers.UserController.DeleteById(System.Guid)">
+        <member name="M:GenericProjectBase.Controllers.UserController.DeleteById(System.Int32)">
             <summary>
             Delete user by Id.
             </summary>
@@ -184,10 +262,52 @@
             UserDetail deleted.
             </returns>
         </member>
-        <member name="M:GenericProjectBase.Controllers.UserController.Update(Repository.Models.Dtos.UserDto)">
+        <member name="M:GenericProjectBase.Controllers.UserController.Update(Repository.Models.Dtos.Account.UserDto)">
             <summary>
             Update the user.
-            <see cref="T:Repository.Models.Dtos.UserDto"/> the user model. 
+            <see cref="T:Repository.Models.Dtos.Account.UserDto"/> the user model. 
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.UserDetailController.Get">
+            <summary>
+            Get the users.  
+            </summary>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.UserDetailController.GetOwners">
+            <summary>
+            Get the owners.  
+            </summary>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.UserDetailController.GetById(System.Int32)">
+             <summary>
+             Get user by guid.
+            s<see cref="T:System.Guid"/>Guid annotation. 
+             </summary>
+             <param name="id"> id user</param>
+             <returns>
+             UserDetail model.
+             </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.UserDetailController.Add(Repository.Models.Dtos.UserDetailDto)">
+            <summary>
+            Save the owners
+            <see cref="T:Repository.Models.Dtos.Account.UserDto"/> the user model. 
+            </summary>
+            <param name="user"></param>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.UserDetailController.DeleteById(System.Int32)">
+            <summary>
+            Delete user by Id.
+            </summary>
+            <returns>
+            UserDetail deleted.
+            </returns>
+        </member>
+        <member name="M:GenericProjectBase.Controllers.UserDetailController.Update(Repository.Models.Dtos.UserDetailDto)">
+            <summary>
+            Update the user.
+            <see cref="T:Repository.Models.Dtos.Account.UserDto"/> the user model. 
             </summary>
             <param name="user"></param>
         </member>

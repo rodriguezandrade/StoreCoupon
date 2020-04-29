@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Repository.Models
 {
     public class SubCategory
-    {
+    { 
         public SubCategory()
         {
             Stores = new HashSet<Store>();

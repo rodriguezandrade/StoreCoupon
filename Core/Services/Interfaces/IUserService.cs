@@ -10,8 +10,8 @@ namespace Core.Services.Interfaces
     {
         Task<IQueryable<UserDto>> Get();
         void Save(UserDto category);
-        Task<UserDto> DeleteById(Guid Id);
+        Task<UserDto> DeleteById(int Id);
         Task<UserDto> Update(UserDto user);
-        Task<UserDto> GetById(Guid id);
+        Task<UserDto> GetById(int id);
     }
 }

@@ -36,7 +36,7 @@ export class OwnerAddUpdateComponent implements OnInit {
 
 //getDatafromDB
   getData(id:string){
-        this._ownerService.read(id,"owners/get").subscribe(rest=>{
+        this._ownerService.read(id,"userDetails").subscribe(rest=>{
           this.owner = rest;
           this.ownerForm = this.createForm(this.owner);
          });
@@ -49,9 +49,9 @@ export class OwnerAddUpdateComponent implements OnInit {
         firstName : new FormControl(owner.firstName),
         lastName : new FormControl(owner.lastName),
         address : new FormControl(owner.address),
-        email : new FormControl(owner.email),
         telephone : new FormControl(owner.telephone),
-        rfc : new FormControl(owner.rfc)
+        rfc : new FormControl(owner.rfc),
+        idUser : new FormControl(owner.idUser)
     });
   }
 
@@ -61,14 +61,15 @@ export class OwnerAddUpdateComponent implements OnInit {
 }
   //Submit action
   submit(){
+    console.log(this.ownerForm.value);
     if (this.action == Actions.New) {
-        this._ownerService.create(this.ownerForm.value, "owners/save").subscribe(result=>{
+        this._ownerService.create(this.ownerForm.value, "userDetails").subscribe(result=>{
           console.log(result);
         });
         this.onResetForm();
         this._router.navigate(['/home/owners']);
     }else if (this.action == Actions.Edit) {
-        this._ownerService.update(this.ownerForm.value,"owners/update").subscribe(result=>{
+        this._ownerService.update(this.ownerForm.value,"userDetails").subscribe(result=>{
           console.log(result);
         }, error => {console.error(error)
                      alert(error)});

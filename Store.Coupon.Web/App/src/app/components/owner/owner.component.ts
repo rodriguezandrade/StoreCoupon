@@ -24,7 +24,7 @@ export class OwnerComponent implements OnInit {
 }
 
 fillTable(){
-  this._ownerService.listWithoutFilter("owners/get")
+  this._ownerService.listWithoutFilter("userDetails/owners")
   .subscribe(data =>{
     this.owners=data;
     console.log(data);
@@ -37,7 +37,7 @@ onEdit(id: string) {
 
 onDelete(id:string){
   if (confirm("¿Esta seguro que desea eliminar este registro?")){
-    this._ownerService.delete(id, "owners/delete").subscribe(res=>{
+    this._ownerService.delete(id, "userDetails").subscribe(res=>{
     console.log(res);
   });
   } else {

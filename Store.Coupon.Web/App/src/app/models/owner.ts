@@ -5,6 +5,6 @@ export class Owner extends Resource{
   lastName:string;
   address:string;
   telephone:number;
-  email:string;
   rfc:string;
+  idUser:number;
 }

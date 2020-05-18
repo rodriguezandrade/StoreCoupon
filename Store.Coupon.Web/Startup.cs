@@ -68,6 +68,7 @@ namespace StoreCouponWeb
                 ForwardedHeaders = ForwardedHeaders.All
             });
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

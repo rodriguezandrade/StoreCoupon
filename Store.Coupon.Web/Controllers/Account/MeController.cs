@@ -40,11 +40,11 @@ namespace StoreCouponWeb.Controllers.Account
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState); 
+                return BadRequest(ModelState);
             }
 
             if (loginRequest == null)
-            { 
+            {
                 throw new ApiException(AppResources.InvalidCredentials, HttpStatusCode.Unauthorized);
             }
 
@@ -56,12 +56,7 @@ namespace StoreCouponWeb.Controllers.Account
 
             if (result == null)
             {
-                return Ok(result);
-            }
-
-            if (result.UserName == null)
-            {
-                throw new ApiException(AppResources.InvalidRequest, HttpStatusCode.BadRequest);
+                throw new ApiException(AppResources.InvalidCredentials, HttpStatusCode.Unauthorized);
             }
 
             token = _tokenManagerService.CreateAuthToken(result);

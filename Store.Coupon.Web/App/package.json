@@ -4,7 +4,7 @@
   "scripts": {
     "e2e": "ng e2e",
     "cupon": "ng serve",
-    "watch": "ng build --watch",
+    "watch": "ng build --output-path dist --watch",
     "cuponprod": "ng build --prod --output-hashing none",
     "test": "ng test",
     "lint": "ng lint"

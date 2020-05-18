@@ -37,7 +37,8 @@ namespace StoreCouponWeb.Extensions
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
+                    builder => builder
+                    .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
@@ -223,9 +224,12 @@ namespace StoreCouponWeb.Extensions
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateLifetime = true,
+                    ValidateAudience = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidIssuer =  appSettings.ValidIssuer,
+                    ValidAudience = appSettings.ValidAudience
                 };
             });
         }

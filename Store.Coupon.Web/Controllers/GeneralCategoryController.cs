@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Core.Exceptions;
 using Core.Logger.Interface;
 using Core.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc; 
 using Repository.Models.Dtos;
 using Store.Coupon.Web;
@@ -23,7 +24,7 @@ namespace GenericProjectBase.Controllers
             _loggerManager = loggerManager;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<IActionResult> Get()
         {
             try 

@@ -58,7 +58,7 @@ export class CategoryAddUpdateComponent implements OnInit {
   submit() {
     if (this.action == Actions.New) {
       console.log("new ", this.categoryForm.value);
-      this._categoryService.create(this.categoryForm.value, "categories/save").subscribe(result => {
+      this._categoryService.create(this.categoryForm.value, "categories/").subscribe(result => {
       });
       this.onResetForm();
       this._router.navigate(['/home/categories']);

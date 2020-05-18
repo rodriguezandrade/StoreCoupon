@@ -17,6 +17,7 @@ using Core.Logger.Interface;
 using Core.Logger;
 using Repository.Models;
 using System.Text;
+using Core.Security;
 using StoreCouponWeb.Utils.API_Documentation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
@@ -228,10 +229,17 @@ namespace StoreCouponWeb.Extensions
                     ValidateLifetime = true,
                     ValidateAudience = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidIssuer =  appSettings.ValidIssuer,
+                    ValidIssuer = appSettings.ValidIssuer,
                     ValidAudience = appSettings.ValidAudience
                 };
             });
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy(Roles.Admin, policy => policy.RequireRole(Roles.Admin));
+            //    options.AddPolicy(Roles.Owner, policy => policy.RequireRole(Roles.Owner));
+            //    options.AddPolicy(Roles.Consumer, policy => policy.RequireRole(Roles.Consumer));
+            //});
         }
     }
 }

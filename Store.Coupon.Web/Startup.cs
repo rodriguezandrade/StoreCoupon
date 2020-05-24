@@ -33,6 +33,7 @@ namespace StoreCouponWeb
             services.VersioningConfiguration();
             services.SwaggerConfiguration();
             services.ConfigureLoggerService();
+            services.RedisConfiguration();
             services.AddMvc();
         }
 

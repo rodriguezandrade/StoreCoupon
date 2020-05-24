@@ -17,7 +17,6 @@ using Core.Logger.Interface;
 using Core.Logger;
 using Repository.Models;
 using System.Text;
-using Core.Security;
 using StoreCouponWeb.Utils.API_Documentation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +28,8 @@ namespace StoreCouponWeb.Extensions
 {
     public static class MiddlewareServiceExtension
     {
+        #region Cors setup
+
         /// <summary>
         /// configure cors
         /// </summary>
@@ -44,6 +45,9 @@ namespace StoreCouponWeb.Extensions
                     .AllowAnyHeader());
             });
         }
+        #endregion
+
+        #region  IIS setup
 
         /// <summary>
         /// IIS Integration
@@ -55,8 +59,11 @@ namespace StoreCouponWeb.Extensions
         //    {
 
         //    });
-        //}
+        //} 
 
+        #endregion
+
+        #region Versioning setup
         public static void VersioningConfiguration(this IServiceCollection services)
         {
             services.AddApiVersioning(o =>
@@ -65,6 +72,10 @@ namespace StoreCouponWeb.Extensions
                 o.DefaultApiVersion = new ApiVersion(1, 0);
             });
         }
+
+        #endregion
+
+        #region Swagger setup
 
         /// <summary>
         /// Swagger configuration
@@ -145,6 +156,10 @@ namespace StoreCouponWeb.Extensions
                 setup.IncludeXmlComments(xmlFile);
             });
         }
+        #endregion
+
+        #region Mapper setup
+
 
         /// Mapper Configuration
         public static void AutoMapperConfiguration(this IServiceCollection services)
@@ -171,6 +186,10 @@ namespace StoreCouponWeb.Extensions
             services.AddDbContext<RepositoryContext>(o => o
                 .UseSqlServer(connectionString));
         }
+
+        #endregion
+
+        #region Interfaces/Clases setup
 
         ///Inject all the interfaces with classes
         public static void ConfigureClassesWithInterfaces(this IServiceCollection services)
@@ -205,6 +224,9 @@ namespace StoreCouponWeb.Extensions
             services.AddScoped<IProductDetailRepository, ProductDetailRepository>();
             services.AddScoped<IUserDetailRepository, UserDetailRepository>();
         }
+        #endregion
+
+        #region Json Web Token setup
 
         ///Configure jwt authentication
         public static void ConfigureJWToken(this IServiceCollection services, IConfiguration config)
@@ -241,5 +263,19 @@ namespace StoreCouponWeb.Extensions
             //    options.AddPolicy(Roles.Consumer, policy => policy.RequireRole(Roles.Consumer));
             //});
         }
+        #endregion
+
+        #region Redis cache setup
+
+        public static void RedisConfiguration(this IServiceCollection services)
+        {
+            services.AddMemoryCache();
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379";
+            });
+        }
+
+        #endregion
     }
 }

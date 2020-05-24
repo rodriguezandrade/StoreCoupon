@@ -18,3 +18,9 @@ GenericProjectBase/App/out-tsc/
 GenericProjectBase/LogBase/internallog.txt
 
 CouponBookApp/obj/Debug/
+
+Store.Coupon.Web/bin/
+
+Store.Coupon.Web/App/node_modules/
+
+Store.Coupon.Web/App/dist/

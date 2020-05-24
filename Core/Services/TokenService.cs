@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using ServiceStack.Redis;
 
 namespace Core.Services
 {
@@ -56,6 +57,16 @@ namespace Core.Services
 
         public async Task<string> RefreshToken(string refreshToken)
         {
+            var redisManager = new RedisManagerPool("localhost:6379");
+            var redis = redisManager.GetClient();
+            redis.As<UserRoleDto>();
+            var dto = new UserRoleDto
+            {
+                Id = 1,
+                Address = "Barrio el calvario"
+            };
+            redis.Store(dto);
+
             var tokenCacheKey = refreshToken.ToLower();
             List<string> tokenList;
             var encodeRefreshToken = await _distributedCache.GetAsync(tokenCacheKey);

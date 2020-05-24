@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">+Cupon</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <div class="container">
+          <ul class="nav page-navigation">
+            <li class="nav-item" [routerLinkActive]="['active']">
+              <a class="nav-link " [routerLink]="['./products']">
+                <span class="menu-title">Productos</span>
+              </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+              <a class="nav-link " [routerLink]="['./subcategories']">
+                <span class="menu-title">SubCategorias</span>
+              </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+              <a [routerLink]="['./categories']" class="nav-link "> 
+                <span class="menu-title custonAlingName">Categorias</span>
+              </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+              <a class="nav-link " [routerLink]="['./owners']">
+                <span class="menu-title">Propietarios</span>
+              </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+              <a  class="nav-link"> 
+                <span class="menu-title">Reportes</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </ul> 
+    
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav> 

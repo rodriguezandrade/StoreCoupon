@@ -18,3 +18,13 @@ GenericProjectBase/App/out-tsc/
 GenericProjectBase/LogBase/internallog.txt
 
 CouponBookApp/obj/Debug/
+
+GenericProjectBase/GenericProjectBase.xml
+
+package-lock.json
+
+Store.Coupon.Web/bin/
+
+Store.Coupon.Web/obj/
+
+Store.Coupon.Web/LogBase/internallog.txt

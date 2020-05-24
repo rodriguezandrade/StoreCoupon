@@ -3,12 +3,12 @@ using Repository.Models;
 using Repository.Repositories.Interfaces;
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Repository.Models.Dtos;
-using Repository.Repositories.Utils;
 using AutoMapper;
 using System.Collections.Generic;
+using Core.Exceptions;
+using System.Net;
 
 namespace Core.Services
 {
@@ -18,7 +18,6 @@ namespace Core.Services
         private readonly IRepositoryWrapper _subCategoryRepositoryWrapper;
         private readonly IMapper _mapper;
 
-
         public SubCategoryService(ISubCategoryRepository subCategoryRepository, IMapper mapper, IRepositoryWrapper subCategoryRepositoryWrapper)
         {
             _subCategoryRepository = subCategoryRepository;
@@ -26,60 +25,52 @@ namespace Core.Services
             _subCategoryRepositoryWrapper = subCategoryRepositoryWrapper;
         }
 
-        public void Create(SubCategory entity)
+        public async Task<IQueryable<SubCategoryDto>> Get()
         {
-            entity.Id = new Guid();
-            _subCategoryRepository.Create(entity);
+            var query = await _subCategoryRepository.FindAll();
+            return _mapper.Map<List<SubCategoryDto>>(query).AsQueryable();
         }
 
-        public void Delete(SubCategory entity)
+        public async Task<IQueryable<SubCategoryDto>> GetDetails()
         {
-            _subCategoryRepository.Delete(entity);
+            var query = _subCategoryRepositoryWrapper.GetSubCategories().ToList();
+            var result = _mapper.Map<List<SubCategoryDto>>(query);
+            return result.AsQueryable();
         }
 
-        public async Task<IQueryable<SubCategory>> FindAll()
+        public void Save(SubCategoryDto subcategory)
         {
-            return await _subCategoryRepository.FindAll();
+            var query = _mapper.Map<SubCategory>(subcategory);
+            _subCategoryRepository.Create(query);
         }
 
-        public List<SubCategoryDetails> GetAll()
-        {
-            var query = _subCategoryRepositoryWrapper.GetSubCategoriess().ToList();
-            var result = _mapper.Map<List<SubCategoryDetails>>(query);
-            return result;
-        }
-
-        public async Task<IQueryable<SubCategory>> FindByCondition(Expression<Func<SubCategory, bool>> expression)
-        {
-            return await _subCategoryRepository.FindByCondition(expression);
-        }
-        
-        public void Update(SubCategory entity)
-        {
-            _subCategoryRepository.Update(entity);
-        }
-
-        public async Task SaveChage()
-        {
-            await _subCategoryRepository.SaveChange();
-        }
-
-        public async Task<SubCategory> DeleteById(Guid Id)
+        public async Task<SubCategoryDto> DeleteById(Guid Id)
         {
             var modelToDelete = await _subCategoryRepository.FindByCondition(x => x.Id == Id);
+            if (!modelToDelete.Any())
+            {
+                throw new ApiException("No se pudo Eliminar la sub categoria ", HttpStatusCode.NotFound);
+            }
             _subCategoryRepository.Delete(modelToDelete.FirstOrDefault());
-            return modelToDelete.FirstOrDefault();
+            return _mapper.Map<SubCategoryDto>(modelToDelete.FirstOrDefault());
         }
 
-        public async Task<SubCategory> Modify(SubCategory owner)
+        public async Task<SubCategoryDto> Update(SubCategoryDto subcategory)
         {
-            var modelToUpdate = await _subCategoryRepository.FindByCondition(x => x.Id == owner.Id);
-            var model = modelToUpdate.FirstOrDefault();
-            model = owner;
-            _subCategoryRepository.Update(model);
-            return modelToUpdate.FirstOrDefault();
+            var entity = _mapper.Map<SubCategory>(subcategory);
+            var modelToUpdate = await _subCategoryRepository.FindByCondition(x => x.Id == entity.Id);
+            if (!modelToUpdate.Any())
+            {
+                throw new ApiException("No se pudo editar la subcategory", HttpStatusCode.NotFound);
+            }
+            _subCategoryRepository.Update(entity);
+            return _mapper.Map<SubCategoryDto>(entity);
         }
 
-
+        public async Task<SubCategoryDto> GetById(Guid id)
+        {
+            var query = await _subCategoryRepository.FindByCondition(x => x.Id == id);
+            return _mapper.Map<SubCategoryDto>(query.FirstOrDefault());
+        }
     }
 }

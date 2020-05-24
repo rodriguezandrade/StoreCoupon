@@ -12,7 +12,7 @@ namespace Repository.Repositories.Utils
     {
         protected RepositoryContext RepositoryContext { get; set; }
 
-        public RepositoryBase(RepositoryContext repositoryContext)
+        private protected RepositoryBase(RepositoryContext repositoryContext)
         {
             RepositoryContext = repositoryContext;
         }
@@ -31,24 +31,25 @@ namespace Repository.Repositories.Utils
 
         public async void Create(T entity)
         {
-            await this.RepositoryContext.Set<T>().AddAsync(entity);
+            await RepositoryContext.Set<T>().AddAsync(entity);
+            SaveChanges();
         }
 
-        public async void Update(T entity)
+        public void Update(T entity)
         {
-            this.RepositoryContext.Set<T>().Update(entity);
-            this.RepositoryContext.SaveChanges();
+            RepositoryContext.Set<T>().Update(entity);
+            SaveChanges();
         }
 
-        public async void Delete(T entity)
+        public void Delete(T entity)
         {
-            this.RepositoryContext.Set<T>().Remove(entity);
-            this.RepositoryContext.SaveChanges();
+            RepositoryContext.Set<T>().Remove(entity);
+            SaveChanges();
         }
 
-        public async Task SaveChange()
+        public void SaveChanges()
         {
-            await RepositoryContext.SaveChangesAsync();
+            RepositoryContext.SaveChanges();
         }
     }
 }

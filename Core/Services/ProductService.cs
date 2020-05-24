@@ -1,11 +1,13 @@
-﻿using Core.Services.Interfaces;
+﻿using AutoMapper;
+using Core.Exceptions;
+using Core.Services.Interfaces;
 using Repository.Models;
+using Repository.Models.Dtos;
 using Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Core.Services
@@ -13,56 +15,53 @@ namespace Core.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        public ProductService(IProductRepository productRepository)
+        private readonly IMapper _mapper;
+        public ProductService(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
-        public void Create(Product entity)
+        public async Task<IQueryable<ProductDto>> Get()
         {
-            entity.Id = new Guid();
-            _productRepository.Create(entity);
+            var query = await _productRepository.FindAll();
+            return _mapper.Map<List<ProductDto>>(query).AsQueryable();
         }
 
-        public void Delete(Product entity)
+        public void Save(ProductDto product)
         {
-            _productRepository.Delete(entity);
+            
+            var query = _mapper.Map<Product>(product);
+            _productRepository.Create(query);
         }
 
-        public async Task<Product> DeleteById(Guid Id)
+        public async Task<ProductDto> DeleteById(Guid Id)
         {
             var modelToDelete = await _productRepository.FindByCondition(x => x.Id == Id);
+            if (!modelToDelete.Any())
+            {
+                throw new ApiException("No se pudo Eliminar el product ", HttpStatusCode.NotFound);
+            }
             _productRepository.Delete(modelToDelete.FirstOrDefault());
-            return modelToDelete.FirstOrDefault();
+            return _mapper.Map<ProductDto>(modelToDelete.FirstOrDefault());
         }
 
-        public async Task<IQueryable<Product>> FindAll()
+        public async Task<ProductDto> Update(ProductDto product)
         {
-            return await _productRepository.FindAll();
-        }
-
-        public async Task<IQueryable<Product>> FindByCondition(Expression<Func<Product, bool>> expression)
-        {
-            return await _productRepository.FindByCondition(expression);
-        }
-
-        public async Task<Product> Modify(Product Product)
-        {
-            var modelToUpdate = await _productRepository.FindByCondition(x => x.Id == Product.Id);
-            var model = modelToUpdate.FirstOrDefault();
-            model = Product;
-            _productRepository.Update(model);
-            return modelToUpdate.FirstOrDefault();
-        }
-
-        public async Task SaveChage()
-        {
-            await _productRepository.SaveChange();
-        }
-
-        public void Update(Product entity)
-        {
+            var entity = _mapper.Map<Product>(product);
+            var modelToUpdate = await _productRepository.FindByCondition(x => x.Id == entity.Id);
+            if (!modelToUpdate.Any())
+            {
+                throw new ApiException("No se pudo editar el product", HttpStatusCode.NotFound);
+            }
             _productRepository.Update(entity);
+            return _mapper.Map<ProductDto>(entity);
+        }
+
+        public async Task<ProductDto> GetById(Guid id)
+        {
+            var query = await _productRepository.FindByCondition(x => x.Id == id);
+            return _mapper.Map<ProductDto>(query.FirstOrDefault());
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using Repository.Models.Dtos;
-using System.Threading.Tasks;
-using Repository.Models;
-using System.Linq;
+﻿using Repository.Models;
 
 namespace Repository.Repositories.Interfaces
 {

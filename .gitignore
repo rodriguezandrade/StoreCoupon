@@ -19,8 +19,12 @@ GenericProjectBase/LogBase/internallog.txt
 
 CouponBookApp/obj/Debug/
 
+GenericProjectBase/GenericProjectBase.xml
+
+package-lock.json
+
 Store.Coupon.Web/bin/
 
-Store.Coupon.Web/App/node_modules/
+Store.Coupon.Web/obj/
 
-Store.Coupon.Web/App/dist/
+Store.Coupon.Web/LogBase/internallog.txt

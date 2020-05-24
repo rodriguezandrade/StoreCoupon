@@ -1,0 +1,36 @@
+<form *ngIf="subCategoryForm" [formGroup]="subCategoryForm" (ngSubmit)="submit()">
+    <div class="form-group">
+        <label for="Name">Nombre</label>
+        <input type="text" formControlName="name" class="form-control" id="Name"  placeholder="Nombre" required>
+    </div>
+    <div class="form-group">
+        <label for="Description">Descripción</label>
+        <input type="text" formControlName="description" class="form-control" id="Description"  placeholder="Descripción" required>
+    </div>
+    <div class="form-group">
+        <label for="Category">Categoría</label>
+        <select formControlName="idSubCat" class="form-control" id="Category"  placeholder="Categoria">
+          <option value=''>Seleccione una Categoría</option>
+          <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
+        </select>
+    </div>
+    
+     <!-- <div *ngIf="action == Actions.Edit">
+      <button type="submit" class="btn btn-warning">Modificar Sub Categoría</button>
+    </div> 
+    <div *ngIf="action == 2">
+        <button type="submit" class="btn btn-success">Crear Sub Categoría</button>
+    </div>  -->
+
+    
+      <!-- <div [ngSwitch]="action">
+      <button *ngSwitchCase="Actions.Edit" type="submit" class="btn btn-warning">Modificar Sub Categoría</button>
+      <button *ngSwitchCase="Actions.New" type="submit" class="btn btn-success">Crear Sub Categoría</button>
+      </div> -->
+
+      <div [ngSwitch]="action">
+        <button *ngSwitchCase="action == 2" type="submit" class="btn btn-warning">Modificar Sub Categoría</button>
+        <button *ngSwitchCase="action == 1" type="submit" class="btn btn-success">Crear Sub Categoría</button>
+     </div>
+  </form>
+  

@@ -1,16 +1,16 @@
-﻿
-using Repository.Models;
+﻿using Repository.Models.Dtos;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Core.Services.Interfaces
 {
     public interface ICategoryService
     {
-        IQueryable<Category> GetAll();
-        Category Save(Category category);
-        Category DeleteByName(string name);
-        Category Update(Category model);
-        Category GetById(Guid id);
+        Task<IQueryable<StoreCategoryDto>> Get();
+        void Save(StoreCategoryDto storeCategory);
+        Task<StoreCategoryDto> DeleteById(Guid Id);
+        Task<StoreCategoryDto> Update(StoreCategoryDto owner);
+        Task<StoreCategoryDto> GetById(Guid id); 
     }
 }

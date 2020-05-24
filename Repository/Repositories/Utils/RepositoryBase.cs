@@ -4,6 +4,7 @@ using Repository.Repositories.Interfaces;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Repository.Repositories.Utils
 {
@@ -11,34 +12,44 @@ namespace Repository.Repositories.Utils
     {
         protected RepositoryContext RepositoryContext { get; set; }
 
-        public RepositoryBase(RepositoryContext repositoryContext)
+        private protected RepositoryBase(RepositoryContext repositoryContext)
         {
             RepositoryContext = repositoryContext;
         }
 
-        public IQueryable<T> FindAll()
+        public async Task<IQueryable<T>> FindAll()
         {
-            return this.RepositoryContext.Set<T>().AsNoTracking();
+            var query = await this.RepositoryContext.Set<T>().AsNoTracking().ToListAsync();
+            return query.AsQueryable();
         }
 
-        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        public async Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            return this.RepositoryContext.Set<T>().Where(expression).AsNoTracking();
+            var query = await this.RepositoryContext.Set<T>().Where(expression).AsNoTracking().ToListAsync();
+            return query.AsQueryable();
         }
 
-        public void Create(T entity)
+        public async void Create(T entity)
         {
-            this.RepositoryContext.Set<T>().Add(entity);
+            await RepositoryContext.Set<T>().AddAsync(entity);
+            SaveChanges();
         }
 
         public void Update(T entity)
         {
-            this.RepositoryContext.Set<T>().Update(entity);
+            RepositoryContext.Set<T>().Update(entity);
+            SaveChanges();
         }
 
         public void Delete(T entity)
         {
-            this.RepositoryContext.Set<T>().Remove(entity);
+            RepositoryContext.Set<T>().Remove(entity);
+            SaveChanges();
+        }
+
+        public void SaveChanges()
+        {
+            RepositoryContext.SaveChanges();
         }
     }
 }

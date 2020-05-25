@@ -13,6 +13,7 @@ import { SubCategoryAddUpdateComponent } from '../sub-category/sub-category-add-
 import { StoreComponent } from '../store/store.component';
 import { StoreAddUpdateComponent } from '../store/store-add-update/store-add-update.component';
 import { Roles } from 'src/app/utils/enums/roles';
+import { SignupComponent } from '../account/signup/signup.component';
 
 const pagesRoutes: Routes = [
   {
@@ -149,7 +150,7 @@ const pagesRoutes: Routes = [
     ]
   },
 
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  
 ];
 export const PAGES_ROUTES = RouterModule.forChild(pagesRoutes);

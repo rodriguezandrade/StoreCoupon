@@ -1,9 +1,15 @@
 
 import { Routes, RouterModule } from '@angular/router';
-import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
-import { LoginComponent } from './account/login/login.component';
+import { ForgotPasswordComponent } from './components/account/forgot-password/forgot-password.component';
+import { LoginComponent } from './components/account/login/login.component';
+import { SignupComponent } from './components/account/signup/signup.component';
 
 const appRoutes: Routes = [
+    {
+        path: 'signUp',
+        component: SignupComponent,
+        data:{ title : 'Sign Up' }
+    },
     {
         path: 'login',
         component: LoginComponent,

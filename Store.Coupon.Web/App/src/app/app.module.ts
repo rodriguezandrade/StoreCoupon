@@ -9,8 +9,8 @@ import { PagesComponent } from './components/shared/pages.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { PagesModule } from './components/shared/pages.module'; 
-import { LoginComponent } from './account/login/login.component';
-import { ForgotPasswordComponent } from './account/forgot-password/forgot-password.component';
+import { LoginComponent } from './components/account/login/login.component';
+import { ForgotPasswordComponent } from './components/account/forgot-password/forgot-password.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { HandleErrorService } from './services/error-handler.service';
@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HelperService } from './services/helper/helper.service';
+import { SignupComponent } from './components/account/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { HelperService } from './services/helper/helper.service';
     NavbarComponent,
     FooterComponent,
     ForgotPasswordComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     APP_ROUTES,

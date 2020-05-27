@@ -23,6 +23,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using StackExchange.Redis.Extensions.Newtonsoft;
+using StackExchange.Redis.Extensions.Core.Configuration;
+using System.Configuration;
+using Repository.Models.Redis;
 
 namespace StoreCouponWeb.Extensions
 {
@@ -267,13 +271,11 @@ namespace StoreCouponWeb.Extensions
 
         #region Redis cache setup
 
-        public static void RedisConfiguration(this IServiceCollection services)
+        public static void RedisConfiguration(this IServiceCollection services, IConfiguration config)
         {
-            services.AddMemoryCache();
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = "localhost:6379";
-            });
+             services.AddMemoryCache();
+            var redisConfiguration = config.GetSection("Redis").Get<RedisConfiguration>(); ;
+            services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(redisConfiguration);
         }
 
         #endregion

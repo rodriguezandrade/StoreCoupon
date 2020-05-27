@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using ServiceStack.Redis;
+using StackExchange.Redis.Extensions.Core.Abstractions;
 
 namespace Core.Services
 {
@@ -26,11 +27,17 @@ namespace Core.Services
         private readonly AppSettings _appSettings;
         private readonly IAccountService _accountService;
         private readonly IDistributedCache _distributedCache;
-        public TokenService(IOptions<AppSettings> appSettings, IAccountService accountService, IDistributedCache distributedCache)
+        private readonly IRedisCacheClient _redisCacheClient;
+        public TokenService(
+            IOptions<AppSettings> appSettings,
+            IAccountService accountService,
+            IDistributedCache distributedCache,
+            IRedisCacheClient redisCacheClient)
         {
             _appSettings = appSettings.Value;
             _accountService = accountService;
             _distributedCache = distributedCache;
+            _redisCacheClient = redisCacheClient;
         }
 
         // Authentication successful so generate jwt token 
@@ -57,16 +64,16 @@ namespace Core.Services
 
         public async Task<string> RefreshToken(string refreshToken)
         {
-            var redisManager = new RedisManagerPool("localhost:6379");
-            var redis = redisManager.GetClient();
-            redis.As<UserRoleDto>();
+            //var redisManager = new RedisManagerPool("localhost:6379");
+            //var redis = redisManager.GetClient();
+            //redis.As<UserRoleDto>();
             var dto = new UserRoleDto
             {
                 Id = 1,
                 Address = "Barrio el calvario"
             };
-            redis.Store(dto);
-
+            //redis.Store(dto);
+          
             var tokenCacheKey = refreshToken.ToLower();
             List<string> tokenList;
             var encodeRefreshToken = await _distributedCache.GetAsync(tokenCacheKey);
@@ -78,10 +85,8 @@ namespace Core.Services
             else
             {
                 encodeRefreshToken = Encoding.UTF8.GetBytes(tokenCacheKey);
-                var options = new DistributedCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromMinutes(15))
-                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(20));
-
+                var options = new DistributedCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(1));
+                bool isAdded = await _redisCacheClient.Db0.AddAsync("UserRole", dto, options.AbsoluteExpiration.Value);
                 await _distributedCache.SetAsync(tokenCacheKey, encodeRefreshToken, options);
             }
 

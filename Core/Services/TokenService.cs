@@ -70,7 +70,8 @@ namespace Core.Services
             var dto = new UserRoleDto
             {
                 Id = 1,
-                Address = "Barrio el calvario"
+                Address = "Barrio el calvario",
+                Email = "this is a email"
             };
             //redis.Store(dto);
           
@@ -85,9 +86,9 @@ namespace Core.Services
             else
             {
                 encodeRefreshToken = Encoding.UTF8.GetBytes(tokenCacheKey);
-                var options = new DistributedCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(1));
-                bool isAdded = await _redisCacheClient.Db0.AddAsync("UserRole", dto, options.AbsoluteExpiration.Value);
-                await _distributedCache.SetAsync(tokenCacheKey, encodeRefreshToken, options);
+                bool isAdded = await _redisCacheClient.Db0.AddAsync("UserRole:key", dto, DateTimeOffset.Now.AddMinutes(1));
+                var users = _redisCacheClient.Db0.GetAll<UserRoleDto>(new string[] { "UserRole:key" });
+                //await _distributedCache.SetAsync(tokenCacheKey, encodeRefreshToken, options);
             }
 
             return tokenCacheKey;

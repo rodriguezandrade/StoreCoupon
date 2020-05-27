@@ -22,11 +22,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using StackExchange.Redis.Extensions.Newtonsoft;
+using Swashbuckle.AspNetCore.SwaggerGen; 
 using StackExchange.Redis.Extensions.Core.Configuration;
-using System.Configuration;
-using Repository.Models.Redis;
+using StackExchange.Redis.Extensions.Core.Abstractions;
+using StackExchange.Redis.Extensions.Core.Implementations;
 
 namespace StoreCouponWeb.Extensions
 {
@@ -274,8 +273,13 @@ namespace StoreCouponWeb.Extensions
         public static void RedisConfiguration(this IServiceCollection services, IConfiguration config)
         {
              services.AddMemoryCache();
-            var redisConfiguration = config.GetSection("Redis").Get<RedisConfiguration>(); ;
-            services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(redisConfiguration);
+            var redisConfiguration = config.GetSection("Redis").Get<RedisConfiguration>();
+            services.AddSingleton(redisConfiguration);
+            services.AddSingleton<IRedisCacheClient, RedisCacheClient>();
+            services.AddSingleton<IRedisCacheConnectionPoolManager, RedisCacheConnectionPoolManager>();
+            services.AddSingleton<IRedisDefaultCacheClient, RedisDefaultCacheClient>();
+            services.AddSingleton<StackExchange.Redis.Extensions.Core.ISerializer, StackExchange.Redis.Extensions.MsgPack.MsgPackObjectSerializer>();
+            //services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(redisConfiguration);
         }
 
         #endregion

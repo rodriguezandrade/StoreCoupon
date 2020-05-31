@@ -11,6 +11,10 @@ export class ListCouponComponent implements OnInit {
 
   ngOnInit() { this.getListCoupons() }
 
+  onSwipe( action ){
+    console.log( action, 'event swipe run');
+  }
+
   async listeningCouponsList(){
     await this.stProd.couponList$.subscribe(
       res => {

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 //modules
-import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { JwSocialButtonsModule } from 'jw-angular-social-buttons'
 import { HttpClientModule } from '@angular/common/http'
 //custom modules
 import { HeaderPageModule } from '../layout/header/header.module'
@@ -32,6 +32,7 @@ import { ProductListComponent } from './product/product-list/product-list.compon
     ReactiveFormsModule,
     IonicModule,
     HttpClientModule,
+    JwSocialButtonsModule,
     HeaderPageModule,
     CommonsWebPageModule,
     PagesPageRoutingModule
@@ -50,8 +51,6 @@ import { ProductListComponent } from './product/product-list/product-list.compon
     ProductComponent,
     SaveEditProductComponent
   ],
-  providers: [
-    SocialSharing
-  ]
+  providers: []
 })
 export class PagesPageModule {}

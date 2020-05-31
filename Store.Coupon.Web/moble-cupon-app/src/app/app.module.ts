@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerModule  } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -12,6 +12,9 @@ import { AppRoutingModule } from './app-routing.module';
 //modules
 import { HeaderPageModule } from './layout/header/header.module';
 import { PagesPageModule } from './pages/pages.module';
+
+//services
+import { IonicGestureConfigService } from './ionic-gesture-config.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -20,12 +23,17 @@ import { PagesPageModule } from './pages/pages.module';
     IonicModule.forRoot(),
     PagesPageModule,
     AppRoutingModule,
+    HammerModule,
     HeaderPageModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: IonicGestureConfigService
+  }
   ],
   bootstrap: [AppComponent]
 })

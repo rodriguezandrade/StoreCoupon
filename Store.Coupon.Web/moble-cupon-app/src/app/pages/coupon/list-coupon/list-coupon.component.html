@@ -16,11 +16,20 @@
         <h1 class="text-center"  > 
           Cupones  <ion-icon [routerLink]="['./', 0]" color="primary" name="add-circle-outline"></ion-icon>
         </h1> 
+
+        <fb-like 
+        url="https://www.youtube.com/watch?v=qlJpH5oF3hE" 
+        ></fb-like>
+
+        <div (tap)="onSwipe($event)" style="width: 60px; height: 40px; background-color: red;">
+        gestos example
+        </div>
+
       </div>
     </div>
     <div *ngIf="couponList" class="row">
       <div class="col-6 col-sm-6" *ngFor="let c of couponList">
-        <figure class="img-space rounded">
+        <figure class="img-space rounded" [routerLink]="['/coupon' , c.id ]">
         </figure>
         <p class="o-ellypsis p-0 m-0 font-weight-bold"> {{ c.name }} </p>
         <p class="o-ellypsis p-0 m-0"> {{ c.discount }} </p>
